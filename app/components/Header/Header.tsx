@@ -9,21 +9,25 @@ interface Props {
 
 export function Header({children}: Props){
     return(
-        <header className="w-screen h-16 bg-cor_de_fundo flex items-center">
-            <h1>
-                <Image
-                    src={Juparana}
-                    width={215}
-                    height={40}
-                    alt="Juparanã"
-                />
-            </h1>
+        <header className="w-screen max-h-16 bg-cor_de_fundo flex justify-center">
+            <div className="w-4/5 h-16 flex items-center justify-between">
+                <h1>
+                    <a href="/">
+                        <Image
+                            src={Juparana}
+                            width={184.74}
+                            height={35}
+                            alt="Juparanã"
+                        />
+                    </a>
+                </h1>
 
-            <nav className="text-white">
-                <ul className="flex gap-4">
-                    {children}
-                </ul>
-            </nav>
+                <nav className="text-white">
+                    <ul className="flex gap-4">
+                        {children}
+                    </ul>
+                </nav>
+            </div>
         </header>
     );
 }
