@@ -1,11 +1,17 @@
 import { Header } from "./components/Header/Header";
-import Nuvem from "../assets/svgs/cloud.svg"
+import { HeaderItem } from "./components/Header/HeaderItem";
 
 export default function Home() {
     return (
-        <Header 
-            img_src={Nuvem}
-            img_desc="Ícone de nuvem"
-        />
+        <Header>
+            <HeaderItem 
+                item_link="https://google.com/"
+                item_text="Google"
+            />
+            <HeaderItem 
+                item_link="https://youtube.com/"
+                item_text="YouTube"
+            />
+        </Header>
     );
 }

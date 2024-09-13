@@ -1,28 +1,27 @@
+// import { Cloud } from "lucide-react";
+
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import { HeaderItem } from "./HeaderItem";
+import Juparana from "../../../assets/imgs/juparana.png"
 
 interface Props {
-    img_src: string,
-    img_desc: string,
+    children: React.ReactNode
 }
 
-export function Header({img_src, img_desc}: Props){
+export function Header({children}: Props){
     return(
         <header className="w-screen h-16 bg-cor_de_fundo flex items-center">
-            <Image 
-                src={img_src}
-                alt={img_desc}
-                width={24}
-                height={24}
-            />
+            <h1>
+                <Image
+                    src={Juparana}
+                    width={215}
+                    height={40}
+                    alt="Juparanã"
+                />
+            </h1>
 
-            <nav>
-                <ul>
-                    <HeaderItem 
-                        item_link='https://google.com/'
-                        item_text="Google"
-                    />
+            <nav className="text-white">
+                <ul className="flex gap-4">
+                    {children}
                 </ul>
             </nav>
         </header>
