@@ -13,8 +13,8 @@ export default function Cadastro(){
                 />
 
                 <HeaderItem 
-                    item_link="https://youtube.com/"
-                    item_text="YouTube"
+                    item_link="https://github.com/raave-aires/"
+                    item_text="Sobre mim"
                 />
             </Header>
             

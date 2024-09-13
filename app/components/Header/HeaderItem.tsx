@@ -5,8 +5,8 @@ interface Props {
 
 export function HeaderItem({item_link, item_text}: Props){
     return(
-        <li>
-            <a href={item_link}>
+        <li className="select-none">
+            <a href={item_link} className="select-none">
                 {item_text}
             </a>
         </li>
