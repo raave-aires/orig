@@ -3,10 +3,9 @@ import {Select, SelectItem} from "@nextui-org/react";
 interface Props {
     tipoSelecionado: string
     setTipoSelecionado: (e: string) => void;
-    visual: string
 }
 
-export function TipoDeContrato({tipoSelecionado, setTipoSelecionado, visual}: Props){
+export function TipoDeContrato({tipoSelecionado, setTipoSelecionado}: Props){
     
     return(
         <>
@@ -16,7 +15,7 @@ export function TipoDeContrato({tipoSelecionado, setTipoSelecionado, visual}: Pr
                 selectedKeys={[tipoSelecionado]}
                 onChange={(e)=>setTipoSelecionado(e.target.value)}
 
-                variant={visual}
+                variant="faded"
                 className="max-w-60"
             >
                 <SelectItem key={"A fixar"}>

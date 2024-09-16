@@ -9,9 +9,6 @@ import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 
 export function Form(){
-    //visuais dos campos
-    const visual_padrao = "faded";
-
     //Hook do tipo de contraato
     const [tipoSelecionado, setTipoSelecionado] = useState('Selecione');
 
@@ -28,14 +25,11 @@ export function Form(){
             <TipoDeContrato 
                 tipoSelecionado={tipoSelecionado}
                 setTipoSelecionado={setTipoSelecionado}
-                visual={visual_padrao}
             />
 
             {tipoSelecionado === "0" ? null : 
                 tipoSelecionado === "A fixar" ? 
                     <FormAFixar 
-                        visual={visual_padrao}
-
                         dataContrato={dataContrato}
                         setDataContrato={setDataContrato}
                         

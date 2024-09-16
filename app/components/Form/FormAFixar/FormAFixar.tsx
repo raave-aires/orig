@@ -1,4 +1,5 @@
 //Dependências:
+import React, { SetStateAction } from 'react';
 import { DateValue } from "@internationalized/date";
 
 //Componentes:
@@ -7,8 +8,7 @@ import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem } from 
 interface Props {
     // datas de contrato
     dataContrato: DateValue,
-    setDataContrato: DateValue,
-    visual: string,
+    setDataContrato: React.Dispatch<SetStateAction<DateValue>>,
 
     //tipo de transação
     transacao: string,
@@ -26,7 +26,7 @@ interface Props {
     setVolume: (e: string) => void;
 }
 
-export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume }: Props) {
+export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume }: Props) {
     return (
         <>
             <h1 className="text-xl">Cadastrando contrato com preço a fixar</h1>
@@ -40,7 +40,7 @@ export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, s
                             label="Data do contrato"
                             value={dataContrato}
                             onChange={setDataContrato}
-                            variant={visual}
+                            variant="faded"
                             className="max-w-64"
                             showMonthAndYearPickers
                         />
@@ -52,7 +52,7 @@ export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, s
                             selectedKeys={[transacao]}
                             onChange={(e) => setTransacao(e.target.value)}
 
-                            variant={visual}
+                            variant="faded"
                             className="max-w-60"
                         >
                             <SelectItem key={"Compra"}>
@@ -73,7 +73,7 @@ export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, s
                             selectedKeys={[produto]}
                             onChange={(e) => setProduto(e.target.value)}
 
-                            variant={visual}
+                            variant="faded"
                             className="max-w-60"
                         >
                             <SelectItem key={"Soja"}>
@@ -94,7 +94,7 @@ export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, s
                             selectedKeys={[safra]}
                             onChange={(e) => setSafra(e.target.value)}
 
-                            variant={visual}
+                            variant="faded"
                             className="max-w-60"
                         >
                             <SelectItem key={"2024/2025"}>
@@ -116,7 +116,7 @@ export function FormAFixar({ dataContrato, setDataContrato, visual, transacao, s
                 <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
                     <div> {/* Aba de inserção das informações de quantidade e valor */}
                         <Input 
-                            variant={visual}
+                            variant="faded"
                             className="max-w-64"
                             
                             label="Volume (kg)" 
