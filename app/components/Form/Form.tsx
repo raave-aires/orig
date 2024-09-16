@@ -16,7 +16,7 @@ export function Form(){
     const [tipoSelecionado, setTipoSelecionado] = useState('Selecione');
 
     //Hooks da aba de Dados do contrato
-    let hoje = (today(getLocalTimeZone())).toString() //função para obter a data atual, que será passada como valor padrão de data
+    const hoje = (today(getLocalTimeZone())).toString() //função para obter a data atual, que será passada como valor padrão de data
     const [dataContrato, setDataContrato] = useState<DateValue>(parseDate(hoje))
     const [transacao, setTransacao] = useState("Selecione")
     const [produto, setProduto] = useState("Selecione")

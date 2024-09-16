@@ -1,4 +1,4 @@
-import {Select, SelectSection, SelectItem} from "@nextui-org/react";
+import {Select, SelectItem} from "@nextui-org/react";
 
 interface Props {
     tipoSelecionado: string
