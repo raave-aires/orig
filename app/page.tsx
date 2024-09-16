@@ -11,8 +11,8 @@ export default function Home() {
                 />
                 
                 <HeaderItem 
-                    item_link="https://youtube.com/"
-                    item_text="YouTube"
+                    item_link="/conta/entrar"
+                    item_text="Entre"
                 />
             </Header>
         </>
