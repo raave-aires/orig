@@ -18,6 +18,9 @@ export function Form(){
     //Hooks da aba de Dados do contrato
     let hoje = (today(getLocalTimeZone())).toString() //função para obter a data atual, que será passada como valor padrão de data
     const [dataContrato, setDataContrato] = useState<DateValue>(parseDate(hoje))
+    const [transacao, setTransacao] = useState("Selecione")
+    const [produto, setProduto] = useState("Selecione")
+    const [safra, setSafra] = useState("Selecione")
 
     return(
         <>
@@ -30,9 +33,19 @@ export function Form(){
             {tipoSelecionado === "0" ? null : 
                 tipoSelecionado === "A fixar" ? 
                     <FormAFixar 
+                        visual={visual_padrao}
+
                         dataContrato={dataContrato}
                         setDataContrato={setDataContrato}
-                        visual={visual_padrao}
+                        
+                        transacao={transacao}
+                        setTransacao={setTransacao}
+
+                        produto={produto}
+                        setProduto={setProduto}
+
+                        safra={safra}
+                        setSafra={setSafra}
                     /> : 
                 tipoSelecionado === "Fixado" ? <p>2</p> : null
             }
