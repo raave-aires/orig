@@ -1,6 +1,8 @@
 import { Datepicker, Select } from "flowbite-react";
 
 export function Form(){
+    const [tipoSelecionado, setTipoSelecionado] = useState('Selecione');
+    
     return(
         <>
             <section>
