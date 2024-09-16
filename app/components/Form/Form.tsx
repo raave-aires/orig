@@ -21,6 +21,7 @@ export function Form(){
     const [transacao, setTransacao] = useState("Selecione")
     const [produto, setProduto] = useState("Selecione")
     const [safra, setSafra] = useState("Selecione")
+    const [volume, setVolume] = useState("")
 
     return(
         <>
@@ -46,6 +47,9 @@ export function Form(){
 
                         safra={safra}
                         setSafra={setSafra}
+
+                        volume={volume}
+                        setVolume={setVolume}
                     /> : 
                 tipoSelecionado === "Fixado" ? <p>2</p> : null
             }
