@@ -1,14 +1,16 @@
 "use client"
 
 // Dependências:
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DateValue, parseDate, today, getLocalTimeZone } from "@internationalized/date";
 
 //Componentes:
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 
-export function Form(){
+
+
+export function Form() {
     //Hook do tipo de contraato
     const [tipoSelecionado, setTipoSelecionado] = useState('Selecione');
 
@@ -19,20 +21,40 @@ export function Form(){
     const [produto, setProduto] = useState("Selecione")
     const [safra, setSafra] = useState("Selecione")
     const [volume, setVolume] = useState("")
+    const [sacas, setSacas] = useState("")
+    const [preco, setPreco] = useState("")
 
-    return(
+    //Função para calcular Sacas
+    useEffect(()=>{
+        const handleKeyUp=()=>{
+            if(volume){
+                const result = parseFloat(volume)/60;
+                setSacas(result.toFixed(2)); // Definindo o valor de sacas com 2 casas decimais
+            } else{
+                setSacas("");
+            }
+        };
+
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, [volume]); // volume é a dependência do useEffect
+
+    return (
         <>
-            <TipoDeContrato 
+            <TipoDeContrato
                 tipoSelecionado={tipoSelecionado}
                 setTipoSelecionado={setTipoSelecionado}
             />
 
-            {tipoSelecionado === "0" ? null : 
-                tipoSelecionado === "A fixar" ? 
-                    <FormAFixar 
+            {tipoSelecionado === "0" ? null :
+                tipoSelecionado === "A fixar" ?
+                    <FormAFixar
                         dataContrato={dataContrato}
                         setDataContrato={setDataContrato}
-                        
+
                         transacao={transacao}
                         setTransacao={setTransacao}
 
@@ -44,8 +66,14 @@ export function Form(){
 
                         volume={volume}
                         setVolume={setVolume}
-                    /> : 
-                tipoSelecionado === "Fixado" ? <p>2</p> : null
+
+                        sacas={sacas}
+                        setSacas={setSacas}
+
+                        preco={preco}
+                        setPreco={setPreco}
+                    /> :
+                    tipoSelecionado === "Fixado" ? <p>2</p> : null
             }
         </>
     );
