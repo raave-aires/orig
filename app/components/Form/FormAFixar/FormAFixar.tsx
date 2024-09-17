@@ -1,5 +1,6 @@
 //Importação de dependências:
 import React, { SetStateAction } from 'react';
+
 import { DateValue } from "@internationalized/date";
 
 //Importação de componentes:
@@ -7,7 +8,7 @@ import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem } from 
 
 export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco }: Props) {
     
-    const handleKeyPress = (e) => { //função para verificar o que foi digitado
+    const handleKeyPress = (e: { keyCode: number; preventDefault: () => void; }) => { //função para verificar o que foi digitado
         const somente_numeros = /[0-9]/;
         const tecla = String.fromCharCode(e.keyCode);
         const teclas_permitidas = [8, 46, 37, 39, 188, 190];
