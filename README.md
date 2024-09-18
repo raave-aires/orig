@@ -48,11 +48,17 @@ Com o Origë, o fluxo do processo se tornaria:
 Processos de alteração e/ou retificação futura precisarão apenas serem feitos uma vez, dentro do Origë e então serem exportadas.
 
 ## 2. Tecnologias usadas atualmente no Origë.
-O Origë está sendo desenvolvido usando [Next.js](https://nextjs.org), um framework que usa [React](https://react.dev), junto com [TypeScript](https://www.typescriptlang.org) como linguagem de programação e [TailwindCSS](https://tailwindcss.com) como biblioteca de estilos.
+O Origë está sendo desenvolvido usando: 
+- [Yarn](https://yarnpkg.com) como gerenciador de pacotes.
+- [TypeScript](https://www.typescriptlang.org) como linguagem de programação,
+- [Next.js](https://nextjs.org) como framework de desenvolvimento web.
+- [React](https://react.dev) como biblioteca de componetização,
+- [TailwindCSS](https://tailwindcss.com) como biblioteca de estilos.
 
 Além destas tecnologias, são atualmente usadas também:
 - As bibliotecas de componentes React + TailwindCSS [NextUI](https://nextui.org) e [MUI](https://mui.com).
 - A biblioteca de ícones [Lucide Icons](https://lucide.dev/icons/).
+- O componente [React number format](https://s-yadav.github.io/react-number-format/docs/intro/), como elemento input com formatação automática de números.
    
 [^1]: Área da empresa responsável por negociações de compra e venda, firmação de contratos etc. Mas este projeto focaliza a parte de negociações e contratos.
 [^2]: Originadores são as pessoas que tratam diretamente com os clientes, negociado quantidades, formas de pagamanento etc.

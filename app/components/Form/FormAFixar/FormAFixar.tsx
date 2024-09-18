@@ -4,9 +4,9 @@ import React, { SetStateAction } from 'react';
 import { DateValue } from "@internationalized/date";
 
 //Importação de componentes:
-import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 
-export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco }: Props) {
+export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda }: Props) {
     
     const handleKeyPress = (e: { keyCode: number; preventDefault: () => void; }) => { //função para verificar o que foi digitado
         const somente_numeros = /[0-9]/;
@@ -24,132 +24,139 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
 
     return (
         <>
-            <h1 className="text-xl">Cadastrando contrato com preço a fixar</h1>
-            <Accordion selectionMode="multiple" variant="splitted" isCompact={true}>
-                <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato" > {/* Aba de inserção das informações básicas */}
-                    <div className="flex flex-row gap-4 mb-3">
-                        <DatePicker
-                            label="Data do contrato"
-                            value={dataContrato}
-                            onChange={setDataContrato}
-                            variant="faded"
-                            className="max-w-64"
-                            showMonthAndYearPickers
-                        />
+            <section className="bg-[#262626] mt-5 flex flex-col gap-5 p-5 rounded-xl">
+                <h1 className="text-xl">Cadastro de contrato com preço a fixar</h1>
+                <Accordion selectionMode="multiple" variant="splitted" isCompact={true}>
+                    <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato" > {/* Aba de inserção das informações básicas */}
+                        <div className="flex flex-row gap-4 mb-3">
+                            <DatePicker
+                                label="Data do contrato"
+                                value={dataContrato}
+                                onChange={setDataContrato}
+                                variant="faded"
+                                className="max-w-64"
+                                showMonthAndYearPickers
+                            />
 
-                        {/* Transação */}
-                        <Select
-                            label="Tipo de transação"
+                            {/* Transação */}
+                            <Select
+                                label="Tipo de transação"
 
-                            selectedKeys={[transacao]}
-                            onChange={(e) => setTransacao(e.target.value)}
+                                selectedKeys={[transacao]}
+                                onChange={(e) => setTransacao(e.target.value)}
 
-                            variant="faded"
-                            className="max-w-60"
-                        >
-                            <SelectItem key={"Compra"}>
-                                Compra
-                            </SelectItem>
-                            <SelectItem key={"Venda"}>
-                                Venda
-                            </SelectItem>
-                            <SelectItem key={"Troca"}>
-                                Troca
-                            </SelectItem>
-                        </Select>
+                                variant="faded"
+                                className="max-w-60"
+                            >
+                                <SelectItem key={"Compra"}>
+                                    Compra
+                                </SelectItem>
+                                <SelectItem key={"Venda"}>
+                                    Venda
+                                </SelectItem>
+                                <SelectItem key={"Troca"}>
+                                    Troca
+                                </SelectItem>
+                            </Select>
 
-                        {/* Produto */}
-                        <Select
-                            label="Produto"
+                            {/* Produto */}
+                            <Select
+                                label="Produto"
 
-                            selectedKeys={[produto]}
-                            onChange={(e) => setProduto(e.target.value)}
+                                selectedKeys={[produto]}
+                                onChange={(e) => setProduto(e.target.value)}
 
-                            variant="faded"
-                            className="max-w-60"
-                        >
-                            <SelectItem key={"Soja"}>
-                                Soja
-                            </SelectItem>
-                            <SelectItem key={"Milho"}>
-                                Milho
-                            </SelectItem>
-                            <SelectItem key={"Sementes"}>
-                                Sementes
-                            </SelectItem>
-                        </Select>
+                                variant="faded"
+                                className="max-w-60"
+                            >
+                                <SelectItem key={"Soja"}>
+                                    Soja
+                                </SelectItem>
+                                <SelectItem key={"Milho"}>
+                                    Milho
+                                </SelectItem>
+                                <SelectItem key={"Sementes"}>
+                                    Sementes
+                                </SelectItem>
+                            </Select>
 
-                        {/* Safra */}
-                        <Select
-                            label="Safra"
+                            {/* Safra */}
+                            <Select
+                                label="Safra"
 
-                            selectedKeys={[safra]}
-                            onChange={(e) => setSafra(e.target.value)}
+                                selectedKeys={[safra]}
+                                onChange={(e) => setSafra(e.target.value)}
 
-                            variant="faded"
-                            className="max-w-60"
-                        >
-                            <SelectItem key={"2024/2025"}>
-                                2024/2025
-                            </SelectItem>
-                            <SelectItem key={"2025/2026"}>
-                                2025/2026
-                            </SelectItem>
-                            <SelectItem key={"2026/2027"}>
-                                2026/2027
-                            </SelectItem>
-                            <SelectItem key={"2027/2028"}>
-                                2027/2028
-                            </SelectItem>
-                        </Select>
-                    </div>
-                </AccordionItem>
+                                variant="faded"
+                                className="max-w-60"
+                            >
+                                <SelectItem key={"2024/2025"}>
+                                    2024/2025
+                                </SelectItem>
+                                <SelectItem key={"2025/2026"}>
+                                    2025/2026
+                                </SelectItem>
+                                <SelectItem key={"2026/2027"}>
+                                    2026/2027
+                                </SelectItem>
+                                <SelectItem key={"2027/2028"}>
+                                    2027/2028
+                                </SelectItem>
+                            </Select>
+                        </div>
+                    </AccordionItem>
 
-                <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
-                    <div className="flex flex-row gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
-                        <Input
-                            variant="faded"
-                            className="max-w-64"
+                    <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
+                        <div className="flex flex-row gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
+                            <Input
+                                variant="faded"
+                                className="max-w-64"
 
-                            label="Volume (kg)"
+                                label="Volume (kg)"
 
-                            type="number"
+                                type="number"
 
-                            value={volume}
-                            onChange={(e) => setVolume(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                        />
+                                value={volume}
+                                onChange={(e) => setVolume(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                            />
 
-                        <Input
-                            isDisabled
-                            variant="faded"
-                            className="max-w-52"
+                            <Input
+                                isDisabled
+                                variant="faded"
+                                className="max-w-52"
 
-                            label="Sacas"
+                                label="Sacas"
 
-                            type="number"
+                                type="number"
 
-                            value={sacas}
-                            onChange={(e) => setSacas(e.target.value)}
-                        />
+                                value={sacas}
+                                onChange={(e) => setSacas(e.target.value)}
+                            />
 
-                        <Input
-                            variant="faded"
-                            className="max-w-64"
+                            <RadioGroup value={moeda} onChange={(e)=>setMoeda(e.target.value)}>
+                                <Radio value="Dólar americano">Dólar</Radio>
+                                <Radio value="Real brasileiro">Real</Radio>
+                            </RadioGroup>
 
-                            label="Valor/Saca"
+                            <Input
+                                variant="faded"
+                                className="max-w-64"
 
-                            type="number"
+                                label="Valor/Saca"
 
-                            value={preco}
-                            onChange={(e) => setPreco(e.target.value)}
-                            onKeyDown={handleKeyPress}
-                        />
-                    </div>
-                </AccordionItem>
-            </Accordion>
+                                type="number"
 
+                                value={preco}
+                                onChange={(e) => setPreco(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                            />
 
+                            
+                        </div>
+                    </AccordionItem>
+                </Accordion>
+            </section>
         </>
     );
 }
@@ -178,6 +185,10 @@ interface Props {
     //sacas
     sacas: string,
     setSacas: (e: string) => void;
+
+    //moeda
+    moeda: string
+    setMoeda: (e: string) => void;
 
     //preço
     preco: string,

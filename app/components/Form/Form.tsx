@@ -22,6 +22,7 @@ export function Form() {
     const [safra, setSafra] = useState("Selecione")
     const [volume, setVolume] = useState("")
     const [sacas, setSacas] = useState("")
+    const [moeda, setMoeda] = useState("")
     const [preco, setPreco] = useState("")
 
     //Função para calcular Sacas
@@ -70,11 +71,16 @@ export function Form() {
                         sacas={sacas}
                         setSacas={setSacas}
 
+                        moeda={moeda}
+                        setMoeda={setMoeda}
+
                         preco={preco}
                         setPreco={setPreco}
                     /> :
                     tipoSelecionado === "Fixado" ? <p>2</p> : null
             }
+
+            
         </>
     );
 }
