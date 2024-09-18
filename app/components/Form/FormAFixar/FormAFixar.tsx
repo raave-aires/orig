@@ -1,5 +1,5 @@
 //Importação de dependências:
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction } from 'react';
 import { DateValue } from "@internationalized/date";
 
 //Importação de componentes:
