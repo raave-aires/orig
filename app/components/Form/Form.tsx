@@ -29,8 +29,9 @@ export function Form() {
     useEffect(()=>{
         const handleKeyUp=()=>{
             if(volume){
-                const result = parseFloat(volume)/60;
-                setSacas(result.toFixed(2)); // Definindo o valor de sacas com 2 casas decimais
+                const volumeSemSeparadores = volume.replace(/\s/g, ''); //expressão regular para remover os espaços entre os números
+                const result = Number(volumeSemSeparadores) / 60;
+                setSacas(result.toFixed(2));
             } else{
                 setSacas("");
             }

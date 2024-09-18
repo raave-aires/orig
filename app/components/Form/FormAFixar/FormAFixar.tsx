@@ -1,10 +1,10 @@
 //Importação de dependências:
 import React, { SetStateAction } from 'react';
-
 import { DateValue } from "@internationalized/date";
 
 //Importação de componentes:
 import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
+import { NumericFormat } from 'react-number-format';
 
 export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda }: Props) {
     
@@ -108,30 +108,26 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
 
                     <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
                         <div className="flex flex-row gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
-                            <Input
-                                variant="faded"
-                                className="max-w-64"
-
-                                label="Volume (kg)"
-
-                                type="number"
-
+                            <NumericFormat 
+                                className = "bg-f_inputs border-2 border-solid border-b_inputs rounded-xl box-border p-3"
+                                valueIsNumericString={true}
+                                thousandSeparator=" "
+                                decimalSeparator=","
+                                
                                 value={volume}
                                 onChange={(e) => setVolume(e.target.value)}
-                                onKeyDown={handleKeyPress}
+                                
                             />
 
-                            <Input
-                                isDisabled
-                                variant="faded"
-                                className="max-w-52"
-
-                                label="Sacas"
-
-                                type="number"
-
+                            <NumericFormat 
+                                className = "bg-f_inputs border-2 border-solid border-b_inputs rounded-xl box-border p-3"
+                                valueIsNumericString={true}
+                                thousandSeparator=" "
+                                decimalScale={0}
+                                
                                 value={sacas}
                                 onChange={(e) => setSacas(e.target.value)}
+                                
                             />
 
                             <RadioGroup value={moeda} onChange={(e)=>setMoeda(e.target.value)}>

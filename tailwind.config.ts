@@ -14,7 +14,9 @@ const config: Config = {
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
-                cor_de_fundo: "#303030"
+                cor_de_fundo: "#303030",
+                f_inputs: "#27272a",
+                b_inputs: "#3f3f46"
             },
 
             backgroundImage: {
