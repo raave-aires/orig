@@ -31,8 +31,8 @@ export default function RootLayout({
                     />
 
                     <HeaderItem 
-                        item_link="https://github.com/raave-aires/"
-                        item_text="Sobre mim"
+                        item_link="https://github.com/raave-aires/orig/blob/main/README.md"
+                        item_text="Sobre"
                     />
                 </Header>
 
