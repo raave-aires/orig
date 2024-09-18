@@ -57,9 +57,9 @@ O Origë está sendo desenvolvido usando:
 
 Além destas tecnologias como base, são atualmente usadas também:
 - As bibliotecas de componentes React + TailwindCSS [NextUI](https://nextui.org) e [MUI](https://mui.com);
-- O componente [React number format](https://s-yadav.github.io/react-number-format/docs/intro/), como elemento input com formatação automática de números.
+- O componente [React number format](https://s-yadav.github.io/react-number-format/docs/intro/), como elemento input com formatação automática de números;
 - A biblioteca de ícones [Lucide Icons](https://lucide.dev/icons/);
-- A família de fontes [Inter](https://rsms.me/inter) como tipografia;
+- A família de fontes [Inter](https://rsms.me/inter) como tipografia.
 
 Implementações futuras:
 - [Formik](https://formik.org) como biblioteca de validação de formulários feitos em React.
