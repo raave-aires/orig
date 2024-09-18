@@ -24,7 +24,7 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
 
     const input_props_volume = {
         label: "Volume (t)",
-        variant: "faded",
+        variant: ['faded'],
         className: "max-w-64"
     }
 
