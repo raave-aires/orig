@@ -1,5 +1,5 @@
 //Importação de dependências:
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import { DateValue } from "@internationalized/date";
 
 //Importação de componentes:
@@ -21,6 +21,19 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
             e.preventDefault(); //se não for, cancela o evento de entrada de dados
         }
     };
+
+    const input_props_volume = {
+        label: "Volume (t)",
+        variant: "faded",
+        className: "max-w-64"
+    }
+
+    const input_props_sacas = {
+        label: "Sacas",
+        variant: "faded",
+        className: "max-w-64",
+        isDisabled: true
+    }
 
     return (
         <>
@@ -109,10 +122,11 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
                     <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
                         <div className="flex flex-row gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
                             <NumericFormat 
-                                className = "bg-f_inputs border-2 border-solid border-b_inputs rounded-xl box-border p-3"
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
                                 decimalSeparator=","
+                                customInput={Input}
+                                {...input_props_volume}
                                 
                                 value={volume}
                                 onChange={(e) => setVolume(e.target.value)}
@@ -120,10 +134,11 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
                             />
 
                             <NumericFormat 
-                                className = "bg-f_inputs border-2 border-solid border-b_inputs rounded-xl box-border p-3"
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
                                 decimalScale={0}
+                                customInput={Input}
+                                {...input_props_sacas}
                                 
                                 value={sacas}
                                 onChange={(e) => setSacas(e.target.value)}
