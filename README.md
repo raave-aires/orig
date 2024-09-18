@@ -49,16 +49,20 @@ Processos de alteração e/ou retificação futura precisarão apenas serem feit
 
 ## 2. Tecnologias usadas atualmente no Origë.
 O Origë está sendo desenvolvido usando: 
-- [Yarn](https://yarnpkg.com) como gerenciador de pacotes.
-- [TypeScript](https://www.typescriptlang.org) como linguagem de programação,
-- [Next.js](https://nextjs.org) como framework de desenvolvimento web.
-- [React](https://react.dev) como biblioteca de componetização,
+- [Yarn](https://yarnpkg.com) como gerenciador de pacotes;
+- [TypeScript](https://www.typescriptlang.org) como linguagem de programação;
+- [Next.js](https://nextjs.org) como framework de desenvolvimento web;
+- [React](https://react.dev) como biblioteca de componetização;
 - [TailwindCSS](https://tailwindcss.com) como biblioteca de estilos.
 
-Além destas tecnologias, são atualmente usadas também:
-- As bibliotecas de componentes React + TailwindCSS [NextUI](https://nextui.org) e [MUI](https://mui.com).
-- A biblioteca de ícones [Lucide Icons](https://lucide.dev/icons/).
+Além destas tecnologias como base, são atualmente usadas também:
+- As bibliotecas de componentes React + TailwindCSS [NextUI](https://nextui.org) e [MUI](https://mui.com);
 - O componente [React number format](https://s-yadav.github.io/react-number-format/docs/intro/), como elemento input com formatação automática de números.
+- A biblioteca de ícones [Lucide Icons](https://lucide.dev/icons/);
+- A família de fontes [Inter](https://rsms.me/inter) como tipografia;
+
+Implementações futuras:
+- [Formik](https://formik.org) como biblioteca de validação de formulários feitos em React.
    
 [^1]: Área da empresa responsável por negociações de compra e venda, firmação de contratos etc. Mas este projeto focaliza a parte de negociações e contratos.
 [^2]: Originadores são as pessoas que tratam diretamente com os clientes, negociado quantidades, formas de pagamanento etc.
