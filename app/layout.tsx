@@ -12,7 +12,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Orig",
+    title: "Origë",
     description: "Cadastro de originação",
 };
 

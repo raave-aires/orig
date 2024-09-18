@@ -1,8 +1,8 @@
-# Orig
+# Origë
 Um projeto por [Raavë Aires](https://github.com/raave-aires).
 
 ## 1. Ideia.
-A ideia motriz por trás do Orig nasceu a partir do dia-a-dia da área de Commodities e logística[^1] da [Juparanã](http://juparana.com.br) e das ferramentas usadas nele. 
+A ideia motriz por trás do Origë nasceu a partir do dia-a-dia da área de Commodities e logística[^1] da [Juparanã](http://juparana.com.br) e das ferramentas usadas nele. 
 
 ### 1.1. Problema. 
 Atualmente, todos os processos de coleta de dados básicos de contratos, verificação de dados coletados, registro em sistemas, escritura e, por fim, revalidação de dados dos contratos e feito manualmente, seguindo mais ou menos o esquema:  
@@ -29,26 +29,26 @@ Atualmente, todos os processos de coleta de dados básicos de contratos, verific
 8. O contrato é enviado via plataforma de assinaturas.
 9. O processo segue para a equipe financeira da empresa.
 
-Foram destacados em itálico todos os pontos identificados onde o Orig pode trazer melhoria.
+Foram destacados em itálico todos os pontos identificados onde o Origë pode trazer melhoria.
 
 Em todo esse processo, há diferentes pontos onde é necessária a verificação manual, e pontos onde é necessário fazer uma tripla inserção, verificação e/ou correção de dados. Portanto:
 
 ### 1.2. Proposta.
-Foi a fins de fazer com que a interação de envio de dados para contratos entre os originadores e os analistas (quem ativamente estará processando esses dados) fosse simplificada que surgiu a ideia do Orig, um app onde os dados dos contratos serão recolhidos e ficarão registrados. 
+Foi a fins de fazer com que a interação de envio de dados para contratos entre os originadores e os analistas (quem ativamente estará processando esses dados) fosse simplificada que surgiu a ideia do Origë, um app onde os dados dos contratos serão recolhidos e ficarão registrados. 
 
-Com o Orig, o fluxo do processo se tornaria: 
-1.  *Um originador recolhe as informações negociadas com o cliente e registra no Orig.*
-2. *Um analista de commodities acessa o Orig e revisar os dados, e faz a checagem das propriedades.*
+Com o Origë, o fluxo do processo se tornaria: 
+1.  *Um originador recolhe as informações negociadas com o cliente e registra no Origë.*
+2. *Um analista de commodities acessa o Origë e revisar os dados, e faz a checagem das propriedades.*
 3. O analista emitirá parecer sobre a negociação. 
-4. *Estando as informações do contrato registrada no banco de dados do Orig, o analista pode exportar os os dados em Excel e para um documento.*
+4. *Estando as informações do contrato registrada no banco de dados do Origë, o analista pode exportar os os dados em Excel e para um documento.*
 5. . *Tendo sido gerado automaticamente, a necessidade de verificação se torna quase nula, mas também pode ser feita automaticamente comparado o que está no arquivo com o que está no banco de dados.*
 6. O contrato é enviado via plataforma de assinaturas.
 7. O processo segue para a equipe financeira da empresa.
 
-Processos de alteração e/ou retificação futura precisarão apenas serem feitos uma vez, dentro do Orig e então serem exportadas.
+Processos de alteração e/ou retificação futura precisarão apenas serem feitos uma vez, dentro do Origë e então serem exportadas.
 
-## 2. Tecnologias usadas atualmente no Orig.
-O Orig está sendo desenvolvido usando [Next.js](https://nextjs.org), um framework que usa [React](https://react.dev), junto com [TypeScript](https://www.typescriptlang.org) como linguagem de programação e [TailwindCSS](https://tailwindcss.com) como biblioteca de estilos.
+## 2. Tecnologias usadas atualmente no Origë.
+O Origë está sendo desenvolvido usando [Next.js](https://nextjs.org), um framework que usa [React](https://react.dev), junto com [TypeScript](https://www.typescriptlang.org) como linguagem de programação e [TailwindCSS](https://tailwindcss.com) como biblioteca de estilos.
 
 Além destas tecnologias, são atualmente usadas também:
 - As bibliotecas de componentes React + TailwindCSS [NextUI](https://nextui.org) e [MUI](https://mui.com).
