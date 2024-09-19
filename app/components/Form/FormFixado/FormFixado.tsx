@@ -11,21 +11,18 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
         label: "Volume (t)",
         className: "max-w-64",
     }
-
     const input_props_sacas = {
         label: "Sacas",
-        className: "max-w-64",
+        className: "max-w-56",
         isDisabled: true
     }
-
     const input_props_preco = {
         label: "Valor da saca",
-        className: "max-w-64",
+        className: "max-w-56",
     }
-
     const input_props_ptax = {
         label: "Ptax",
-        className: "max-w-64",
+        className: "max-w-56",
         isDisabled: true
     }
 
