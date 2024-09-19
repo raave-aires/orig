@@ -47,13 +47,14 @@ export function Form() {
 
   //cálculos de datas
   const ontemDesc = format(subDays(hojeF, 0), "dd/MM");
+  const ontem: string = format(subDays(hojeF, 0), "MM-dd-yyyy");
 
   //funções para calcular Sacas
   useEffect(() => {
     const handleKeyUp = () => {
       if (volume) {
         const volumeSemSeparadores = volume.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-        const result = Number(volumeSemSeparadores) / 60;
+        const result = (Number(volumeSemSeparadores) * 1000) / 60;
         setSacas(result.toFixed(2));
       } else {
         setSacas("");
@@ -71,7 +72,7 @@ export function Form() {
     const handleKeyUp = () => {
       if (volumeF) {
         const volumeSemSeparadoresF = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-        const rSacas = Number(volumeSemSeparadoresF) / 60;
+        const rSacas = (Number(volumeSemSeparadoresF) * 1000) / 60;
         setSacasF(rSacas.toFixed(2));
       } else {
         setSacasF("");
@@ -108,6 +109,38 @@ export function Form() {
       window.removeEventListener("keyup", handleKeyUP);
     };
   }, [volumeF, dolarF, realF]);
+
+  // useEffect(() => {
+  //   const obter_ptax = (dia: string) => {
+  //     console.log(dia);
+  //     fetch(
+  //       `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia}'&$top=100&$format=json`
+  //     )
+  //       .then((response) => response.json())
+  //       .then((json) => console.log(json.cotacaoCompra));
+  //   };
+
+  //   if (moedaF === "Dólar americano") {
+  //     obter_ptax(ontem);
+  //   } else {
+  //     setPtaxF("");
+  //   }
+  // }, [moedaF, ontem, setPtaxF]);
+
+  useEffect(() => {
+    const obter_ptax = async (dia: string) => {
+      const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia}'&$top=100&$format=json`;
+      const solicitar = await fetch(api_url);
+      const resposta = await solicitar.json();
+      setPtaxF(resposta.value[0].cotacaoVenda);
+    };
+
+    if (moedaF === "Dólar americano") {
+      obter_ptax(ontem);
+    } else {
+      setPtaxF("");
+    }
+  }, [moedaF, ontem, setPtaxF]);
 
   return (
     <>
