@@ -6,21 +6,7 @@ import { DateValue } from "@internationalized/date";
 import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
 
-export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda }: Props) {
-    const handleKeyPress = (e: { keyCode: number; preventDefault: () => void; }) => { //função para verificar o que foi digitado
-        const somente_numeros = /[0-9]/;
-        const tecla = String.fromCharCode(e.keyCode);
-        const teclas_permitidas = [8, 46, 37, 39, 188, 190];
-
-        if (teclas_permitidas.includes(e.keyCode)) { //verifica se o que foi digitado está na lista de teclas permitidas
-            return;
-        }
-
-        if (!somente_numeros.test(tecla)) {//verifica se o que foi digitado é um número
-            e.preventDefault(); //se não for, cancela o evento de entrada de dados
-        }
-    };
-
+export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, moeda, setMoeda }: Props) {
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
@@ -148,20 +134,6 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
                                 <Radio value="Dólar americano">Dólar</Radio>
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
-
-                            <Input
-                                variant='faded'
-                                className="max-w-64"
-                                label="Valor/Saca"
-
-                                type="number"
-
-                                value={preco}
-                                onChange={(e) => setPreco(e.target.value)}
-                                onKeyDown={handleKeyPress}
-                            />
-
-                            
                         </div>
                     </AccordionItem>
                 </Accordion>
@@ -198,8 +170,4 @@ interface Props {
     //moeda
     moeda: string
     setMoeda: (e: string) => void;
-
-    //preço
-    preco: string,
-    setPreco: (e: string) => void;
 }

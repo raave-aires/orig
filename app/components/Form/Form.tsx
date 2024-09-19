@@ -16,30 +16,26 @@ import { FormFixado } from "./FormFixado/FormFixado";
 
 export function Form() {
   //Hook do tipo de contraato
-  const [tipoSelecionado, setTipoSelecionado] = useState("Selecione");
+  const [tipoSelecionado, setTipoSelecionado] = useState("");
 
   //Hooks da aba de Dados do contrato
   const hoje = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
   const [dataContrato, setDataContrato] = useState<DateValue>(parseDate(hoje));
-  const [transacao, setTransacao] = useState("Selecione");
-  const [produto, setProduto] = useState("Selecione");
-  const [safra, setSafra] = useState("Selecione");
+  const [transacao, setTransacao] = useState("");
+  const [produto, setProduto] = useState("");
+  const [safra, setSafra] = useState("");
   const [volume, setVolume] = useState("");
   const [sacas, setSacas] = useState("");
   const [moeda, setMoeda] = useState("");
-  const [preco, setPreco] = useState("");
 
   const hojeF = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-  const [dataContratoF, setDataContratoF] = useState<DateValue>(
-    parseDate(hoje)
-  );
-  const [transacaoF, setTransacaoF] = useState("Selecione");
-  const [produtoF, setProdutoF] = useState("Selecione");
-  const [safraF, setSafraF] = useState("Selecione");
+  const [dataContratoF, setDataContratoF] = useState<DateValue>(parseDate(hojeF));
+  const [transacaoF, setTransacaoF] = useState("");
+  const [produtoF, setProdutoF] = useState("");
+  const [safraF, setSafraF] = useState("");
   const [volumeF, setVolumeF] = useState("");
   const [sacasF, setSacasF] = useState("");
   const [moedaF, setMoedaF] = useState("");
-  const [precoF, setPrecoF] = useState("");
   const [dolarF,setDolarF] = useState("");
   const [realF,setRealF] = useState("");
   const [ptaxF,setPtaxF] = useState("");
@@ -104,8 +100,6 @@ export function Form() {
           setSacas={setSacas}
           moeda={moeda}
           setMoeda={setMoeda}
-          preco={preco}
-          setPreco={setPreco}
         />
       ) : tipoSelecionado === "Fixado" ? (
         <FormFixado
@@ -123,14 +117,13 @@ export function Form() {
           setSacas={setSacasF}
           moeda={moedaF}
           setMoeda={setMoedaF}
-          preco={precoF}
-          setPreco={setPrecoF}
           dolar={dolarF}
           setDolar={setDolarF}
           real={realF}
           setReal={setRealF}
           ptax={ptaxF}
           setPtax={setPtaxF}
+          ontem={hojeF}
         />
       ) : null}
     </>

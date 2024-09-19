@@ -6,21 +6,7 @@ import { DateValue } from "@internationalized/date";
 import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
 
-export function FormFixado({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda, dolar,setDolar, real, setReal, ptax, setPtax }: Props) {
-    const handleKeyPress = (e: { keyCode: number; preventDefault: () => void; }) => { //função para verificar o que foi digitado
-        const somente_numeros = /[0-9]/;
-        const tecla = String.fromCharCode(e.keyCode);
-        const teclas_permitidas = [8, 46, 37, 39, 188, 190];
-
-        if (teclas_permitidas.includes(e.keyCode)) { //verifica se o que foi digitado está na lista de teclas permitidas
-            return;
-        }
-
-        if (!somente_numeros.test(tecla)) {//verifica se o que foi digitado é um número
-            e.preventDefault(); //se não for, cancela o evento de entrada de dados
-        }
-    };
-
+export function FormFixado({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, moeda, setMoeda, dolar,setDolar, real, setReal, ptax, setPtax, ontem }: Props) {
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
@@ -194,6 +180,7 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
                                               <span className="text-default-400 text-small">R$</span>
                                             </div>
                                         }
+                                        description={`O valor é referente a ${ontem}`}
 
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
@@ -261,10 +248,6 @@ interface Props {
     moeda: string
     setMoeda: (e: string) => void;
 
-    //preço
-    preco: string,
-    setPreco: (e: string) => void;
-
     //dolar
     dolar: string;
     setDolar: (e: string) => void;
@@ -276,4 +259,6 @@ interface Props {
     //Ptax
     ptax: string;
     setPtax: (e: string) => void;
+
+    ontem: string;
 }
