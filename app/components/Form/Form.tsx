@@ -1,20 +1,20 @@
 "use client";
 
-// Dependências:
+// dependências:
 import { useState, useEffect } from "react";
 import { DateValue, parseDate, today, getLocalTimeZone } from "@internationalized/date";
 import { format, subDays } from "date-fns";
 
-//Componentes:
+//componentes:
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 import { FormFixado } from "./FormFixado/FormFixado";
 
 export function Form() {
-  //Hook do tipo de contraato
+  //hook do tipo de contraato
   const [tipoSelecionado, setTipoSelecionado] = useState("");
 
-  //Hooks da aba de Dados do contrato
+  //hooks da aba de Dados do contrato a fixar
   const hoje = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
   const [dataContrato, setDataContrato] = useState<DateValue>(parseDate(hoje));
   const [transacao, setTransacao] = useState("");
@@ -24,6 +24,7 @@ export function Form() {
   const [sacas, setSacas] = useState("");
   const [moeda, setMoeda] = useState("");
 
+  //hooks da aba de Dados do contrato fixado
   const hojeF = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
   const [dataContratoF, setDataContratoF] = useState<DateValue>(parseDate(hojeF));
   const [transacaoF, setTransacaoF] = useState("");
@@ -36,8 +37,10 @@ export function Form() {
   const [realF,setRealF] = useState("");
   const [ptaxF,setPtaxF] = useState("");
 
+  //cálculos de datas
   const ontemDesc = format(subDays(hojeF, 0),"dd/MM");
-  //Função para calcular Sacas
+
+  //funções para calcular Sacas
   useEffect(() => {
     const handleKeyUp = () => {
       if (volume) {
@@ -54,8 +57,7 @@ export function Form() {
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [volume]); // volume é a dependência do useEffect
-
+  }, [volume]); 
   useEffect(() => {
     const handleKeyUp = () => {
       if (volumeF) {
