@@ -2,12 +2,8 @@
 
 // Dependências:
 import { useState, useEffect } from "react";
-import {
-  DateValue,
-  parseDate,
-  today,
-  getLocalTimeZone,
-} from "@internationalized/date";
+import { DateValue, parseDate, today, getLocalTimeZone } from "@internationalized/date";
+import { format, subDays } from "date-fns";
 
 //Componentes:
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
@@ -40,6 +36,7 @@ export function Form() {
   const [realF,setRealF] = useState("");
   const [ptaxF,setPtaxF] = useState("");
 
+  const ontemDesc = format(subDays(hojeF, 0),"dd/MM");
   //Função para calcular Sacas
   useEffect(() => {
     const handleKeyUp = () => {
@@ -123,7 +120,7 @@ export function Form() {
           setReal={setRealF}
           ptax={ptaxF}
           setPtax={setPtaxF}
-          ontem={hojeF}
+          ontem={ontemDesc}
         />
       ) : null}
     </>

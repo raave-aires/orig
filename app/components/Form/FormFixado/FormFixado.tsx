@@ -26,6 +26,7 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
     const input_props_ptax = {
         label: "Ptax",
         className: "max-w-64",
+        isDisabled: true
     }
 
     return (
@@ -180,7 +181,7 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
                                               <span className="text-default-400 text-small">R$</span>
                                             </div>
                                         }
-                                        description={`O valor é referente a ${ontem}`}
+                                        description={`O valor é referente a ontem, ${ontem}`}
 
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
