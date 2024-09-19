@@ -6,7 +6,7 @@ import { DateValue } from "@internationalized/date";
 import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
 
-export function FormFixado({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, moeda, setMoeda, dolar,setDolar, real, setReal, ptax, setPtax, ontem }: Props) {
+export function FormFixado({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, moeda, setMoeda, dolar,setDolar, real, setReal, ptax, setPtax, ontem, valor_total, setValor_total }: Props) {
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
@@ -23,6 +23,11 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
     const input_props_ptax = {
         label: "Ptax",
         className: "max-w-56",
+        isDisabled: true
+    }
+    const input_props_total = {
+        label: "Valor total",
+        className: "w-56",
         isDisabled: true
     }
 
@@ -111,7 +116,7 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
                     </AccordionItem>
 
                     <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
-                        <div className="flex flex-row gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
+                        <div className="flex flex-wrap gap-4 mb-3"> {/* Aba de inserção das informações de quantidade e valor */}
                             <NumericFormat 
                                 customInput={Input}
                                 {...input_props_volume}
@@ -209,6 +214,25 @@ export function FormFixado({ dataContrato, setDataContrato, transacao, setTransa
                                     />
                                 ) : null
                             }
+
+                            <NumericFormat
+                                customInput={Input}
+                                {...input_props_total}
+                                variant="faded"
+                                startContent={
+                                    <div className="pointer-events-none flex items-center">
+                                        <span className="text-default-400 text-small">R$</span>
+                                    </div>
+                                }
+
+                                valueIsNumericString={true}
+                                thousandSeparator=" "
+                                decimalScale={4}
+
+                                value={valor_total}
+                                onChange={(e) => setValor_total(e.target.value)}
+                            />
+
                         </div>
                     </AccordionItem>
                 </Accordion>
@@ -259,4 +283,8 @@ interface Props {
     setPtax: (e: string) => void;
 
     ontem: string;
+
+    //
+    valor_total: string;
+    setValor_total: (e: string) => void;
 }

@@ -36,6 +36,7 @@ export function Form() {
   const [dolarF,setDolarF] = useState("");
   const [realF,setRealF] = useState("");
   const [ptaxF,setPtaxF] = useState("");
+  const [valor_total, setValor_total] = useState("");
 
   //cálculos de datas
   const ontemDesc = format(subDays(hojeF, 0),"dd/MM");
@@ -58,12 +59,13 @@ export function Form() {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [volume]); 
+
   useEffect(() => {
     const handleKeyUp = () => {
       if (volumeF) {
         const volumeSemSeparadoresF = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-        const result = Number(volumeSemSeparadoresF) / 60;
-        setSacasF(result.toFixed(2));
+        const rSacas = Number(volumeSemSeparadoresF) / 60;
+        setSacasF(rSacas.toFixed(2));
       } else {
         setSacasF("");
       }
@@ -75,6 +77,30 @@ export function Form() {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [volumeF]);
+
+  useEffect(()=>{
+    const handleKeyUP = () =>{
+      if(volumeF && dolarF) {
+        setValor_total("")
+        const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+        const fDolar = parseFloat(dolarF)
+        const rTotal = Number(fVolume)*fDolar
+        setValor_total((rTotal).toString())
+      } else if (volumeF && realF) {
+        setValor_total("")
+        const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+        const fReal = parseFloat(realF)
+        const rTotal = Number(fVolume)*fReal
+        setValor_total((rTotal).toString())
+      };
+    };
+
+  window.addEventListener("keyup", handleKeyUP);
+
+  return () => {
+    window.removeEventListener("keyup", handleKeyUP);
+  };
+},[volumeF, dolarF, realF])
 
   return (
     <>
@@ -123,6 +149,8 @@ export function Form() {
           ptax={ptaxF}
           setPtax={setPtaxF}
           ontem={ontemDesc}
+          valor_total={valor_total}
+          setValor_total={setValor_total}
         />
       ) : null}
     </>
