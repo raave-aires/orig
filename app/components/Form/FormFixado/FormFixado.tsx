@@ -6,7 +6,7 @@ import { DateValue } from "@internationalized/date";
 import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
 
-export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda }: Props) {
+export function FormFixado({ dataContrato, setDataContrato, transacao, setTransacao, produto, setProduto, safra, setSafra, volume, setVolume, sacas, setSacas, preco, setPreco, moeda, setMoeda, dolar,setDolar, real, setReal, ptax, setPtax }: Props) {
     const handleKeyPress = (e: { keyCode: number; preventDefault: () => void; }) => { //função para verificar o que foi digitado
         const somente_numeros = /[0-9]/;
         const tecla = String.fromCharCode(e.keyCode);
@@ -32,10 +32,20 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
         isDisabled: true
     }
 
+    const input_props_preco = {
+        label: "Valor da saca",
+        className: "max-w-64",
+    }
+
+    const input_props_ptax = {
+        label: "Ptax",
+        className: "max-w-64",
+    }
+
     return (
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl">
-                <h1 className="text-xl">Cadastro de contrato com preço a fixar</h1>
+                <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
                 <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
                     <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato" > {/* Aba de inserção das informações básicas */}
                         <div className="flex flex-row gap-4 mb-3">
@@ -122,6 +132,11 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
                                 customInput={Input}
                                 {...input_props_volume}
                                 variant="faded"
+                                endContent={
+                                    <div className="pointer-events-none flex items-center">
+                                      <span className="text-default-400 text-small">t</span>
+                                    </div>
+                                }
 
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
@@ -149,19 +164,66 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
 
-                            <Input
-                                variant='faded'
-                                className="max-w-64"
-                                label="Valor/Saca"
+                            {
+                                moeda === "" ? null : moeda === "Dólar americano" ? 
+                                (<>
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_preco}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                              <span className="text-default-400 text-small">$</span>
+                                            </div>
+                                        }
 
-                                type="number"
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
 
-                                value={preco}
-                                onChange={(e) => setPreco(e.target.value)}
-                                onKeyDown={handleKeyPress}
-                            />
+                                        value={dolar}
+                                        onChange={(e) => setDolar(e.target.value)}
+                                    />
 
-                            
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_ptax}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                              <span className="text-default-400 text-small">R$</span>
+                                            </div>
+                                        }
+
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
+
+                                        value={ptax}
+                                        onChange={(e) => setPtax(e.target.value)}
+                                    />
+                                </>                                    
+                                ) : moeda === "Real brasileiro" ? 
+                                (
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_preco}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                              <span className="text-default-400 text-small">R$</span>
+                                            </div>
+                                        }
+                                        
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
+
+                                        value={real}
+                                        onChange={(e) => setReal(e.target.value)}
+                                    />
+                                ) : null
+                            }
                         </div>
                     </AccordionItem>
                 </Accordion>
@@ -202,4 +264,16 @@ interface Props {
     //preço
     preco: string,
     setPreco: (e: string) => void;
+
+    //dolar
+    dolar: string;
+    setDolar: (e: string) => void;
+
+    //real
+    real: string;
+    setReal: (e: string) => void;
+
+    //Ptax
+    ptax: string;
+    setPtax: (e: string) => void;
 }
