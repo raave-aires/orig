@@ -2,7 +2,12 @@
 
 // dependências:
 import { useState, useEffect } from "react";
-import { DateValue, parseDate, today, getLocalTimeZone } from "@internationalized/date";
+import {
+  DateValue,
+  parseDate,
+  today,
+  getLocalTimeZone,
+} from "@internationalized/date";
 import { format, subDays } from "date-fns";
 
 //componentes:
@@ -26,20 +31,22 @@ export function Form() {
 
   //hooks da aba de Dados do contrato fixado
   const hojeF = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-  const [dataContratoF, setDataContratoF] = useState<DateValue>(parseDate(hojeF));
+  const [dataContratoF, setDataContratoF] = useState<DateValue>(
+    parseDate(hojeF)
+  );
   const [transacaoF, setTransacaoF] = useState("");
   const [produtoF, setProdutoF] = useState("");
   const [safraF, setSafraF] = useState("");
   const [volumeF, setVolumeF] = useState("");
   const [sacasF, setSacasF] = useState("");
   const [moedaF, setMoedaF] = useState("");
-  const [dolarF,setDolarF] = useState("");
-  const [realF,setRealF] = useState("");
-  const [ptaxF,setPtaxF] = useState("");
+  const [dolarF, setDolarF] = useState("");
+  const [realF, setRealF] = useState("");
+  const [ptaxF, setPtaxF] = useState("");
   const [valor_total, setValor_total] = useState("");
 
   //cálculos de datas
-  const ontemDesc = format(subDays(hojeF, 0),"dd/MM");
+  const ontemDesc = format(subDays(hojeF, 0), "dd/MM");
 
   //funções para calcular Sacas
   useEffect(() => {
@@ -58,7 +65,7 @@ export function Form() {
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [volume]); 
+  }, [volume]);
 
   useEffect(() => {
     const handleKeyUp = () => {
@@ -78,29 +85,29 @@ export function Form() {
     };
   }, [volumeF]);
 
-  useEffect(()=>{
-    const handleKeyUP = () =>{
-      if(volumeF && dolarF) {
-        setValor_total("")
+  useEffect(() => {
+    const handleKeyUP = () => {
+      if (volumeF && dolarF) {
         const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-        const fDolar = parseFloat(dolarF)
-        const rTotal = Number(fVolume)*fDolar
-        setValor_total((rTotal).toString())
+        const fDolar = parseFloat(dolarF);
+        const rTotal = Number(fVolume) * fDolar;
+        setValor_total(rTotal.toString());
       } else if (volumeF && realF) {
-        setValor_total("")
         const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-        const fReal = parseFloat(realF)
-        const rTotal = Number(fVolume)*fReal
-        setValor_total((rTotal).toString())
-      };
+        const fReal = parseFloat(realF);
+        const rTotal = Number(fVolume) * fReal;
+        setValor_total(rTotal.toString());
+      } else {
+        setValor_total("");
+      }
     };
 
-  window.addEventListener("keyup", handleKeyUP);
+    window.addEventListener("keyup", handleKeyUP);
 
-  return () => {
-    window.removeEventListener("keyup", handleKeyUP);
-  };
-},[volumeF, dolarF, realF])
+    return () => {
+      window.removeEventListener("keyup", handleKeyUP);
+    };
+  }, [volumeF, dolarF, realF]);
 
   return (
     <>
