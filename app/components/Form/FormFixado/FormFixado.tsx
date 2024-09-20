@@ -3,8 +3,9 @@ import React, { SetStateAction } from "react";
 import { DateValue } from "@internationalized/date";
 
 //componentes:
-import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
+import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip } from "@nextui-org/react";
 import { NumericFormat } from "react-number-format";
+import { CircleHelp } from 'lucide-react';
 
 export function FormFixado({
     //props do acordeão 1: Dados básicos do contrato
@@ -46,7 +47,6 @@ export function FormFixado({
     const input_props_ptax = {
         label: "Ptax",
         className: "max-w-56",
-        isDisabled: true,
     };
     const input_props_total = {
         label: "Valor total",
@@ -172,22 +172,33 @@ export function FormFixado({
                                         onChange={(e) => setDolar(e.target.value)}
                                     />
 
-                                    <NumericFormat
-                                        customInput={Input}
-                                        {...input_props_ptax}
-                                        variant="faded"
-                                        startContent={
-                                            <div className="pointer-events-none flex items-center">
-                                                <span className="text-default-400 text-small">R$</span>
+                                    <div className="flex flex-row gap-3">
+                                        <NumericFormat
+                                            customInput={Input}
+                                            {...input_props_ptax}
+                                            variant="faded"
+                                            startContent={
+                                                <div className="pointer-events-none flex items-center">
+                                                    <span className="text-default-400 text-small">R$</span>
+                                                </div>
+                                            }
+                                            description={`O valor é referente a ontem, ${ontem}`}
+                                            valueIsNumericString={true}
+                                            thousandSeparator=" "
+                                            decimalScale={4}
+                                            value={ptax}
+                                            onChange={(e) => setPtax(e.target.value)}
+                                        />
+
+                                        <Tooltip content={
+                                            <div className="px-1 py-2 max-w-44">
+                                                <div className="text-small">O campo é <a href="https://github.com/raave-aires/orig/blob/main/public/ptax.md" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
                                             </div>
-                                        }
-                                        description={`O valor é referente a ontem, ${ontem}`}
-                                        valueIsNumericString={true}
-                                        thousandSeparator=" "
-                                        decimalScale={4}
-                                        value={ptax}
-                                        onChange={(e) => setPtax(e.target.value)}
-                                    />
+                                        }>
+                                            <CircleHelp stroke="#595960"/>
+                                        </Tooltip>
+                                    </div>
+                                    
                                 </>
                                 ) : moeda === "Real brasileiro" ? (
                                     <NumericFormat
@@ -222,6 +233,15 @@ export function FormFixado({
                                 decimalScale={4}
                                 value={valor_total}
                                 onChange={(e) => setValor_total(e.target.value)}
+                            />
+
+                            <DatePicker
+                                variant="faded"
+                                className="max-w-44"
+                                label="Data do pagamento"
+                                showMonthAndYearPickers
+                                value={dataPagamento}
+                                onChange={setDataPagamento}
                             />
                         </div> {/**fim da div container do acordeão*/}
                     </AccordionItem>
