@@ -144,8 +144,8 @@ export function FormAFixar({ dataContrato, setDataContrato, transacao, setTransa
 
 interface Props {
     // datas de contrato
-    dataContrato: DateValue,
-    setDataContrato: React.Dispatch<SetStateAction<DateValue>>,
+    dataContrato: DateValue | undefined,
+    setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>,
 
     //tipo de transação
     transacao: string,

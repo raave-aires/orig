@@ -1,18 +1,9 @@
-//Importação de dependências:
+//dependências:
 import React, { SetStateAction } from "react";
 import { DateValue } from "@internationalized/date";
 
-//Importação de componentes:
-import {
-    Accordion,
-    AccordionItem,
-    DatePicker,
-    Input,
-    Select,
-    SelectItem,
-    RadioGroup,
-    Radio,
-} from "@nextui-org/react";
+//componentes:
+import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioGroup, Radio } from "@nextui-org/react";
 import { NumericFormat } from "react-number-format";
 
 export function FormFixado({
@@ -39,7 +30,13 @@ export function FormFixado({
     ontem,
     valor_total,
     setValor_total,
+
+    //props do acordeão 3: Dados de entrega
+    filial, setFilial,
+    filialTerc, setFilialTerc,
+    dataEntrega, setDataEntrega,
 }: Props) {
+    //atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
@@ -62,11 +59,11 @@ export function FormFixado({
         label: "Valor total",
         className: "w-56",
         isDisabled: true,
-    };
+    }; //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
     return (
         <>
-            <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl">
+            <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
                 <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
                 <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
                     <AccordionItem
@@ -76,10 +73,10 @@ export function FormFixado({
                     >
                         {" "}
                         {/* Aba de inserção das informações básicas */}
-                        <div className="flex flex-wrap gap-4 mb-3">
+                        <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
                             <DatePicker
                                 variant="faded"
-                                className="max-w-64"
+                                className="max-w-44"
                                 label="Data do contrato"
                                 showMonthAndYearPickers
                                 value={dataContrato}
@@ -89,7 +86,7 @@ export function FormFixado({
                             {/* Transação */}
                             <Select
                                 variant="faded"
-                                className="max-w-60 min-w-40"
+                                className="max-w-48 min-w-40"
                                 label="Tipo de transação"
                                 selectedKeys={[transacao]}
                                 onChange={(e) => setTransacao(e.target.value)}
@@ -115,7 +112,7 @@ export function FormFixado({
                             {/* Safra */}
                             <Select
                                 variant="faded"
-                                className="max-w-60"
+                                className="max-w-40"
                                 label="Safra"
                                 selectedKeys={[safra]}
                                 onChange={(e) => setSafra(e.target.value)}
@@ -127,13 +124,10 @@ export function FormFixado({
                             </Select>
                         </div>
                     </AccordionItem>
+                    {/*fim do acordeão 1, e, ao que parece, o acordeão pai não gosta de comentários. ps: só tem selects aqui*/}
 
-                    <AccordionItem
-                        key="2"
-                        aria-label="Accordion 2"
-                        title="Volume e valor"
-                    >
-                        <div className="flex flex-wrap gap-4 mb-3">
+                    <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
+                        <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
                             {" "}
                             {/* Aba de inserção das informações de quantidade e valor */}
                             <NumericFormat
@@ -161,13 +155,12 @@ export function FormFixado({
                                 value={sacas}
                                 onChange={(e) => setSacas(e.target.value)}
                             />
-                            <RadioGroup
-                                value={moeda}
-                                onChange={(e) => setMoeda(e.target.value)}
+                            <RadioGroup value={moeda} onChange={(e) => setMoeda(e.target.value)}
                             >
                                 <Radio value="Dólar americano">Dólar</Radio>
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
+
                             {moeda === "" ? null : moeda === "Dólar americano" ? (
                                 <>
                                     <NumericFormat
@@ -203,23 +196,25 @@ export function FormFixado({
                                         onChange={(e) => setPtax(e.target.value)}
                                     />
                                 </>
-                            ) : moeda === "Real brasileiro" ? (
-                                <NumericFormat
-                                    customInput={Input}
-                                    {...input_props_preco}
-                                    variant="faded"
-                                    startContent={
-                                        <div className="pointer-events-none flex items-center">
-                                            <span className="text-default-400 text-small">R$</span>
-                                        </div>
-                                    }
-                                    valueIsNumericString={true}
-                                    thousandSeparator=" "
-                                    decimalScale={4}
-                                    value={real}
-                                    onChange={(e) => setReal(e.target.value)}
-                                />
-                            ) : null}
+                                ) : moeda === "Real brasileiro" ? (
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_preco}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                                <span className="text-default-400 text-small">R$</span>
+                                            </div>
+                                        }
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
+                                        value={real}
+                                        onChange={(e) => setReal(e.target.value)}
+                                    />
+                                ) : null
+                            }
+
                             <NumericFormat
                                 customInput={Input}
                                 {...input_props_total}
@@ -235,18 +230,83 @@ export function FormFixado({
                                 value={valor_total}
                                 onChange={(e) => setValor_total(e.target.value)}
                             />
-                        </div>
+                        </div> {/**fim da div container do acordeão*/}
                     </AccordionItem>
+                    {/*fim do acordeão 2. ps: sem inputs soltos aqui*/}
+
+                    <AccordionItem key="3" aria-label="Accordion 3" title="Dados da entrega">
+                        <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
+                             <Select
+                                variant="faded"
+                                className="max-w-48 min-w-40"
+                                label="Filial"
+                                selectedKeys={[filial]}
+                                onChange={(e) => setFilial(e.target.value)}
+                            >
+                                <SelectItem key={"Paragominas - Matriz"}>Paragominas - Matriz</SelectItem>
+                                <SelectItem key={"Açailândia"}>Açailândia</SelectItem>
+                                <SelectItem key={"Dom Eliseu"}>Dom Eliseu</SelectItem>
+                                <SelectItem key={"Jaú"}>Jaú</SelectItem>
+                                <SelectItem key={"Morro Alto"}>Morro Alto</SelectItem>
+                                <SelectItem key={"Rondon do Pará"}>Rondon do Pará</SelectItem>
+                                <SelectItem key={"Terceiro"}>Terceiro</SelectItem>
+                            </Select>
+
+                            {filial === "Terceiro" ? 
+                                (
+                                <>
+                                    <Select
+                                        variant="faded"
+                                        className="max-w-56 min-w-40"
+                                        label="Terceiro"
+                                        selectedKeys={[filialTerc]}
+                                        onChange={(e) => setFilialTerc(e.target.value)}
+                                    >
+                                        <SelectItem key={"Terc Açailândia"}>Terceiro - Açailândia</SelectItem>
+                                        <SelectItem key={"Terc Dom Eliseu"}>Terceiro - Dom Eliseu</SelectItem>
+                                        <SelectItem key={"Terc Paragominas"}>Terceiro - Paragominas</SelectItem>
+                                        <SelectItem key={"Terc Rondon do Pará"}>Terceiro - Rondon do Pará</SelectItem>
+                                        <SelectItem key={"Terc Sul do Pará"}>Terceiro - Sul do Pará</SelectItem>
+                                        <SelectItem key={"Terc Tailândia"}>Terceiro - Tailândia</SelectItem>
+                                        <SelectItem key={"Terc Outros"}>Outros terceiros</SelectItem>
+                                    </Select>
+
+                                    <Input
+                                        variant="faded"
+                                        className="max-w-96 min-w-60"
+                                        label="Armazém"
+                                    />
+                                </>
+                                ) : null
+                            }
+
+                            <DatePicker
+                                variant="faded"
+                                className="max-w-44"
+                                label="Data da entrega"
+                                showMonthAndYearPickers
+                                value={dataEntrega}
+                                onChange={setDataEntrega}
+                            />
+                        </div>
+                        
+                    </AccordionItem>
+                    {/*fim do acordeão 3.*/}
+
+                    <AccordionItem key="4" aria-label="Accordion 4" title="Dados do cliente">
+
+                    </AccordionItem>
+                    {/*fim do acordeão 4.*/}
                 </Accordion>
             </section>
         </>
     );
 }
 
-interface Props {
+interface Props { //validação de tipos
     // datas de contrato
-    dataContrato: DateValue;
-    setDataContrato: React.Dispatch<SetStateAction<DateValue>>;
+    dataContrato:DateValue | undefined;
+    setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
 
     //tipo de transação
     transacao: string;
@@ -289,4 +349,10 @@ interface Props {
     //
     valor_total: string;
     setValor_total: (e: string) => void;
+
+    //props do acordeão 3: Dados de entrega
+    filial: string; setFilial: (e: string) => void;
+    filialTerc: string; setFilialTerc: (e: string) => void;
+    dataEntrega: DateValue | undefined;
+    setDataEntrega: React.Dispatch<SetStateAction<DateValue | undefined>>;
 }

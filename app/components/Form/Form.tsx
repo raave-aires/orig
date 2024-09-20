@@ -16,7 +16,7 @@ export function Form() {
 
     //hooks da aba de Dados do contrato a fixar
     const hoje = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-    const [dataContrato, setDataContrato] = useState<DateValue>(parseDate(hoje));
+    const [dataContrato, setDataContrato] = useState<DateValue | undefined>();
     const [transacao, setTransacao] = useState("");
     const [produto, setProduto] = useState("");
     const [safra, setSafra] = useState("");
@@ -26,9 +26,7 @@ export function Form() {
 
     //hooks da aba de Dados do contrato fixado
     const hojeF = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-    const [dataContratoF, setDataContratoF] = useState<DateValue>(
-        parseDate(hojeF)
-    );
+    const [dataContratoF, setDataContratoF] = useState<DateValue | undefined>();
     const [transacaoF, setTransacaoF] = useState("");
     const [produtoF, setProdutoF] = useState("");
     const [safraF, setSafraF] = useState("");
@@ -39,10 +37,14 @@ export function Form() {
     const [realF, setRealF] = useState("");
     const [ptaxF, setPtaxF] = useState("");
     const [valor_total, setValor_total] = useState("");
+    //hooks do acordeão 3: Dados de entrega
+    const [filialF, setFilialF] = useState("");
+    const [filialTercF, setFilialTercF] = useState("");
 
     //cálculos de datas
     const ontemDesc = format(subDays(hojeF, 0), "dd/MM"); // data a ser exibida na descrição
     const ontem: string = format(subDays(hojeF, 0), "MM-dd-yyyy"); //data formatada pra ser usada na api do bacen
+    const [dataEntregaF, setDataEntregaF] = useState<DateValue>();
 
     //funções para calcular Sacas
     useEffect(() => {
@@ -171,6 +173,14 @@ export function Form() {
                     ontem={ontemDesc}
                     valor_total={valor_total}
                     setValor_total={setValor_total}
+
+                    //props do acordeão 3: Dados de entrega
+                    filial={filialF}
+                    setFilial={setFilialF}
+                    filialTerc={filialTercF}
+                    setFilialTerc={setFilialTercF}
+                    dataEntrega={dataEntregaF}
+                    setDataEntrega={setDataEntregaF}
                 />
             ) : null}
         </>
