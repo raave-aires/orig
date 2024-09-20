@@ -13,6 +13,7 @@ export function FormFixado({
     transacao, setTransacao,
     produto, setProduto,
     safra, setSafra,
+    municipio, setMunicipio,
     
     //props do acordeão 2: Volume e valor
     volume, setVolume,
@@ -115,6 +116,20 @@ export function FormFixado({
                                 <SelectItem key={"2026/2027"}>2026/2027</SelectItem>
                                 <SelectItem key={"2027/2028"}>2027/2028</SelectItem>
                             </Select>
+
+                            <Select
+                                variant="faded"
+                                className="max-w-48 min-w-40"
+                                label="Município"
+                                selectedKeys={[municipio]}
+                                onChange={(e) => setMunicipio(e.target.value)}
+                            >
+                                <SelectItem key={"Açailândia"}>Açailândia</SelectItem>
+                                <SelectItem key={"Dom Eliseu"}>Dom Eliseu</SelectItem>
+                                <SelectItem key={"Paragominas"}>Paragominas</SelectItem>
+                                <SelectItem key={"Rondon do Pará"}>Rondon do Pará</SelectItem>
+                                <SelectItem key={"Tailândia"}>Tailândia</SelectItem>
+                            </Select>
                         </div>
                     </AccordionItem>
                     {/*fim do acordeão 1, e, ao que parece, o acordeão pai não gosta de comentários. ps: só tem selects aqui*/}
@@ -128,10 +143,15 @@ export function FormFixado({
                                 {...input_props_volume}
                                 variant="faded"
                                 endContent={
-                                    <div className="pointer-events-none flex items-center">
-                                        <span className="text-default-400 text-small">t</span>
-                                    </div>
+                                    <Tooltip content={
+                                        <div className="p-2 max-w-44">
+                                            <div className="text-small">O Ptax é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                        </div>
+                                    } className="cursor-help">
+                                        t
+                                    </Tooltip>
                                 }
+
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
                                 decimalSeparator=","
@@ -148,11 +168,27 @@ export function FormFixado({
                                 value={sacas}
                                 onChange={(e) => setSacas(e.target.value)}
                             />
-                            <RadioGroup value={moeda} onChange={(e) => setMoeda(e.target.value)}
+                            <RadioGroup value={moeda} onChange={(e) => {setMoeda(e.target.value),setValor_total(""),setDolar(""),setReal("")}}
                             >
                                 <Radio value="Dólar americano">Dólar</Radio>
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
+
+                            <NumericFormat
+                                customInput={Input}
+                                {...input_props_total}
+                                variant="faded"
+                                startContent={
+                                    <div className="pointer-events-none flex items-center">
+                                        <span className="text-default-400 text-small">R$</span>
+                                    </div>
+                                }
+                                valueIsNumericString={true}
+                                thousandSeparator=" "
+                                decimalScale={4}
+                                value={valor_total}
+                                onChange={(e) => setValor_total(e.target.value)}
+                            />
 
                             {moeda === "" ? null : moeda === "Dólar americano" ? (
                                 <>
@@ -182,21 +218,23 @@ export function FormFixado({
                                                     <span className="text-default-400 text-small">R$</span>
                                                 </div>
                                             }
+                                            endContent={
+                                                <Tooltip content={
+                                                    <div className="p-2 max-w-44">
+                                                        <div className="text-small">O Ptax é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                                    </div>
+                                                } className="cursor-help">
+                                                    <CircleHelp stroke="#595960" size={20} className="cursor-help"/>
+                                                </Tooltip>
+                                            }
+                                            
                                             description={`O valor é referente a ontem, ${ontem}`}
                                             valueIsNumericString={true}
                                             thousandSeparator=" "
                                             decimalScale={4}
                                             value={ptax}
                                             onChange={(e) => setPtax(e.target.value)}
-                                        />
-
-                                        <Tooltip content={
-                                            <div className="p-2 max-w-44">
-                                                <div className="text-small">O campo é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
-                                            </div>
-                                        }>
-                                            <CircleHelp stroke="#595960"/>
-                                        </Tooltip>
+                                        />   
                                     </div>
                                     
                                 </>
@@ -219,22 +257,6 @@ export function FormFixado({
                                 ) : null
                             }
 
-                            <NumericFormat
-                                customInput={Input}
-                                {...input_props_total}
-                                variant="faded"
-                                startContent={
-                                    <div className="pointer-events-none flex items-center">
-                                        <span className="text-default-400 text-small">R$</span>
-                                    </div>
-                                }
-                                valueIsNumericString={true}
-                                thousandSeparator=" "
-                                decimalScale={4}
-                                value={valor_total}
-                                onChange={(e) => setValor_total(e.target.value)}
-                            />
-
                             <DatePicker
                                 variant="faded"
                                 className="max-w-44"
@@ -249,7 +271,7 @@ export function FormFixado({
 
                     <AccordionItem key="3" aria-label="Accordion 3" title="Dados da entrega">
                         <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
-                             <Select
+                            <Select
                                 variant="faded"
                                 className="max-w-48 min-w-40"
                                 label="Filial"
@@ -322,6 +344,7 @@ interface Props { //validação de tipos
     transacao: string; setTransacao: (e: string) => void;
     produto: string; setProduto: (e: string) => void;
     safra: string; setSafra: (e: string) => void;
+    municipio: string; setMunicipio: (e: string) => void;
 
     //props do acordeão 2: Volume e valor
     volume: string; setVolume: (e: string) => void;

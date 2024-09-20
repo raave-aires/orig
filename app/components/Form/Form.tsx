@@ -22,6 +22,7 @@ export function Form() {
     const [volume, setVolume] = useState("");
     const [sacas, setSacas] = useState("");
     const [moeda, setMoeda] = useState("");
+    const [municipioF, setMunicipioF] = useState("");
 
     //hooks da aba de Dados do contrato fixado
     const hojeF = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
@@ -87,15 +88,15 @@ export function Form() {
     //função para calcular o valor total
     useEffect(() => {
         const handleKeyUP = () => {
-            if (volumeF && dolarF) {
-                const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+            if (sacasF && dolarF) {
+                const fSacas = sacasF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
                 const fDolar = parseFloat(dolarF);
-                const rTotal = Number(fVolume) * fDolar;
+                const rTotal = Number(fSacas) * fDolar;
                 setValor_total(rTotal.toString());
-            } else if (volumeF && realF) {
-                const fVolume = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+            } else if (sacasF && realF) {
+                const fSacas = sacasF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
                 const fReal = parseFloat(realF);
-                const rTotal = Number(fVolume) * fReal;
+                const rTotal = Number(fSacas) * fReal;
                 setValor_total(rTotal.toString());
             } else {
                 setValor_total("");
@@ -107,7 +108,7 @@ export function Form() {
         return () => {
             window.removeEventListener("keyup", handleKeyUP);
         };
-    }, [volumeF, dolarF, realF]); //fim da função para calcular o valor total
+    }, [sacasF, dolarF, realF]); //fim da função para calcular o valor total
 
     //função de chamada da api do ptax
     useEffect(() => {
@@ -159,6 +160,8 @@ export function Form() {
                     setProduto={setProdutoF}
                     safra={safraF}
                     setSafra={setSafraF}
+                    municipio={municipioF}
+                    setMunicipio={setMunicipioF}
                     
                     //props do acordeão 2: Volume e valor
                     volume={volumeF}
