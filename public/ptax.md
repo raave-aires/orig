@@ -8,6 +8,10 @@ O PTAX é calculado diariamente pelo BACEN com base na média das taxas informad
 Assim sendo, a atualização do PTAX pelo BACEN ocorre geralmente entre 13h e 14h (horário de Brasília). E sabendo disso, o Origë foi projetado para verificar o horário atual e apresentar o valor mais recente disponível.
 
 #### Mensagem de alerta:
-- **Valor referente ao dia anterior:** Caso a consulta seja realizada antes da atualização do PTAX, será exibida uma mensagem informando que o valor apresentado é referente ao dia anterior, por exemplo: "O valor é referente a ontem, DD/MM."
-Valor mais recente: Após a atualização do PTAX, será exibida uma mensagem confirmando que o valor apresentado é o mais recente, por exemplo: "Este é o valor mais recente."
-Observação: A periodicidade da atualização do PTAX pode variar e está sujeita a alterações por parte do BACEN.
+- **Valor referente ao dia anterior:** Caso a consulta seja realizada antes da atualização do PTAX, será exibida uma mensagem informando que o valor apresentado é referente ao dia anterior
+  > "O valor é referente a ontem, DD/MM."
+
+- **Valor de hoje:** Após a atualização do PTAX, será exibida uma mensagem confirmando que o valor mais recente é o de hoje, por exemplo: 
+  > "Este é o valor mais recente."
+
+Observe, entretanto, que a periodicidade da atualização do PTAX pode variar e está sujeita a alterações por parte do BACEN.
