@@ -191,8 +191,8 @@ export function FormFixado({
                                         />
 
                                         <Tooltip content={
-                                            <div className="px-1 py-2 max-w-44">
-                                                <div className="text-small">O campo é <a href="https://github.com/raave-aires/orig/blob/main/public/ptax.md" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                            <div className="p-2 max-w-44">
+                                                <div className="text-small">O campo é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
                                             </div>
                                         }>
                                             <CircleHelp stroke="#595960"/>

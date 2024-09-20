@@ -2,7 +2,7 @@
 
 // dependências:
 import { useState, useEffect } from "react";
-import { DateValue, parseDate, today, getLocalTimeZone } from "@internationalized/date";
+import { DateValue, today, getLocalTimeZone } from "@internationalized/date";
 import { format, subDays } from "date-fns";
 
 //componentes:
@@ -15,7 +15,6 @@ export function Form() {
     const [tipoSelecionado, setTipoSelecionado] = useState("");
 
     //hooks da aba de Dados do contrato a fixar
-    const hoje = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const [dataContrato, setDataContrato] = useState<DateValue | undefined>();
     const [transacao, setTransacao] = useState("");
     const [produto, setProduto] = useState("");
