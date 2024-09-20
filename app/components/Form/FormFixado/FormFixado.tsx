@@ -7,29 +7,22 @@ import { Accordion, AccordionItem, DatePicker, Input, Select, SelectItem, RadioG
 import { NumericFormat } from "react-number-format";
 
 export function FormFixado({
-    dataContrato,
-    setDataContrato,
-    transacao,
-    setTransacao,
-    produto,
-    setProduto,
-    safra,
-    setSafra,
-    volume,
-    setVolume,
-    sacas,
-    setSacas,
-    moeda,
-    setMoeda,
-    dolar,
-    setDolar,
-    real,
-    setReal,
-    ptax,
-    setPtax,
+    //props do acordeão 1: Dados básicos do contrato
+    dataContrato, setDataContrato,
+    transacao, setTransacao,
+    produto, setProduto,
+    safra, setSafra,
+    
+    //props do acordeão 2: Volume e valor
+    volume, setVolume,
+    sacas, setSacas,
+    moeda, setMoeda,
+    dolar, setDolar,
+    real, setReal,
+    ptax, setPtax,
+    valor_total, setValor_total,
+    dataPagamento, setDataPagamento,
     ontem,
-    valor_total,
-    setValor_total,
 
     //props do acordeão 3: Dados de entrega
     filial, setFilial,
@@ -318,6 +311,7 @@ interface Props { //validação de tipos
     real: string; setReal: (e: string) => void;
     ptax: string; setPtax: (e: string) => void;
     valor_total: string; setValor_total: (e: string) => void;
+    dataPagamento:DateValue | undefined; setDataPagamento: React.Dispatch<SetStateAction<DateValue | undefined>>;
     ontem: string;
 
     //props do acordeão 3: Dados de entrega

@@ -37,6 +37,8 @@ export function Form() {
     const [realF, setRealF] = useState("");
     const [ptaxF, setPtaxF] = useState("");
     const [valor_total, setValor_total] = useState("");
+    const [dataPagamentoF, setDataPagamentoF] = useState<DateValue | undefined>();
+
     //hooks do acordeão 3: Dados de entrega
     const [filialF, setFilialF] = useState("");
     const [filialTercF, setFilialTercF] = useState("");
@@ -174,8 +176,10 @@ export function Form() {
                     setPtax={setPtaxF}
                     valor_total={valor_total}
                     setValor_total={setValor_total}
+                    dataPagamento={dataPagamentoF}
+                    setDataPagamento={setDataPagamentoF}
                     ontem={ontemDesc}
-                    
+
                     //props do acordeão 3: Dados de entrega
                     filial={filialF}
                     setFilial={setFilialF}
