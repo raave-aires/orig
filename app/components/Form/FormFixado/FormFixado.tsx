@@ -304,51 +304,21 @@ export function FormFixado({
 }
 
 interface Props { //validação de tipos
-    // datas de contrato
-    dataContrato:DateValue | undefined;
-    setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
+    //props do acordeão 1: Dados básicos do contrato
+    dataContrato:DateValue | undefined; setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
+    transacao: string; setTransacao: (e: string) => void;
+    produto: string; setProduto: (e: string) => void;
+    safra: string; setSafra: (e: string) => void;
 
-    //tipo de transação
-    transacao: string;
-    setTransacao: (e: string) => void;
-
-    //tipo de produto
-    produto: string;
-    setProduto: (e: string) => void;
-
-    //safra
-    safra: string;
-    setSafra: (e: string) => void;
-
-    //volume
-    volume: string;
-    setVolume: (e: string) => void;
-
-    //sacas
-    sacas: string;
-    setSacas: (e: string) => void;
-
-    //moeda
-    moeda: string;
-    setMoeda: (e: string) => void;
-
-    //dolar
-    dolar: string;
-    setDolar: (e: string) => void;
-
-    //real
-    real: string;
-    setReal: (e: string) => void;
-
-    //Ptax
-    ptax: string;
-    setPtax: (e: string) => void;
-
+    //props do acordeão 2: Volume e valor
+    volume: string; setVolume: (e: string) => void;
+    sacas: string; setSacas: (e: string) => void;
+    moeda: string; setMoeda: (e: string) => void;
+    dolar: string; setDolar: (e: string) => void;
+    real: string; setReal: (e: string) => void;
+    ptax: string; setPtax: (e: string) => void;
+    valor_total: string; setValor_total: (e: string) => void;
     ontem: string;
-
-    //
-    valor_total: string;
-    setValor_total: (e: string) => void;
 
     //props do acordeão 3: Dados de entrega
     filial: string; setFilial: (e: string) => void;

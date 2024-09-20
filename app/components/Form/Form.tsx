@@ -158,6 +158,8 @@ export function Form() {
                     setProduto={setProdutoF}
                     safra={safraF}
                     setSafra={setSafraF}
+                    
+                    //props do acordeão 2: Volume e valor
                     volume={volumeF}
                     setVolume={setVolumeF}
                     sacas={sacasF}
@@ -170,10 +172,10 @@ export function Form() {
                     setReal={setRealF}
                     ptax={ptaxF}
                     setPtax={setPtaxF}
-                    ontem={ontemDesc}
                     valor_total={valor_total}
                     setValor_total={setValor_total}
-
+                    ontem={ontemDesc}
+                    
                     //props do acordeão 3: Dados de entrega
                     filial={filialF}
                     setFilial={setFilialF}
