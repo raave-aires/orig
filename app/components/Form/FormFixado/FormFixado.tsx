@@ -33,14 +33,21 @@ export function FormFixado({
 
     quilos, setQuilos, tonelada, setTonelada,
 }: Props) {
-
-    const cVolumeFRef = useRef(null);
     //atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
+    const volumeInputRef = useRef<HTMLInputElement>(null);
+
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
-        ref:{cVolumeFRef}
+        ref: {volumeInputRef}
     };
+    const focar_volume= ()=>{
+        if (volumeInputRef.current) {
+            volumeInputRef.current.focus(); // Foca no input usando ref
+            volumeInputRef.current.setSelectionRange(volumeInputRef.current.value.length, volumeInputRef.current.value.length);
+        }
+    }
+
     const input_props_sacas = {
         label: "Sacas",
         className: "max-w-56",
@@ -70,7 +77,7 @@ export function FormFixado({
     //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
+    
     return (
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
@@ -162,7 +169,7 @@ export function FormFixado({
                                             <div className="text-small">O valor deste campo deve ser preenchido usando o peso em toneladas (t). Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</div>
                                         </div>
                                     } className="cursor-help">
-                                        <p className="text-[#595960]">t</p>
+                                        <p className="text-[#595960] cursor-help pl-2">t</p>
                                     </Tooltip>
                                 }
 
@@ -178,7 +185,7 @@ export function FormFixado({
                                 <ModalContent>
                                     {(onClose) => (
                                         <>
-                                            <ModalHeader>Título</ModalHeader>
+                                            <ModalHeader>Conversor</ModalHeader>
                                             <ModalBody>
                                                 <NumericFormat
                                                     label= "Volume em quilos (kg)"
@@ -192,8 +199,15 @@ export function FormFixado({
 
                                                     value={quilos}
                                                     onChange={(e) => setQuilos(e.target.value)}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter') {
+                                                            onClose();
+                                                            setVolume(tonelada);
+                                                            focar_volume();
+                                                        }
+                                                    }}
                                                 />
-
+                                                <p>O valor digitado será automaticamente atribuído ao volume.</p>
                                                 <NumericFormat
                                                     customInput={Input}
                                                     {...input_props_tonelada}
@@ -211,7 +225,7 @@ export function FormFixado({
 
                                             <ModalFooter>
                                                 <Button color="danger" variant="light" onPress={onClose}>Dispensar</Button>
-                                                <Button color="success" variant="shadow" onPress={(e)=> {onClose(); setVolume(tonelada); cVolumeFRef.current.focus()}}>Pronto</Button>
+                                                <Button color="success" variant="shadow" onPress={(e)=> {onClose(); setVolume(tonelada);focar_volume()}}>Pronto</Button>
                                             </ModalFooter>
                                         </>
                                     )}
