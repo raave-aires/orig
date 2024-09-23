@@ -1,12 +1,13 @@
 interface Props {
     item_link: string, 
-    item_text: string
+    target: string,
+    item_text: string,
 }
 
-export function HeaderItem({item_link, item_text}: Props){
+export function HeaderItem({item_link, target, item_text}: Props){
     return(
         <li className="select-none">
-            <a href={item_link} target="_blank" className="select-none">
+            <a href={item_link} target={target} className="select-none">
                 {item_text}
             </a>
         </li>

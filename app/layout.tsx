@@ -27,11 +27,13 @@ export default function RootLayout({
                 <Header>
                     <HeaderItem 
                         item_link="/"
+                        target="_self"
                         item_text="Início"
                     />
 
                     <HeaderItem 
                         item_link="https://github.com/raave-aires/orig/blob/main/README.md"
+                        target="_blank"
                         item_text="Sobre"
                     />
                 </Header>

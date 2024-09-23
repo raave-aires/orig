@@ -11,11 +11,13 @@ export default function Home() {
                     <HeaderItem 
                         item_link="/cadastro"
                         item_text="Cadastrar"
+                        target="_self"
                     />
                     
                     <HeaderItem 
                         item_link="/conta/entrar"
                         item_text="Entre"
+                        target="_self"
                     />
                 </Header>
             </Providers>

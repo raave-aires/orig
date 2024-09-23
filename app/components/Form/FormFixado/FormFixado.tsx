@@ -1,9 +1,9 @@
 //dependências:
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useState } from "react";
 import { DateValue } from "@internationalized/date";
 
 //componentes:
-import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip } from "@nextui-org/react";
+import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import { NumericFormat } from "react-number-format";
 import { CircleHelp } from 'lucide-react';
 
@@ -30,6 +30,8 @@ export function FormFixado({
     filial, setFilial,
     filialTerc, setFilialTerc,
     dataEntrega, setDataEntrega,
+
+    quilos, setQuilos, tonelada, setTonelada,
 }: Props) {
     //atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
     const input_props_volume = {
@@ -55,16 +57,23 @@ export function FormFixado({
         isDisabled: true,
     }; //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
+    const input_props_quilos = {
+        label: "Volume em quilos (kg)",
+        className: "max-w-64",
+    };
+
+    const input_props_tonelada = {
+        label: "Volume em toneladas (t)",
+        className: "max-w-64",
+    };
+
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     return (
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
                 <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
                 <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
-                    <AccordionItem
-                        key="1"
-                        aria-label="Accordion 1"
-                        title="Dados básicos do contrato"
-                    >
+                    <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato">
                         {" "}
                         {/* Aba de inserção das informações básicas */}
                         <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
@@ -145,7 +154,7 @@ export function FormFixado({
                                 endContent={
                                     <Tooltip content={
                                         <div className="p-2 max-w-44">
-                                            <div className="text-small">O Ptax é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                            <div className="text-small"><a href="" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
                                         </div>
                                     } className="cursor-help">
                                         t
@@ -332,6 +341,56 @@ export function FormFixado({
 
                     </AccordionItem>
                     {/*fim do acordeão 4.*/}
+
+                    <Button onPress={onOpen}>Open Modal</Button>
+                    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                        <ModalContent>
+                            {(onClose) => (
+                                <>
+                                    <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+
+                                    <ModalBody>
+                                        <NumericFormat
+                                            customInput={Input}
+                                            {...input_props_quilos}
+                                            variant="faded"
+
+                                            valueIsNumericString={true}
+                                            thousandSeparator=" "
+                                            decimalSeparator=","
+
+                                            value={quilos}
+                                            onChange={(e) => setQuilos(e.target.value)}
+                                        />
+
+                                        <NumericFormat
+                                            customInput={Input}
+                                            {...input_props_tonelada}
+                                            variant="faded"
+                                            isDisabled={true}
+
+                                            valueIsNumericString={true}
+                                            thousandSeparator=" "
+                                            decimalSeparator=","
+
+                                            value={tonelada}
+                                            onChange={(e) => setTonelada(e.target.value)}
+                                        />
+                                    </ModalBody>
+
+                                    <ModalFooter>
+                                        <Button color="danger" variant="light" onPress={onClose}>
+                                            Dispensar
+                                        </Button>
+
+                                        <Button color="primary" onPress={onClose}>
+                                            Usar valor
+                                        </Button>
+                                    </ModalFooter>
+                                </>
+                            )}
+                        </ModalContent>
+                    </Modal>
                 </Accordion>
             </section>
         </>
@@ -362,4 +421,7 @@ interface Props { //validação de tipos
     filialTerc: string; setFilialTerc: (e: string) => void;
     dataEntrega: DateValue | undefined;
     setDataEntrega: React.Dispatch<SetStateAction<DateValue | undefined>>;
+    
+    quilos: string; setQuilos: (e: string) => void;
+    tonelada: string; setTonelada: (e: string) => void;
 }

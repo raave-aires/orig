@@ -48,6 +48,9 @@ export function Form() {
     const ontem: string = format(subDays(hojeF, 0), "MM-dd-yyyy"); //data formatada pra ser usada na api do bacen
     const [dataEntregaF, setDataEntregaF] = useState<DateValue>();
 
+    const [tonelada, setTonelada] = useState("")
+    const [quilos, setQuilos] = useState("")
+
     //funções para calcular Sacas
     useEffect(() => {
         const handleKeyUp = () => {
@@ -189,6 +192,11 @@ export function Form() {
                     setFilialTerc={setFilialTercF}
                     dataEntrega={dataEntregaF}
                     setDataEntrega={setDataEntregaF}
+
+                    quilos={quilos}
+                    setQuilos={setQuilos}
+                    tonelada={tonelada}
+                    setTonelada={setTonelada}
                 />
             ) : null}
         </>
