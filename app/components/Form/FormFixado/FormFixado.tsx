@@ -1,10 +1,10 @@
 //dependências:
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useRef } from "react";
 import { DateValue } from "@internationalized/date";
 
 //componentes:
-import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import { NumericFormat } from "react-number-format";
+import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
+import { NumericFormat } from 'react-number-format';
 import { CircleHelp } from 'lucide-react';
 
 export function FormFixado({
@@ -33,10 +33,13 @@ export function FormFixado({
 
     quilos, setQuilos, tonelada, setTonelada,
 }: Props) {
+
+    const cVolumeFRef = useRef(null);
     //atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
     const input_props_volume = {
         label: "Volume (t)",
         className: "max-w-64",
+        ref:{cVolumeFRef}
     };
     const input_props_sacas = {
         label: "Sacas",
@@ -55,19 +58,19 @@ export function FormFixado({
         label: "Valor total",
         className: "w-56",
         isDisabled: true,
-    }; //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
-
+    }; 
     const input_props_quilos = {
         label: "Volume em quilos (kg)",
-        className: "max-w-64",
+        // className: "max-w-64",
     };
-
     const input_props_tonelada = {
         label: "Volume em toneladas (t)",
-        className: "max-w-64",
+        // className: "max-w-64",
     };
+    //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
     return (
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
@@ -148,25 +151,73 @@ export function FormFixado({
                             {" "}
                             {/* Aba de inserção das informações de quantidade e valor */}
                             <NumericFormat
+                                id="cVolumeF"
+
                                 customInput={Input}
                                 {...input_props_volume}
                                 variant="faded"
                                 endContent={
                                     <Tooltip content={
                                         <div className="p-2 max-w-44">
-                                            <div className="text-small"><a href="" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                            <div className="text-small">O valor deste campo deve ser preenchido usando o peso em toneladas (t). Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</div>
                                         </div>
                                     } className="cursor-help">
-                                        t
+                                        <p className="text-[#595960]">t</p>
                                     </Tooltip>
                                 }
 
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
                                 decimalSeparator=","
+                                allowedDecimalSeparators={[',','.',',']}
                                 value={volume}
                                 onChange={(e) => setVolume(e.target.value)}
                             />
+
+                            <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur" size="xs">
+                                <ModalContent>
+                                    {(onClose) => (
+                                        <>
+                                            <ModalHeader>Título</ModalHeader>
+                                            <ModalBody>
+                                                <NumericFormat
+                                                    label= "Volume em quilos (kg)"
+                                                    customInput={Input}
+                                                    
+                                                    variant="faded"
+
+                                                    valueIsNumericString={true}
+                                                    thousandSeparator=" "
+                                                    decimalSeparator=","
+
+                                                    value={quilos}
+                                                    onChange={(e) => setQuilos(e.target.value)}
+                                                />
+
+                                                <NumericFormat
+                                                    customInput={Input}
+                                                    {...input_props_tonelada}
+                                                    variant="faded"
+                                                    isDisabled
+
+                                                    valueIsNumericString={true}
+                                                    thousandSeparator=" "
+                                                    decimalSeparator=","
+                                                    
+                                                    value={tonelada}
+                                                    onChange={(e) => setTonelada(e.target.value)}
+                                                />
+                                            </ModalBody>
+
+                                            <ModalFooter>
+                                                <Button color="danger" variant="light" onPress={onClose}>Dispensar</Button>
+                                                <Button color="success" variant="shadow" onPress={(e)=> {onClose(); setVolume(tonelada); cVolumeFRef.current.focus()}}>Pronto</Button>
+                                            </ModalFooter>
+                                        </>
+                                    )}
+                                </ModalContent>
+                            </Modal>
+
                             <NumericFormat
                                 customInput={Input}
                                 {...input_props_sacas}
@@ -340,57 +391,7 @@ export function FormFixado({
                     <AccordionItem key="4" aria-label="Accordion 4" title="Dados do cliente">
 
                     </AccordionItem>
-                    {/*fim do acordeão 4.*/}
-
-                    <Button onPress={onOpen}>Open Modal</Button>
-                    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                        <ModalContent>
-                            {(onClose) => (
-                                <>
-                                    <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-
-                                    <ModalBody>
-                                        <NumericFormat
-                                            customInput={Input}
-                                            {...input_props_quilos}
-                                            variant="faded"
-
-                                            valueIsNumericString={true}
-                                            thousandSeparator=" "
-                                            decimalSeparator=","
-
-                                            value={quilos}
-                                            onChange={(e) => setQuilos(e.target.value)}
-                                        />
-
-                                        <NumericFormat
-                                            customInput={Input}
-                                            {...input_props_tonelada}
-                                            variant="faded"
-                                            isDisabled={true}
-
-                                            valueIsNumericString={true}
-                                            thousandSeparator=" "
-                                            decimalSeparator=","
-
-                                            value={tonelada}
-                                            onChange={(e) => setTonelada(e.target.value)}
-                                        />
-                                    </ModalBody>
-
-                                    <ModalFooter>
-                                        <Button color="danger" variant="light" onPress={onClose}>
-                                            Dispensar
-                                        </Button>
-
-                                        <Button color="primary" onPress={onClose}>
-                                            Usar valor
-                                        </Button>
-                                    </ModalFooter>
-                                </>
-                            )}
-                        </ModalContent>
-                    </Modal>
+                    {/*fim do acordeão 4.*/}          
                 </Accordion>
             </section>
         </>

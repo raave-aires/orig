@@ -48,15 +48,15 @@ export function Form() {
     const ontem: string = format(subDays(hojeF, 0), "MM-dd-yyyy"); //data formatada pra ser usada na api do bacen
     const [dataEntregaF, setDataEntregaF] = useState<DateValue>();
 
-    const [tonelada, setTonelada] = useState("")
-    const [quilos, setQuilos] = useState("")
+    const [quilosF, setQuilosF] = useState("")
+    const [toneladaF, setToneladaF] = useState("")
 
     //funções para calcular Sacas
     useEffect(() => {
         const handleKeyUp = () => {
             if (volume) {
-                const volumeSemSeparadores = volume.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-                const result = (Number(volumeSemSeparadores) * 1000) / 60;
+                const volumeSemSeparadores = volume.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
+                const result = (parseFloat(volumeSemSeparadores) * 1000) / 60;
                 setSacas(result.toFixed(2));
             } else {
                 setSacas("");
@@ -73,8 +73,9 @@ export function Form() {
     useEffect(() => {
         const handleKeyUp = () => {
             if (volumeF) {
-                const volumeSemSeparadoresF = volumeF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-                const rSacas = (Number(volumeSemSeparadoresF) * 1000) / 60;
+                const volumeSemSeparadoresF = volumeF.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
+                console.log(volumeSemSeparadoresF)
+                const rSacas = (parseFloat(volumeSemSeparadoresF) * 1000) / 60;
                 setSacasF(rSacas.toFixed(2));
             } else {
                 setSacasF("");
@@ -128,6 +129,25 @@ export function Form() {
             setPtaxF("");
         }
     }, [moedaF, ontem, setPtaxF]); //fim da função de chamada da api do ptax
+
+    //função para calcular toneladas
+    useEffect(()=> {
+        const handleKeyUP = ()=>{
+            if(quilosF){
+                const fQuilos = quilosF.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
+                const toneladas = Number(fQuilos)/1000;
+                setToneladaF(toneladas.toString());
+            } else {
+                setToneladaF("");
+            };
+        }
+        
+        window.addEventListener("keyup", handleKeyUP);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUP);
+        };
+    }, [quilosF, toneladaF, setToneladaF]); //fim da função para calcular toneladas
 
     return (
         <>
@@ -193,10 +213,10 @@ export function Form() {
                     dataEntrega={dataEntregaF}
                     setDataEntrega={setDataEntregaF}
 
-                    quilos={quilos}
-                    setQuilos={setQuilos}
-                    tonelada={tonelada}
-                    setTonelada={setTonelada}
+                    quilos={quilosF}
+                    setQuilos={setQuilosF}
+                    tonelada={toneladaF}
+                    setTonelada={setToneladaF}
                 />
             ) : null}
         </>
