@@ -86,7 +86,7 @@ export function FormFixado({
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
     const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
-    
+
     //função de chamada da api do ptax
     useEffect(() => {
         const obter_ptax = async () => {
@@ -127,7 +127,7 @@ export function FormFixado({
         } else {
             setPtax("");
         }
-    }, [moeda, dia, data, setPtax, setData_checada]); // fim da função de chamada da api do ptax
+    }, [moeda, dia, data, setPtax, setData_checada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
     
     
     useEffect(()=>{
