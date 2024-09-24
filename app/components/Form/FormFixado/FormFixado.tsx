@@ -3,9 +3,9 @@ import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "rea
 
 
 //componentes:
-import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
+import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link } from "@nextui-org/react";
 import { NumericFormat, PatternFormat } from 'react-number-format';
-import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign } from 'lucide-react';
+import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign, Search } from 'lucide-react';
 
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
@@ -83,6 +83,8 @@ export function FormFixado({
     const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
     const [valorConvertido, setValorConvertido] = useState("");
     const [cpf, setCpf] = useState("");
+    const [cep, setCep] = useState("");
+    const [rua, setRua] = useState("");
 
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
@@ -90,7 +92,7 @@ export function FormFixado({
 
     //função de chamada da api do ptax
     useEffect(() => {
-        const obter_ptax = async () => {
+        const obter_ptax = async ()=>{
             try {
                 if (dia === "Segunda-feira") {
                     const dia_do_ptax = format(subDays(data, 2), "MM-dd-yyyy");
@@ -118,7 +120,7 @@ export function FormFixado({
                         setDataChecada(`O valor é referente a hoje, dia ${format(dia_do_ptax, "dd/MM")}.`);
                     }
                 }
-            } catch (error) {
+            } catch(error){
                 setPtax("0")
                 setDataChecada(
                     <Tooltip content={
@@ -142,7 +144,7 @@ export function FormFixado({
         }
     }, [moeda, dia, data, setPtax, setDataChecada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
     
-    
+    //função de cálculo de valor convertido
     useEffect(()=>{
         if(ptax){
             const fTotal = valor_total.replace(/\s/g, "").replace(/,/g, ".");
@@ -151,7 +153,24 @@ export function FormFixado({
         } else {
             setValorConvertido("");
         };
-    },[ptax, valor_total, setValorConvertido]);
+    },[ptax, valor_total, setValorConvertido]); //fim função de cálculo de valor convertido
+
+    //função de chamada da api do cep
+    useEffect(()=>{
+        const buscar_cep = async ()=>{
+            try {
+                if(cep){
+                    const fCep = cep.replace(/-/g, "");
+                    const api_url = `https://viacep.com.br/ws/${fCep}/json`;
+                    const solicitar = await fetch(api_url);
+                    const resposta = await solicitar.json();
+                    setRua(resposta.value[0].logradouro);
+                }
+            } catch(error){
+                console.log("Não deu certo.")
+            }
+        };
+    }, [cep]); //função de chamada da api do cep
 
     return (
         <>
@@ -547,9 +566,40 @@ export function FormFixado({
                                 value={cpf}
                                 onChange={(e)=>setCpf(e.target.value)}
                             />
-                            
+
                             <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
                                 <AccordionItem key="4.1" aria-label="Accordion 4.1" title="Endereço do cliente">
+                                    <div className="flex flex-wrap gap-4 mb-3">
+                                        <PatternFormat 
+                                            customInput={Input}
+                                            variant="faded"
+                                            label="CEP"
+                                            className="max-w-48"
+
+                                            displayType="input"
+                                            format="#####-###"
+                                            value={cep}
+                                            onChange={(e)=>setCep(e.target.value)}
+
+                                            endContent={
+                                                <button className="hover:bg-[#5959603b] p-2 rounded">
+                                                    <Search size={20} stroke="#595960" className="text-cyan-500"/>
+                                                </button>
+                                            }
+                                        />
+
+                                        <Input
+                                            variant="faded"
+                                            label="Rua"
+                                            className="max-w-96"
+
+                                            value={rua}
+                                            onChange={(e)=>setRua(e.target.value)}
+                                        />
+                                    </div>
+                                </AccordionItem>
+
+                                <AccordionItem key="4.2" aria-label="Accordion 4.2" title="Dados bancáros">
                                     <p>Teste</p>
                                 </AccordionItem>
                             </Accordion>
