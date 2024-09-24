@@ -6,6 +6,7 @@ import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "rea
 import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link } from "@nextui-org/react";
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign, Search } from 'lucide-react';
+import { Spinner } from "../../Spinner/Spinner";
 
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
@@ -85,6 +86,10 @@ export function FormFixado({
     const [cpf, setCpf] = useState("");
     const [cep, setCep] = useState("");
     const [rua, setRua] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [estado, setEstado] = useState("");
+    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="text-cyan-500"/>);
 
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
@@ -156,21 +161,26 @@ export function FormFixado({
     },[ptax, valor_total, setValorConvertido]); //fim função de cálculo de valor convertido
 
     //função de chamada da api do cep
-    useEffect(()=>{
-        const buscar_cep = async ()=>{
-            try {
-                if(cep){
-                    const fCep = cep.replace(/-/g, "");
+    const buscar_cep = async ()=>{
+        try {
+            if(cep){
+                setIcone(<Spinner/>);
+                setTimeout(async () => {
+                    const fCep = cep.replace(/-/g, '');
                     const api_url = `https://viacep.com.br/ws/${fCep}/json`;
                     const solicitar = await fetch(api_url);
                     const resposta = await solicitar.json();
-                    setRua(resposta.value[0].logradouro);
-                }
-            } catch(error){
-                console.log("Não deu certo.")
+                    setRua(resposta.logradouro);
+                    setBairro(resposta.bairro);
+                    setCidade(resposta.localidade);
+                    setEstado(resposta.estado);
+                    setIcone(<Search size={20} stroke="#595960" className="text-cyan-500"/>); // Volta ao ícone padrão
+                  }, 500);
             }
-        };
-    }, [cep]); //função de chamada da api do cep
+        } catch(error){
+            console.log("Não deu certo.")
+        }
+    }; //função de chamada da api do cep
 
     return (
         <>
@@ -582,8 +592,8 @@ export function FormFixado({
                                             onChange={(e)=>setCep(e.target.value)}
 
                                             endContent={
-                                                <button className="hover:bg-[#5959603b] p-2 rounded">
-                                                    <Search size={20} stroke="#595960" className="text-cyan-500"/>
+                                                <button className="hover:bg-[#5959603b] p-2 rounded" onClick={buscar_cep}>
+                                                    {icone_do_botao}
                                                 </button>
                                             }
                                         />
@@ -591,10 +601,37 @@ export function FormFixado({
                                         <Input
                                             variant="faded"
                                             label="Rua"
-                                            className="max-w-96"
+                                            className="max-w-60"
 
                                             value={rua}
                                             onChange={(e)=>setRua(e.target.value)}
+                                        />
+
+                                        <Input
+                                            variant="faded"
+                                            label="Bairro"
+                                            className="max-w-48"
+
+                                            value={bairro}
+                                            onChange={(e)=>setBairro(e.target.value)}
+                                        />
+
+                                        <Input
+                                            variant="faded"
+                                            label="Cidade"
+                                            className="max-w-48"
+
+                                            value={cidade}
+                                            onChange={(e)=>setCidade(e.target.value)}
+                                        />
+
+                                        <Input
+                                            variant="faded"
+                                            label="Estado"
+                                            className="max-w-44"
+
+                                            value={estado}
+                                            onChange={(e)=>setEstado(e.target.value)}
                                         />
                                     </div>
                                 </AccordionItem>
