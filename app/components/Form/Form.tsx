@@ -2,7 +2,7 @@
 
 // dependências:
 import { useState, useEffect } from "react";
-import { DateValue, today, getLocalTimeZone } from "@internationalized/date";
+import { DateValue } from "@internationalized/date";
 
 //componentes:
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";

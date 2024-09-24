@@ -1,5 +1,5 @@
 //dependências:
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 
 
 //componentes:
@@ -77,12 +77,12 @@ export function FormFixado({
     const dias_da_semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     const dia = dias_da_semana[hoje.getDay()];
 
+    const [data_checada, setData_checada] = useState("");
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-    const hora = new Time(new Date().getHours(), new Date().getMinutes());
-    const hora_de_atualizacao = new Time(13, 30);
+    const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
+    const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
 
     //função de chamada da api do ptax
-    const [data_checada, setData_checada] = useState("");
     useEffect(() => {
         const obter_ptax = async ()=>{
             if(dia==="Segunda-feira"){
