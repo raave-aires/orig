@@ -28,7 +28,6 @@ export function FormFixado({
     ptax, setPtax,
     valor_total, setValor_total,
     dataPagamento, setDataPagamento,
-    ontem,
 
     //props do acordeão 3: Dados de entrega
     filial, setFilial,
@@ -477,7 +476,6 @@ interface Props { //validação de tipos
     ptax: string; setPtax: (e: string) => void;
     valor_total: string; setValor_total: (e: string) => void;
     dataPagamento:DateValue | undefined; setDataPagamento: React.Dispatch<SetStateAction<DateValue | undefined>>;
-    ontem: string;
 
     //props do acordeão 3: Dados de entrega
     filial: string; setFilial: (e: string) => void;

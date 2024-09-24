@@ -45,8 +45,6 @@ export function Form() {
     const [filialTercF, setFilialTercF] = useState("");
 
     //cálculos de datas
-    const ontemDesc = format(subDays(hojeF, 0), "dd/MM"); // data a ser exibida na descrição
-    const ontem: string = format(subDays(hojeF, 0), "MM-dd-yyyy"); //data formatada pra ser usada na api do bacen
     const [dataEntregaF, setDataEntregaF] = useState<DateValue>();
 
     const [quilosF, setQuilosF] = useState("")
@@ -188,7 +186,6 @@ export function Form() {
                     setValor_total={setValor_total}
                     dataPagamento={dataPagamentoF}
                     setDataPagamento={setDataPagamentoF}
-                    ontem={ontemDesc}
 
                     //props do acordeão 3: Dados de entrega
                     filial={filialF}
