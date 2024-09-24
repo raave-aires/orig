@@ -5,7 +5,7 @@ import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "rea
 //componentes:
 import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
-import { CircleHelp, Info  } from 'lucide-react';
+import { CircleHelp, Info, RefreshCwOff } from 'lucide-react';
 
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
@@ -61,7 +61,7 @@ export function FormFixado({
         className: "max-w-56",
     };
     const input_props_ptax = {
-        label: "Ptax",
+        label: "PTAX",
         className: "max-w-56",
     };
     const input_props_total = {
@@ -80,7 +80,7 @@ export function FormFixado({
     const dias_da_semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     const dia = dias_da_semana[hoje.getDay()];
 
-    const [data_checada, setData_checada] = useState("");
+    const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
     const [valorConvertido, setValorConvertido] = useState("");
 
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
@@ -97,7 +97,7 @@ export function FormFixado({
                     const solicitar = await fetch(api_url);
                     const resposta = await solicitar.json();
                     setPtax(resposta.value[0].cotacaoVenda);
-                    setData_checada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax, "dd/MM")}`);
+                    setDataChecada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax, "dd/MM")}.`);
                 } else {
                     if (hora.compare(hora_de_atualizacao) <= 0) {
                         console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
@@ -106,7 +106,7 @@ export function FormFixado({
                         const solicitar = await fetch(api_url);
                         const resposta = await solicitar.json();
                         setPtax(resposta.value[0].cotacaoVenda);
-                        setData_checada(`O valor é referente a ontem, dia ${format(dia_do_ptax, "dd/MM")}`);
+                        setDataChecada(`O valor é referente a ontem, dia ${format(dia_do_ptax, "dd/MM")}.`)
                     } else {
                         console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
                         const dia_do_ptax = format(data, "MM-dd-yyyy");
@@ -114,10 +114,19 @@ export function FormFixado({
                         const solicitar = await fetch(api_url);
                         const resposta = await solicitar.json();
                         setPtax(resposta.value[0].cotacaoVenda);
-                        setData_checada(`O valor é referente a hoje, dia ${format(dia_do_ptax, "dd/MM")}`);
+                        setDataChecada(`O valor é referente a hoje, dia ${format(dia_do_ptax, "dd/MM")}.`);
                     }
                 }
             } catch (error) {
+                setDataChecada(
+                    <Tooltip content={
+                        <div className="p-2 max-w-48">
+                            <p className="hyphens-auto">O sistema do <abbr title="Banco Central do Brasil">BACEN</abbr> pode está temporariamente indisponível ou enfrentando lentidões. Recomendamos que tente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">verificar manualmente</a> o PTAX.</p>
+                        </div>
+                    } className="cursor-help">
+                        <p className="cursor-help">O BACEN não respondeu.</p>
+                    </Tooltip>
+                )
                 console.error("Erro ao obter a cotação PTAX:", error);
             }
         };
@@ -127,7 +136,7 @@ export function FormFixado({
         } else {
             setPtax("");
         }
-    }, [moeda, dia, data, setPtax, setData_checada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
+    }, [moeda, dia, data, setPtax, setDataChecada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
     
     
     useEffect(()=>{
@@ -227,8 +236,10 @@ export function FormFixado({
                                 variant="faded"
                                 endContent={
                                     <Tooltip content={
-                                        <div className="p-2 max-w-44">
-                                            <div className="text-small">O valor deste campo deve ser preenchido usando o peso em toneladas (t). Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</div>
+                                        <div className="p-2 max-w-48">
+                                            <div className="text-small">
+                                                <p className="hyphens-auto">O valor deste campo deve ser preenchido usando o peso em toneladas (t). Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</p>
+                                            </div>
                                         </div>
                                     } className="cursor-help">
                                         <p className="text-[#595960] cursor-help pl-2">t</p>
@@ -364,15 +375,17 @@ export function FormFixado({
                                             }
                                             endContent={
                                                 <Tooltip content={
-                                                    <div className="p-2 max-w-44">
-                                                        <div className="text-small">O Ptax é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente. Mas caso precise, verifique manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</div>
+                                                    <div className="p-2 max-w-48">
+                                                        <div className="text-small">
+                                                            <p className="hyphens-auto">Normalmente, o PTAX é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente disponibilizado pelo <abbr title="Banco Central do Brasil">BACEN</abbr>. Mas caso precise, verifique-o manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</p>
+                                                        </div>
                                                     </div>
                                                 } className="cursor-help">
                                                     <CircleHelp stroke="#595960" size={20} className="cursor-help"/>
                                                 </Tooltip>
                                             }
                                             
-                                            description={`${data_checada}`}
+                                            description={data_checada}
                                             valueIsNumericString={true}
                                             thousandSeparator=" "
                                             decimalScale={4}
