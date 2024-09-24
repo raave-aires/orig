@@ -86,45 +86,49 @@ export function FormFixado({
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
     const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
-
+    
     //função de chamada da api do ptax
     useEffect(() => {
-        const obter_ptax = async ()=>{
-            if(dia==="Segunda-feira"){
-                const dia_do_ptax: string = format(subDays(data, 2), "MM-dd-yyyy");
-                const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
-                const solicitar = await fetch(api_url);
-                const resposta = await solicitar.json();
-                setPtax(resposta.value[0].cotacaoVenda);
-                setData_checada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax,"dd/MM")}`)
-            } else {
-                if(hora.compare(hora_de_atualizacao) <= 0 ){
-                    console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
-                    const dia_do_ptax: string = format(subDays(data, 0), "MM-dd-yyyy");
+        const obter_ptax = async () => {
+            try {
+                if (dia === "Segunda-feira") {
+                    const dia_do_ptax = format(subDays(data, 2), "MM-dd-yyyy");
                     const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
                     const solicitar = await fetch(api_url);
                     const resposta = await solicitar.json();
                     setPtax(resposta.value[0].cotacaoVenda);
-                    setData_checada(`O valor é referente a ontem, dia ${format(dia_do_ptax,"dd/MM")}`)
-                    
+                    setData_checada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax, "dd/MM")}`);
                 } else {
-                    console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
-                    const dia_do_ptax: string = format(data, "MM-dd-yyyy");
-                    const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
-                    const solicitar = await fetch(api_url);
-                    const resposta = await solicitar.json();
-                    setPtax(resposta.value[0].cotacaoVenda);
-                    setData_checada(`O valor é referente a hoje, dia ${format(dia_do_ptax,"dd/MM")}`)
-                };
-            };
+                    if (hora.compare(hora_de_atualizacao) <= 0) {
+                        console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
+                        const dia_do_ptax = format(subDays(data, 0), "MM-dd-yyyy");
+                        const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                        const solicitar = await fetch(api_url);
+                        const resposta = await solicitar.json();
+                        setPtax(resposta.value[0].cotacaoVenda);
+                        setData_checada(`O valor é referente a ontem, dia ${format(dia_do_ptax, "dd/MM")}`);
+                    } else {
+                        console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
+                        const dia_do_ptax = format(data, "MM-dd-yyyy");
+                        const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                        const solicitar = await fetch(api_url);
+                        const resposta = await solicitar.json();
+                        setPtax(resposta.value[0].cotacaoVenda);
+                        setData_checada(`O valor é referente a hoje, dia ${format(dia_do_ptax, "dd/MM")}`);
+                    }
+                }
+            } catch (error) {
+                console.error("Erro ao obter a cotação PTAX:", error);
+            }
         };
-
+    
         if (moeda === "Dólar americano") {
             obter_ptax();
         } else {
             setPtax("");
         }
-    }, [moeda, dia, data, setPtax, setData_checada, hora, hora_de_atualizacao]); //fim da função de chamada da api do ptax
+    }, [moeda, dia, data, setPtax, setData_checada]); // fim da função de chamada da api do ptax
+    
     
     useEffect(()=>{
         if(ptax){
