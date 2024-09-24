@@ -60,6 +60,11 @@ Além destas tecnologias como base, são atualmente usadas também:
 - O componente [React number format](https://s-yadav.github.io/react-number-format/docs/intro/), como elemento input com formatação automática de números;
 - A biblioteca de ícones [Lucide Icons](https://lucide.dev/icons/);
 - A família de fontes [Inter](https://rsms.me/inter) como tipografia.
+- A biblioteca [Internationalized](https://react-spectrum.adobe.com/internationalized/date/index.html) para lidar com datas e as formatações destas.
+- A biblioteca [date-fns](https://date-fns.org) para lidar com cálculos de datas.
+
+APIs usadas:
+- 
 
 Implementações futuras:
 - [Formik](https://formik.org) como biblioteca de validação de formulários feitos em React.
