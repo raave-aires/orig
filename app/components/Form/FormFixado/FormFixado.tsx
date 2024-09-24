@@ -119,7 +119,7 @@ export function FormFixado({
         } else {
             setPtax("");
         }
-    }, [moeda, dia, data, setPtax, setData_checada]); //fim da função de chamada da api do ptax
+    }, [moeda, dia, data, setPtax, setData_checada, hora, hora_de_atualizacao]); //fim da função de chamada da api do ptax
     
     return (
         <>
