@@ -5,7 +5,7 @@ import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "rea
 //componentes:
 import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
-import { CircleHelp, Info, RefreshCwOff } from 'lucide-react';
+import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign } from 'lucide-react';
 
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
@@ -118,10 +118,13 @@ export function FormFixado({
                     }
                 }
             } catch (error) {
+                setPtax("0")
                 setDataChecada(
                     <Tooltip content={
-                        <div className="p-2 max-w-48">
-                            <p className="hyphens-auto">O sistema do <abbr title="Banco Central do Brasil">BACEN</abbr> pode está temporariamente indisponível ou enfrentando lentidões. Recomendamos que tente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">verificar manualmente</a> o PTAX.</p>
+                        <div className="p-2 max-w-48 flex flex-col gap-2">
+                            <RefreshCwOff />
+                            <p className="hyphens-auto">O sistema do <abbr title="Banco Central do Brasil">BACEN</abbr> pode está temporariamente indisponível ou enfrentando lentidões.</p> 
+                            <p>Recomendamos que tente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">verificar manualmente</a> o PTAX.</p>
                         </div>
                     } className="cursor-help">
                         <p className="cursor-help">O BACEN não respondeu.</p>
@@ -237,8 +240,10 @@ export function FormFixado({
                                 endContent={
                                     <Tooltip content={
                                         <div className="p-2 max-w-48">
-                                            <div className="text-small">
-                                                <p className="hyphens-auto">O valor deste campo deve ser preenchido usando o peso em toneladas (t). Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</p>
+                                            <div className="text-small flex flex-col gap-2">
+                                                <Weight />
+                                                <p className="hyphens-auto">O valor deste campo deve ser preenchido usando o peso em toneladas (t).</p> 
+                                                <p>Se precisar de um conversor de unidades, <Link onPress={onOpen} className="text-small text-cyan-500 hover:underline hover:underline-offset-2">clique aqui</Link>.</p>
                                             </div>
                                         </div>
                                     } className="cursor-help">
@@ -376,8 +381,10 @@ export function FormFixado({
                                             endContent={
                                                 <Tooltip content={
                                                     <div className="p-2 max-w-48">
-                                                        <div className="text-small">
-                                                            <p className="hyphens-auto">Normalmente, o PTAX é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente disponibilizado pelo <abbr title="Banco Central do Brasil">BACEN</abbr>. Mas caso precise, verifique-o manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</p>
+                                                        <div className="text-small flex flex-col gap-2">
+                                                            <CircleDollarSign />
+                                                            <p className="hyphens-auto">Normalmente, o PTAX é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente disponibilizado pelo <abbr title="Banco Central do Brasil">BACEN</abbr>.</p> 
+                                                            <p>Mas caso precise, verifique-o manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</p>
                                                         </div>
                                                     </div>
                                                 } className="cursor-help">
