@@ -10,6 +10,7 @@ import { CircleHelp, Info  } from 'lucide-react';
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
 import { format, subDays } from "date-fns";
+import { parse } from "path";
 
 export function FormFixado({
     //props do acordeão 1: Dados básicos do contrato
@@ -69,6 +70,9 @@ export function FormFixado({
         className: "w-56",
         isDisabled: true,
     }; 
+    const input_props = {
+        className: "max-w-64",
+    }
     //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -78,6 +82,8 @@ export function FormFixado({
     const dia = dias_da_semana[hoje.getDay()];
 
     const [data_checada, setData_checada] = useState("");
+    const [valorConvertido, setValorConvertido] = useState("");
+
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
     const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
@@ -121,6 +127,16 @@ export function FormFixado({
         }
     }, [moeda, dia, data, setPtax, setData_checada, hora, hora_de_atualizacao]); //fim da função de chamada da api do ptax
     
+    useEffect(()=>{
+        if(ptax){
+            const fTotal = valor_total.replace(/\s/g, "").replace(/,/g, ".");
+            const resConvertido = (parseFloat(fTotal)*parseFloat(ptax));
+            setValorConvertido(resConvertido.toFixed(2));
+        } else {
+            setValorConvertido("");
+        };
+    });
+
     return (
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
@@ -295,22 +311,6 @@ export function FormFixado({
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
 
-                            <NumericFormat
-                                customInput={Input}
-                                {...input_props_total}
-                                variant="faded"
-                                startContent={
-                                    <div className="pointer-events-none flex items-center">
-                                        <span className="text-default-400 text-small">R$</span>
-                                    </div>
-                                }
-                                valueIsNumericString={true}
-                                thousandSeparator=" "
-                                decimalScale={4}
-                                value={valor_total}
-                                onChange={(e) => setValor_total(e.target.value)}
-                            />
-
                             {moeda === "" ? null : moeda === "Dólar americano" ? (
                                 <>
                                     <NumericFormat
@@ -319,14 +319,34 @@ export function FormFixado({
                                         variant="faded"
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
-                                                <span className="text-default-400 text-small">$</span>
+                                                <span className="text-default-400 text-small">US$</span>
                                             </div>
                                         }
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
+                                        decimalSeparator=","
+                                        allowedDecimalSeparators={[',','.',',']}
                                         decimalScale={4}
                                         value={dolar}
                                         onChange={(e) => setDolar(e.target.value)}
+                                    />
+
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_total}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                                <span className="text-default-400 text-small">US$</span>
+                                            </div>
+                                        }
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalSeparator=","
+                                        allowedDecimalSeparators={[',','.',',']}
+                                        decimalScale={2}
+                                        value={valor_total}
+                                        onChange={(e) => setValor_total(e.target.value)}
                                     />
 
                                     <div className="flex flex-row gap-3">
@@ -358,8 +378,26 @@ export function FormFixado({
                                         />   
                                     </div>
                                     
+                                    <NumericFormat
+                                        customInput={Input}
+                                        label="Valor convertido"
+                                        {...input_props}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                                <span className="text-default-400 text-small">R$</span>
+                                            </div>
+                                        }
+                                        isDisabled
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
+                                        value={valorConvertido}
+                                        onChange={(e) => setValorConvertido(e.target.value)}
+                                    />
                                 </>
                                 ) : moeda === "Real brasileiro" ? (
+                                <>
                                     <NumericFormat
                                         customInput={Input}
                                         {...input_props_preco}
@@ -375,6 +413,23 @@ export function FormFixado({
                                         value={real}
                                         onChange={(e) => setReal(e.target.value)}
                                     />
+
+                                    <NumericFormat
+                                        customInput={Input}
+                                        {...input_props_total}
+                                        variant="faded"
+                                        startContent={
+                                            <div className="pointer-events-none flex items-center">
+                                                <span className="text-default-400 text-small">R$</span>
+                                            </div>
+                                        }
+                                        valueIsNumericString={true}
+                                        thousandSeparator=" "
+                                        decimalScale={4}
+                                        value={valor_total}
+                                        onChange={(e) => setValor_total(e.target.value)}
+                                    />
+                                </>                                    
                                 ) : null
                             }
 

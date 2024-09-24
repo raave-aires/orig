@@ -32,7 +32,7 @@ export default function RootLayout({
                     />
 
                     <HeaderItem 
-                        item_link="https://github.com/raave-aires/orig/blob/main/README.md"
+                        item_link="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                         target="_blank"
                         item_text="Sobre"
                     />

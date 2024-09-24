@@ -91,12 +91,12 @@ export function Form() {
         const handleKeyUP = () => {
             if (sacasF && dolarF) {
                 const fSacas = sacasF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-                const fDolar = parseFloat(dolarF);
+                const fDolar = parseFloat(dolarF.replace(/,/g, "."));
                 const rTotal = Number(fSacas) * fDolar;
                 setValor_total(rTotal.toString());
             } else if (sacasF && realF) {
                 const fSacas = sacasF.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
-                const fReal = parseFloat(realF);
+                const fReal = parseFloat(realF.replace(/,/g, "."));
                 const rTotal = Number(fSacas) * fReal;
                 setValor_total(rTotal.toString());
             } else {
