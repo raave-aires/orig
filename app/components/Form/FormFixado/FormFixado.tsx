@@ -272,7 +272,7 @@ export function FormFixado({
 
                                             <ModalFooter>
                                                 <Button color="danger" variant="light" onPress={onClose}>Dispensar</Button>
-                                                <Button color="success" variant="shadow" onPress={(e)=> {onClose(); setVolume(tonelada);focar_volume()}}>Pronto</Button>
+                                                <Button color="success" variant="shadow" onPress={()=> {onClose(); setVolume(tonelada);focar_volume()}}>Pronto</Button>
                                             </ModalFooter>
                                         </>
                                     )}
