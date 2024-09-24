@@ -10,7 +10,6 @@ import { CircleHelp, Info  } from 'lucide-react';
 //bibliotecas
 import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
 import { format, subDays } from "date-fns";
-import { parse } from "path";
 
 export function FormFixado({
     //props do acordeão 1: Dados básicos do contrato
@@ -135,7 +134,7 @@ export function FormFixado({
         } else {
             setValorConvertido("");
         };
-    });
+    },[ptax, valor_total, setValorConvertido]);
 
     return (
         <>
