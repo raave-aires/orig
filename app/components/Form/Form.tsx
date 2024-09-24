@@ -9,6 +9,7 @@ import { format, subDays } from "date-fns";
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 import { FormFixado } from "./FormFixado/FormFixado";
+import { FormMisto } from "./FormMisto/FormMisto";
 
 export function Form() {
     //hook do tipo de contraato
@@ -114,22 +115,6 @@ export function Form() {
         };
     }, [sacasF, dolarF, realF]); //fim da função para calcular o valor total
 
-    //função de chamada da api do ptax
-    useEffect(() => {
-        const obter_ptax = async (dia: string) => {
-            const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia}'&$top=100&$format=json`;
-            const solicitar = await fetch(api_url);
-            const resposta = await solicitar.json();
-            setPtaxF(resposta.value[0].cotacaoVenda);
-        };
-
-        if (moedaF === "Dólar americano") {
-            obter_ptax(ontem);
-        } else {
-            setPtaxF("");
-        }
-    }, [moedaF, ontem, setPtaxF]); //fim da função de chamada da api do ptax
-
     //função para calcular toneladas
     useEffect(()=> {
         const handleKeyUP = ()=>{
@@ -218,7 +203,9 @@ export function Form() {
                     tonelada={toneladaF}
                     setTonelada={setToneladaF}
                 />
-            ) : null}
+            ) : tipoSelecionado === "Misto" ? (
+                <FormMisto />
+            ) : null }
         </>
     );
 }

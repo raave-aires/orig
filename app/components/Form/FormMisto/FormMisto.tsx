@@ -25,6 +25,7 @@ export function FormMisto() {
     const [moeda, setMoeda] = useState("");
     const [data_checada, setData_checada] = useState("");
 
+    //função de chamada da api do ptax
     useEffect(() => {
         const obter_ptax = async ()=>{
             if(dia==="Segunda-feira"){

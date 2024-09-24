@@ -1,11 +1,15 @@
 //dependências:
-import React, { SetStateAction, useRef } from "react";
-import { DateValue } from "@internationalized/date";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
+
 
 //componentes:
 import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
 import { NumericFormat } from 'react-number-format';
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, Info  } from 'lucide-react';
+
+//bibliotecas
+import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
+import { format, subDays } from "date-fns";
 
 export function FormFixado({
     //props do acordeão 1: Dados básicos do contrato
@@ -66,17 +70,57 @@ export function FormFixado({
         className: "w-56",
         isDisabled: true,
     }; 
-    const input_props_quilos = {
-        label: "Volume em quilos (kg)",
-        // className: "max-w-64",
-    };
-    const input_props_tonelada = {
-        label: "Volume em toneladas (t)",
-        // className: "max-w-64",
-    };
     //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+    const hoje = new Date()
+    const dias_da_semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const dia = dias_da_semana[hoje.getDay()];
+
+    const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
+    const hora = new Time(new Date().getHours(), new Date().getMinutes());
+    const hora_de_atualizacao = new Time(13, 30);
+
+    //função de chamada da api do ptax
+    const [data_checada, setData_checada] = useState("");
+    useEffect(() => {
+        const obter_ptax = async ()=>{
+            if(dia==="Segunda-feira"){
+                const dia_do_ptax: string = format(subDays(data, 2), "MM-dd-yyyy");
+                const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                const solicitar = await fetch(api_url);
+                const resposta = await solicitar.json();
+                setPtax(resposta.value[0].cotacaoVenda);
+                setData_checada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax,"dd/MM")}`)
+            } else {
+                if(hora.compare(hora_de_atualizacao) <= 0 ){
+                    console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
+                    const dia_do_ptax: string = format(subDays(data, 0), "MM-dd-yyyy");
+                    const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                    const solicitar = await fetch(api_url);
+                    const resposta = await solicitar.json();
+                    setPtax(resposta.value[0].cotacaoVenda);
+                    setData_checada(`O valor é referente a ontem, dia ${format(dia_do_ptax,"dd/MM")}`)
+                    
+                } else {
+                    console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
+                    const dia_do_ptax: string = format(data, "MM-dd-yyyy");
+                    const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                    const solicitar = await fetch(api_url);
+                    const resposta = await solicitar.json();
+                    setPtax(resposta.value[0].cotacaoVenda);
+                    setData_checada(`O valor é referente a hoje, dia ${format(dia_do_ptax,"dd/MM")}`)
+                };
+            };
+        };
+
+        if (moeda === "Dólar americano") {
+            obter_ptax();
+        } else {
+            setPtax("");
+        }
+    }, [moeda, dia, data, setPtax, setData_checada]); //fim da função de chamada da api do ptax
     
     return (
         <>
@@ -207,10 +251,10 @@ export function FormFixado({
                                                         }
                                                     }}
                                                 />
-                                                <p>O valor digitado será automaticamente atribuído ao volume.</p>
+                                                
                                                 <NumericFormat
+                                                    label="Volume em toneladas (t)"
                                                     customInput={Input}
-                                                    {...input_props_tonelada}
                                                     variant="faded"
                                                     isDisabled
 
@@ -221,6 +265,10 @@ export function FormFixado({
                                                     value={tonelada}
                                                     onChange={(e) => setTonelada(e.target.value)}
                                                 />
+
+                                                <div className="flex gap-2">
+                                                    <Info size={20}/><p className="text-small">O valor digitado será automaticamente atribuído ao volume.</p>
+                                                </div>
                                             </ModalBody>
 
                                             <ModalFooter>
@@ -302,7 +350,7 @@ export function FormFixado({
                                                 </Tooltip>
                                             }
                                             
-                                            description={`O valor é referente a ontem, ${ontem}`}
+                                            description={`${data_checada}`}
                                             valueIsNumericString={true}
                                             thousandSeparator=" "
                                             decimalScale={4}
@@ -414,7 +462,7 @@ export function FormFixado({
 
 interface Props { //validação de tipos
     //props do acordeão 1: Dados básicos do contrato
-    dataContrato:DateValue | undefined; setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
+    dataContrato: DateValue | undefined; setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
     transacao: string; setTransacao: (e: string) => void;
     produto: string; setProduto: (e: string) => void;
     safra: string; setSafra: (e: string) => void;
