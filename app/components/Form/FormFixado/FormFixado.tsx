@@ -4,7 +4,7 @@ import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "rea
 
 //componentes:
 import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link} from "@nextui-org/react";
-import { NumericFormat } from 'react-number-format';
+import { NumericFormat, PatternFormat } from 'react-number-format';
 import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign } from 'lucide-react';
 
 //bibliotecas
@@ -82,6 +82,7 @@ export function FormFixado({
 
     const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
     const [valorConvertido, setValorConvertido] = useState("");
+    const [cpf, setCpf] = useState("");
 
     const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
@@ -528,7 +529,31 @@ export function FormFixado({
                     {/*fim do acordeão 3.*/}
 
                     <AccordionItem key="4" aria-label="Accordion 4" title="Dados do cliente">
+                        <div className="flex flex-wrap gap-4 mb-3">
+                            <Input 
+                                variant="faded"
+                                className="max-w-96 min-w-60"
+                                label="Nome do parceiro"
+                            />
 
+                            <PatternFormat 
+                                customInput={Input}
+                                variant="faded"
+                                label="C.P.F."
+                                className="max-w-48"
+
+                                displayType="input"
+                                format="###.###.###-##"
+                                value={cpf}
+                                onChange={(e)=>setCpf(e.target.value)}
+                            />
+                            
+                            <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
+                                <AccordionItem key="4.1" aria-label="Accordion 4.1" title="Endereço do cliente">
+                                    <p>Teste</p>
+                                </AccordionItem>
+                            </Accordion>
+                        </div>
                     </AccordionItem>
                     {/*fim do acordeão 4.*/}          
                 </Accordion>
