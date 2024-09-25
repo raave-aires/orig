@@ -14,6 +14,9 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: "Ōrig",
   description: "Cadastro de originação",
+  icons: {
+    icon: "./sprout.svg", // /public path
+  },
 };
 
 export default function RootLayout({
