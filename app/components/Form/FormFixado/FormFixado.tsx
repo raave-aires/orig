@@ -1,5 +1,5 @@
 //dependências:
-import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 //componentes:
 import { Spinner } from "../../Spinner/Spinner";
