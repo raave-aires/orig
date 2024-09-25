@@ -8,7 +8,7 @@ import { Spinner } from "../../Spinner/Spinner";
 import { Accordion, AccordionItem, Button, DatePicker, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, Select, SelectItem, Tooltip, useDisclosure } from "@nextui-org/react";
 
 //bibliotecas de ícones:
-import { CircleDollarSign, CircleHelp, Info, RefreshCwOff, Search, Weight } from 'lucide-react';
+import { CircleDollarSign, CircleHelp, Info, MapPin, RefreshCwOff, RotateCw , Search, Weight } from 'lucide-react';
 
 //bibliotecas:
 import { format, subDays } from "date-fns";
@@ -44,6 +44,7 @@ export function FormFixado(){
     const [dolar, setDolar] = useState("");
     const [dataChecada, setDataChecada] = useState<string | JSX.Element>(""); //campo de descrição do ptax
     const [ptax, setPtax] = useState("");
+    const [iconePtax, setIconePtax] = useState<React.ReactNode>(<RotateCw size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>)
     const [valorConvertido, setValorConvertido] = useState("");
     const [real, setReal] = useState("");
     const [valorTotal, setValorTotal] = useState("");
@@ -64,8 +65,9 @@ export function FormFixado(){
     const [nCnpj, setCnpj] = useState("");
     
     const [cep, setCep] = useState("");
-    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>);
+    const [iconeCep, setIconeCep] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>);
     const [rua, setRua] = useState("");
+    const [numero, setNumero] = useState("");
     const [bairro, setBairro] = useState("");
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
@@ -253,7 +255,7 @@ export function FormFixado(){
     const buscar_cep = async ()=>{
         try {
             if(cep){
-                setIcone(<Spinner/>);
+                setIconeCep(<Spinner/>);
                 setTimeout(async () => {
                     const fCep = cep.replace(/-/g, '');
                     const api_url = `https://viacep.com.br/ws/${fCep}/json`;
@@ -263,13 +265,65 @@ export function FormFixado(){
                     setBairro(resposta.bairro);
                     setCidade(resposta.localidade);
                     setEstado(resposta.estado);
-                    setIcone(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>); // Volta ao ícone padrão
+                    setIconeCep(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>); // Volta ao ícone padrão
                   }, 1000);
             }
         } catch(error){
             console.log("Não deu certo.")
         }
     }; //função de chamada da api do cep
+
+    const obter_ptax = async ()=>{
+        setIconePtax(<Spinner/>);
+        setTimeout(async () => {
+            try {
+                if (dia_da_semana === "segunda-feira") {
+                    const dia_do_ptax = format(subDays(hoje, 3), "MM-dd-yyyy");
+                    console.log(dia_do_ptax);
+                    const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                    const solicitar = await fetch(api_url);
+                    const resposta = await solicitar.json();
+                    setPtax(resposta.value[0].cotacaoVenda);
+                    setDataChecada(`O valor é referente à sexta-feira, dia ${format(dia_do_ptax, "dd/MM")}.`);
+                } else {
+                    if (hora.compare(hora_de_atualizacao) <= 0) {
+                        console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
+                        const dia_do_ptax = format(subDays(hoje, 1), "MM-dd-yyyy");
+                        console.log(dia_do_ptax);
+                        const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                        const solicitar = await fetch(api_url);
+                        const resposta = await solicitar.json();
+                        setPtax(resposta.value[0].cotacaoVenda);
+                        setDataChecada(`O valor é referente a ontem, dia ${format(dia_do_ptax, "dd/MM")}.`)
+                    } else {
+                        console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
+                        const dia_do_ptax = format(hoje, "MM-dd-yyyy");
+                        console.log(dia_do_ptax);
+                        const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
+                        const solicitar = await fetch(api_url);
+                        const resposta = await solicitar.json();
+                        setPtax(resposta.value[0].cotacaoVenda);
+                        setDataChecada(`O valor é referente a hoje, dia ${format(dia_do_ptax, "dd/MM")}.`);
+                    }
+                }
+            } catch(error){
+                setPtax("0")
+                setDataChecada(
+                    <Tooltip content={
+                        <div className="p-2 max-w-48 flex flex-col gap-2">
+                            <RefreshCwOff />
+                            <p className="hyphens-auto">O sistema do <abbr title="Banco Central do Brasil">BACEN</abbr> pode está temporariamente indisponível ou enfrentando lentidões.</p> 
+                            <p>Recomendamos que tente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">verificar manualmente</a> o PTAX.</p>
+                        </div>
+                    } className="cursor-help">
+                        <p className="cursor-help">O BACEN não respondeu.</p>
+                    </Tooltip>
+                )
+                console.error("Erro ao obter a cotação PTAX:", error);
+            }
+            setIconePtax(<RotateCw size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>)
+        }, 1000);
+    };
 
     return (
         <>
@@ -374,7 +428,7 @@ export function FormFixado(){
                                             </div>
                                         </div>
                                     } className="cursor-help">
-                                        <p className="text-[#595960] cursor-help pl-2">t</p>
+                                        <p className="text-[#595960] hover:text-[#006fee] cursor-help pl-2">t</p>
                                     </Tooltip>
                                 }
 
@@ -525,17 +579,25 @@ export function FormFixado(){
                                                 </div>
                                             }
                                             endContent={
-                                                <Tooltip content={
-                                                    <div className="p-2 max-w-48">
-                                                        <div className="text-small flex flex-col gap-2">
-                                                            <CircleDollarSign />
-                                                            <p className="hyphens-auto">Normalmente, o PTAX é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente disponibilizado pelo <abbr title="Banco Central do Brasil">BACEN</abbr>.</p> 
-                                                            <p>Mas caso precise, verifique-o manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</p>
+                                                <div className="flex gap-2 p-2 pr-0">
+                                                    <Tooltip content={<p className="p-2">Atualizar PTAX</p>}>
+                                                        <button onClick={obter_ptax}>
+                                                            {iconePtax}
+                                                        </button>
+                                                    </Tooltip>
+
+                                                    <Tooltip content={
+                                                        <div className="p-2 max-w-48">
+                                                            <div className="text-small flex flex-col gap-2">
+                                                                <CircleDollarSign />
+                                                                <p className="hyphens-auto">Normalmente, o PTAX é <a href="https://github.com/raave-aires/orig/wiki/Como-funciona-a-atualiza%C3%A7%C3%A3o-autom%C3%A1tica-da-taxa-de-c%C3%A2mbio-no-Orig%C3%AB%3F" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">preenchido automaticamente</a> com a cotação mais recente disponibilizado pelo <abbr title="Banco Central do Brasil">BACEN</abbr>.</p> 
+                                                                <p>Mas caso precise, verifique-o manualmente <a href="https://www.bcb.gov.br/estabilidadefinanceira/fechamentodolar" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">clicando aqui</a>.</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                } className="cursor-help">
-                                                    <CircleHelp stroke="#595960" size={20} className="cursor-help"/>
-                                                </Tooltip>
+                                                    } className="cursor-help">
+                                                        <CircleHelp size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>
+                                                    </Tooltip>
+                                                </div>
                                             }
                                             
                                             valueIsNumericString={true}
@@ -715,7 +777,7 @@ export function FormFixado(){
                                     <Input
                                         variant="faded"
                                         label="C.P.F."
-                                        className="max-w-48"
+                                        className="max-w-52"
 
                                         value={nCpf}
                                         onChange={(e)=>setCpf(e.target.value)}
@@ -747,16 +809,24 @@ export function FormFixado(){
                                             onChange={(e)=>setCep(e.target.value)}
 
                                             endContent={
-                                                <button className="p-2 rounded" onClick={buscar_cep}>
-                                                    {icone_do_botao}
-                                                </button>
+                                                <Tooltip content={
+                                                    <div className="p-2 max-w-48 flex flex-col gap-2">
+                                                        <MapPin />
+                                                        <p>Buscar dados do CEP.</p> 
+                                                        <p>Caso precise, verifique manualmente <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" className="text-cyan-500 hover:underline hover:underline-offset-2">aqui</a>.</p>
+                                                    </div>
+                                                }>
+                                                        <button className="p-2 pr-0" onClick={buscar_cep}>
+                                                        {iconeCep}
+                                                    </button>
+                                                </Tooltip>
                                             }
                                         />
 
                                         <Input
                                             variant="faded"
                                             label="Rua"
-                                            className="max-w-60"
+                                            className="max-w-72"
 
                                             value={rua}
                                             onChange={(e)=>setRua(e.target.value)}
@@ -764,8 +834,17 @@ export function FormFixado(){
 
                                         <Input
                                             variant="faded"
+                                            label="Nº"
+                                            className="max-w-32"
+
+                                            value={numero}
+                                            onChange={(e)=>setNumero(e.target.value)}
+                                        />
+
+                                        <Input
+                                            variant="faded"
                                             label="Bairro"
-                                            className="max-w-48"
+                                            className="max-w-64"
 
                                             value={bairro}
                                             onChange={(e)=>setBairro(e.target.value)}
@@ -774,7 +853,7 @@ export function FormFixado(){
                                         <Input
                                             variant="faded"
                                             label="Cidade"
-                                            className="max-w-48"
+                                            className="max-w-64"
 
                                             value={cidade}
                                             onChange={(e)=>setCidade(e.target.value)}
@@ -783,7 +862,7 @@ export function FormFixado(){
                                         <Input
                                             variant="faded"
                                             label="Estado"
-                                            className="max-w-44"
+                                            className="max-w-64"
 
                                             value={estado}
                                             onChange={(e)=>setEstado(e.target.value)}
