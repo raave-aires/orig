@@ -11,6 +11,7 @@ import { Spinner } from "../../Spinner/Spinner";
 //bibliotecas
 import { DateValue, Time } from "@internationalized/date";
 import { format, subDays } from "date-fns";
+import { cpf, cnpj  } from 'cpf-cnpj-validator'; 
 
 export function FormFixado({
     //props do acordeão 1: Dados básicos do contrato
@@ -84,13 +85,15 @@ export function FormFixado({
 
     const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
     const [valorConvertido, setValorConvertido] = useState("");
-    const [cpf, setCpf] = useState("");
+    const [nCpf, setCpf] = useState("");
+    const [nCnpj, setCnpj] = useState("");
     const [cep, setCep] = useState("");
     const [rua, setRua] = useState("");
     const [bairro, setBairro] = useState("");
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
     const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-cyan-500"/>);
+    const [tipoDePessoa,setTipoDePessoa] = useState("");
 
     
 
@@ -161,6 +164,50 @@ export function FormFixado({
             setValorConvertido("");
         };
     },[ptax, valor_total, setValorConvertido]); //fim função de cálculo de valor convertido
+
+    useEffect(()=>{
+        const validar_documento = ()=>{
+            if(nCpf.length>=11){
+                const fCpf = nCpf.replace(/[.-]/g, '');
+                if(cpf.isValid(fCpf)){
+                    setCpf(cpf.format(fCpf))
+                } else {
+                    alert('CPF inválido.');
+                    setCpf("");
+                }
+            } else if (nCpf.length > 14) {
+                setCpf(nCpf.slice(0, 14));
+            }
+        };
+
+        window.addEventListener("keyup", validar_documento);
+
+        return () => {
+            window.removeEventListener("keyup", validar_documento);
+        };
+    }, [nCpf, setCpf])
+
+    useEffect(()=>{
+        const validar_documento = ()=>{
+            if(nCnpj.length>=11){
+                const fCnpj = nCnpj.replace(/[.-/]/g, '');
+                if(cnpj .isValid(fCnpj)){
+                    setCpf(cnpj .format(fCnpj))
+                } else {
+                    alert('CNPJ inválido.');
+                    setCpf("");
+                }
+            } else if (nCnpj.length > 18) {
+                setCpf(nCnpj.slice(0, 18));
+            }
+        };
+
+        window.addEventListener("keyup", validar_documento);
+
+        return () => {
+            window.removeEventListener("keyup", validar_documento);
+        };
+    }, [nCnpj, setCnpj])
 
     //função de chamada da api do cep
     const buscar_cep = async ()=>{
@@ -567,17 +614,31 @@ export function FormFixado({
                                 label="Nome do parceiro"
                             />
 
-                            <PatternFormat 
-                                customInput={Input}
-                                variant="faded"
-                                label="C.P.F."
-                                className="max-w-48"
+                            <RadioGroup value={tipoDePessoa} onChange={(e) => setTipoDePessoa(e.target.value)}>
+                                <Radio value="Física">Física</Radio>
+                                <Radio value="Jurídica">Jurídica</Radio>
+                            </RadioGroup>
+                            {
+                                tipoDePessoa === "" ? null : tipoDePessoa === "Física" ? (
+                                    <Input
+                                        variant="faded"
+                                        label="C.P.F."
+                                        className="max-w-48"
 
-                                displayType="input"
-                                format="###.###.###-##"
-                                value={cpf}
-                                onChange={(e)=>setCpf(e.target.value)}
-                            />
+                                        value={nCpf}
+                                        onChange={(e)=>setCpf(e.target.value)}
+                                    />
+                                ) : tipoDePessoa === "Jurídica" ? (
+                                    <Input
+                                        variant="faded"
+                                        label="C.N.P.J."
+                                        className="max-w-52"
+
+                                        value={nCnpj}
+                                        onChange={(e)=>setCnpj(e.target.value)}
+                                    />
+                                ) : null
+                            }
 
                             <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
                                 <AccordionItem key="4.1" aria-label="Accordion 4.1" title="Endereço do cliente">
