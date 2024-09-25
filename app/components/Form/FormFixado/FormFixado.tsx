@@ -1,101 +1,139 @@
 //dependências:
 import React, { SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 
-
 //componentes:
-import { Accordion, AccordionItem, DatePicker, Input, RadioGroup, Radio, Select, SelectItem, Tooltip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Link } from "@nextui-org/react";
-import { NumericFormat, PatternFormat } from 'react-number-format';
-import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign, Search } from 'lucide-react';
 import { Spinner } from "../../Spinner/Spinner";
 
-//bibliotecas
-import { DateValue, Time } from "@internationalized/date";
+//bibliotecas decomponentes:
+import { Accordion, AccordionItem, Button, DatePicker, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, Select, SelectItem, Tooltip, useDisclosure } from "@nextui-org/react";
+
+//bibliotecas de ícones:
+import { CircleDollarSign, CircleHelp, Info, RefreshCwOff, Search, Weight } from 'lucide-react';
+
+//bibliotecas:
 import { format, subDays } from "date-fns";
-import { cpf, cnpj  } from 'cpf-cnpj-validator'; 
+import { cnpj, cpf } from 'cpf-cnpj-validator'; 
+import { DateValue, Time } from "@internationalized/date";
+import { NumericFormat, PatternFormat } from 'react-number-format';
 
-export function FormFixado({
-    //props do acordeão 1: Dados básicos do contrato
-    dataContrato, setDataContrato,
-    transacao, setTransacao,
-    produto, setProduto,
-    safra, setSafra,
-    municipio, setMunicipio,
-    
-    //props do acordeão 2: Volume e valor
-    volume, setVolume,
-    sacas, setSacas,
-    moeda, setMoeda,
-    dolar, setDolar,
-    real, setReal,
-    ptax, setPtax,
-    valor_total, setValor_total,
-    dataPagamento, setDataPagamento,
-
-    //props do acordeão 3: Dados de entrega
-    filial, setFilial,
-    filialTerc, setFilialTerc,
-    dataEntrega, setDataEntrega,
-
-    quilos, setQuilos, tonelada, setTonelada,
-}: Props) {
-    //atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
-    const volumeInputRef = useRef<HTMLInputElement>(null);
-
-    const input_props_volume = {
-        label: "Volume (t)",
-        className: "max-w-64",
-        ref: {volumeInputRef}
-    };
-    const focar_volume= ()=>{
-        if (volumeInputRef.current) {
-            volumeInputRef.current.focus(); // Foca no input usando ref
-            volumeInputRef.current.setSelectionRange(volumeInputRef.current.value.length, volumeInputRef.current.value.length);
-        }
-    }
-
-    const input_props_sacas = {
-        label: "Sacas",
-        className: "max-w-56",
-        isDisabled: true,
-    };
-    const input_props_preco = {
-        label: "Valor da saca",
-        className: "max-w-56",
-    };
-    const input_props_ptax = {
-        label: "PTAX",
-        className: "max-w-56",
-    };
-    const input_props_total = {
-        label: "Valor total",
-        className: "w-56",
-        isDisabled: true,
-    }; 
-    const input_props = {
-        className: "max-w-64",
-    }
-    //fim dos atributos usados pelo React number format para alterar os estilos do input personalizado que está sendo usado
-
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
+export function FormFixado(){
+    //variáveis de datas
     const hoje = useMemo(()=> new Date(), []);
     const dia_da_semana = hoje.toLocaleDateString('pt-BR', {weekday: 'long'}).toString();
     const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
     const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
+    //fim das variáveis de datas
+    
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-    const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
+    //variáveis do acordeão 1: dados básicos do contrato
+    const [dataContrato, setDataContrato] = useState<DateValue | undefined>();
+    const [transacao, setTransacao] = useState("");
+    const [produto, setProduto] = useState("");
+    const [safra, setSafra] = useState("");
+    const [municipio, setMunicipio] = useState("");
+    //fim das variáveis do acordeão 1: dados básicos do contrato
+
+    //variáveis do acordeão 2: volume e valor
+    const [volume, setVolume] = useState("");
+    const [quilos, setQuilos] = useState("") //variável do modal
+    const [tonelada, setTonelada] = useState("") //variável do modal
+    const [sacas, setSacas] = useState("");
+    const [moeda, setMoeda] = useState("");
+
+    const [dolar, setDolar] = useState("");
+    const [dataChecada, setDataChecada] = useState<string | JSX.Element>(""); //campo de descrição do ptax
+    const [ptax, setPtax] = useState("");
     const [valorConvertido, setValorConvertido] = useState("");
+    const [real, setReal] = useState("");
+    const [valorTotal, setValorTotal] = useState("");
+    const [dataPagamento, setDataPagamento] = useState<DateValue | undefined>();
+    //fim das variáveis do acordeão 2: volume e valor
+
+    //variáveis do acordeão 3: dados de entrega
+    const [filial, setFilial] = useState("");
+    const [filialTerc, setFilialTerc] = useState("");
+    const [armazem, setArmazem] = useState("");
+    const [dataEntrega, setDataEntrega] = useState<DateValue>();
+    //fim das variáveis do acordeão 3: dados de entrega
+
+    //variáveis do acordeão 4: dados do cliente
+    const [tipoDePessoa,setTipoDePessoa] = useState("");
+    
     const [nCpf, setCpf] = useState("");
     const [nCnpj, setCnpj] = useState("");
+    
     const [cep, setCep] = useState("");
+    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>);
     const [rua, setRua] = useState("");
     const [bairro, setBairro] = useState("");
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
-    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-cyan-500"/>);
-    const [tipoDePessoa,setTipoDePessoa] = useState("");
+    //fim das variáveis do acordeão 4: dados do cliente
 
-    
+    //função para calcular sacas
+    useEffect(() => {
+        const handleKeyUp = () => {
+            if (volume) {
+                const fVolume = volume.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
+                console.log(fVolume)
+                const rSacas = (parseFloat(fVolume) * 1000) / 60;
+                setSacas(rSacas.toFixed(2));
+            } else {
+                setSacas("");
+            }
+        };
+
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [volume]); //fim das função para calcular sacas
+
+    //função para calcular o valor total
+    useEffect(() => {
+        const handleKeyUP = () => {
+            if (sacas && dolar) {
+                const fSacas = sacas.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+                const fDolar = parseFloat(dolar.replace(/,/g, "."));
+                const rTotal = Number(fSacas) * fDolar;
+                setValorTotal(rTotal.toString());
+            } else if (sacas && real) {
+                const fSacas = sacas.replace(/\s/g, ""); //expressão regular para remover os espaços entre os números
+                const fReal = parseFloat(real.replace(/,/g, "."));
+                const rTotal = Number(fSacas) * fReal;
+                setValorTotal(rTotal.toString());
+            } else {
+                setValorTotal("");
+            }
+        };
+
+        window.addEventListener("keyup", handleKeyUP);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUP);
+        };
+    }, [sacas, dolar, real]); //fim da função para calcular o valor total
+
+    //função para calcular toneladas
+    useEffect(()=> {
+        const handleKeyUP = ()=>{
+            if(quilos){
+                const fQuilos = quilos.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
+                const toneladas = Number(fQuilos)/1000;
+                setTonelada(toneladas.toString());
+            } else {
+                setTonelada("");
+            };
+        }
+        
+        window.addEventListener("keyup", handleKeyUP);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUP);
+        };
+    }, [quilos, tonelada, setTonelada]); //fim da função para calcular toneladas
 
     //função de chamada da api do ptax
     useEffect(() => {
@@ -157,14 +195,15 @@ export function FormFixado({
     //função de cálculo de valor convertido
     useEffect(()=>{
         if(ptax){
-            const fTotal = valor_total.replace(/\s/g, "").replace(/,/g, ".");
+            const fTotal = valorTotal.replace(/\s/g, "").replace(/,/g, ".");
             const resConvertido = (parseFloat(fTotal)*parseFloat(ptax));
             setValorConvertido(resConvertido.toFixed(2));
         } else {
             setValorConvertido("");
         };
-    },[ptax, valor_total, setValorConvertido]); //fim função de cálculo de valor convertido
+    },[ptax, valorTotal, setValorConvertido]); //fim função de cálculo de valor convertido
 
+    //função de validação do cpf
     useEffect(()=>{
         const validar_documento = ()=>{
             if(nCpf.length>=11){
@@ -185,8 +224,9 @@ export function FormFixado({
         return () => {
             window.removeEventListener("keyup", validar_documento);
         };
-    }, [nCpf, setCpf])
+    }, [nCpf, setCpf]); //fim função de validação do cpf
 
+    //função de validação do cnpj
     useEffect(()=>{
         const validar_documento = ()=>{
             if(nCnpj.length>=11){
@@ -207,7 +247,7 @@ export function FormFixado({
         return () => {
             window.removeEventListener("keyup", validar_documento);
         };
-    }, [nCnpj, setCnpj])
+    }, [nCnpj, setCnpj])//fim da função de validação do cnpj
 
     //função de chamada da api do cep
     const buscar_cep = async ()=>{
@@ -223,7 +263,7 @@ export function FormFixado({
                     setBairro(resposta.bairro);
                     setCidade(resposta.localidade);
                     setEstado(resposta.estado);
-                    setIcone(<Search size={20} stroke="#595960" className="hover:stroke-cyan-500"/>); // Volta ao ícone padrão
+                    setIcone(<Search size={20} stroke="#595960" className="hover:stroke-[#006fee]"/>); // Volta ao ícone padrão
                   }, 1000);
             }
         } catch(error){
@@ -235,7 +275,9 @@ export function FormFixado({
         <>
             <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
                 <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
+                {/*acordeão*/}
                 <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
+                    {/*acordeão 1: dados básicos do contrato*/}
                     <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato">
                         {" "}
                         {/* Aba de inserção das informações básicas */}
@@ -245,6 +287,7 @@ export function FormFixado({
                                 className="max-w-44"
                                 label="Data do contrato"
                                 showMonthAndYearPickers
+
                                 value={dataContrato}
                                 onChange={setDataContrato}
                             />
@@ -254,6 +297,7 @@ export function FormFixado({
                                 variant="faded"
                                 className="max-w-48 min-w-40"
                                 label="Tipo de transação"
+
                                 selectedKeys={[transacao]}
                                 onChange={(e) => setTransacao(e.target.value)}
                             >
@@ -267,6 +311,7 @@ export function FormFixado({
                                 variant="faded"
                                 className="max-w-60"
                                 label="Produto"
+
                                 selectedKeys={[produto]}
                                 onChange={(e) => setProduto(e.target.value)}
                             >
@@ -280,6 +325,7 @@ export function FormFixado({
                                 variant="faded"
                                 className="max-w-40"
                                 label="Safra"
+
                                 selectedKeys={[safra]}
                                 onChange={(e) => setSafra(e.target.value)}
                             >
@@ -293,6 +339,7 @@ export function FormFixado({
                                 variant="faded"
                                 className="max-w-48 min-w-40"
                                 label="Município"
+
                                 selectedKeys={[municipio]}
                                 onChange={(e) => setMunicipio(e.target.value)}
                             >
@@ -304,18 +351,19 @@ export function FormFixado({
                             </Select>
                         </div>
                     </AccordionItem>
-                    {/*fim do acordeão 1, e, ao que parece, o acordeão pai não gosta de comentários. ps: só tem selects aqui*/}
+                    {/*fim do acordeão 1*/}
 
-                    <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor">
-                        <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
-                            {" "}
-                            {/* Aba de inserção das informações de quantidade e valor */}
+                    {/*acordeão 2: volume e valor*/}
+                    <AccordionItem key="2" aria-label="Accordion 2" title="Volume e valor"> 
+                        <div className="flex flex-wrap gap-4 mb-3">
                             <NumericFormat
                                 id="cVolumeF"
 
                                 customInput={Input}
-                                {...input_props_volume}
                                 variant="faded"
+                                className="max-w-64"
+                                label="Volume (t)"
+
                                 endContent={
                                     <Tooltip content={
                                         <div className="p-2 max-w-48">
@@ -334,6 +382,7 @@ export function FormFixado({
                                 thousandSeparator=" "
                                 decimalSeparator=","
                                 allowedDecimalSeparators={[',','.',',']}
+
                                 value={volume}
                                 onChange={(e) => setVolume(e.target.value)}
                             />
@@ -345,14 +394,15 @@ export function FormFixado({
                                             <ModalHeader>Conversor</ModalHeader>
                                             <ModalBody>
                                                 <NumericFormat
-                                                    label= "Volume em quilos (kg)"
                                                     customInput={Input}
-                                                    
                                                     variant="faded"
-
+                                                    label= "Volume em quilos (kg)"
+                                                    
                                                     valueIsNumericString={true}
                                                     thousandSeparator=" "
                                                     decimalSeparator=","
+                                                    allowedDecimalSeparators={[',','.',',']}
+                                                    decimalScale={2}
 
                                                     value={quilos}
                                                     onChange={(e) => setQuilos(e.target.value)}
@@ -360,20 +410,21 @@ export function FormFixado({
                                                         if (e.key === 'Enter') {
                                                             onClose();
                                                             setVolume(tonelada);
-                                                            focar_volume();
                                                         }
                                                     }}
                                                 />
                                                 
                                                 <NumericFormat
-                                                    label="Volume em toneladas (t)"
                                                     customInput={Input}
                                                     variant="faded"
+                                                    label="Volume em toneladas (t)"
                                                     isDisabled
 
                                                     valueIsNumericString={true}
                                                     thousandSeparator=" "
                                                     decimalSeparator=","
+                                                    allowedDecimalSeparators={[',','.',',']}
+                                                    decimalScale={2}
                                                     
                                                     value={tonelada}
                                                     onChange={(e) => setTonelada(e.target.value)}
@@ -386,7 +437,7 @@ export function FormFixado({
 
                                             <ModalFooter>
                                                 <Button color="danger" variant="light" onPress={onClose}>Dispensar</Button>
-                                                <Button color="success" variant="shadow" onPress={()=> {onClose(); setVolume(tonelada);focar_volume()}}>Pronto</Button>
+                                                <Button color="primary" variant="shadow" onPress={()=> {onClose(); setVolume(tonelada)}}>Pronto</Button>
                                             </ModalFooter>
                                         </>
                                     )}
@@ -395,16 +446,20 @@ export function FormFixado({
 
                             <NumericFormat
                                 customInput={Input}
-                                {...input_props_sacas}
                                 variant="faded"
+                                className="max-w-56"
+                                label="Sacas"
+                                isDisabled
+                                
                                 valueIsNumericString={true}
                                 thousandSeparator=" "
                                 decimalScale={0}
+
                                 value={sacas}
                                 onChange={(e) => setSacas(e.target.value)}
                             />
-                            <RadioGroup value={moeda} onChange={(e) => {setMoeda(e.target.value),setValor_total(""),setDolar(""),setReal("")}}
-                            >
+
+                            <RadioGroup value={moeda} onChange={(e) => {setMoeda(e.target.value),setValorTotal(""),setDolar(""),setReal("")}}>
                                 <Radio value="Dólar americano">Dólar</Radio>
                                 <Radio value="Real brasileiro">Real</Radio>
                             </RadioGroup>
@@ -413,45 +468,57 @@ export function FormFixado({
                                 <>
                                     <NumericFormat
                                         customInput={Input}
-                                        {...input_props_preco}
                                         variant="faded"
+                                        className="max-w-56"
+                                        label="Valor da saca"
+
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
                                                 <span className="text-default-400 text-small">US$</span>
                                             </div>
                                         }
+
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
                                         decimalSeparator=","
                                         allowedDecimalSeparators={[',','.',',']}
-                                        decimalScale={4}
+                                        decimalScale={2}
+
                                         value={dolar}
                                         onChange={(e) => setDolar(e.target.value)}
                                     />
 
                                     <NumericFormat
                                         customInput={Input}
-                                        {...input_props_total}
                                         variant="faded"
+                                        className="max-w-56"
+                                        label="Valor total"
+                                        isDisabled
+
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
                                                 <span className="text-default-400 text-small">US$</span>
                                             </div>
                                         }
+
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
                                         decimalSeparator=","
                                         allowedDecimalSeparators={[',','.',',']}
                                         decimalScale={2}
-                                        value={valor_total}
-                                        onChange={(e) => setValor_total(e.target.value)}
+
+                                        value={valorTotal}
+                                        onChange={(e) => setValorTotal(e.target.value)}
                                     />
 
                                     <div className="flex flex-row gap-3">
                                         <NumericFormat
                                             customInput={Input}
-                                            {...input_props_ptax}
                                             variant="faded"
+                                            className="max-w-56"
+                                            label="PTAX"
+                                            description={dataChecada}
+
                                             startContent={
                                                 <div className="pointer-events-none flex items-center">
                                                     <span className="text-default-400 text-small">R$</span>
@@ -471,9 +538,11 @@ export function FormFixado({
                                                 </Tooltip>
                                             }
                                             
-                                            description={data_checada}
                                             valueIsNumericString={true}
                                             thousandSeparator=" "
+                                            decimalSeparator=","
+                                            allowedDecimalSeparators={[',','.',',']}
+
                                             decimalScale={4}
                                             value={ptax}
                                             onChange={(e) => setPtax(e.target.value)}
@@ -482,18 +551,23 @@ export function FormFixado({
                                     
                                     <NumericFormat
                                         customInput={Input}
-                                        label="Valor convertido"
-                                        {...input_props}
                                         variant="faded"
+                                        className="max-w-64"
+                                        label="Valor convertido"
+                                        isDisabled
+
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
                                                 <span className="text-default-400 text-small">R$</span>
                                             </div>
                                         }
-                                        isDisabled
+
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
+                                        decimalSeparator=","
+                                        allowedDecimalSeparators={[',','.',',']}
                                         decimalScale={4}
+
                                         value={valorConvertido}
                                         onChange={(e) => setValorConvertido(e.target.value)}
                                     />
@@ -502,34 +576,47 @@ export function FormFixado({
                                 <>
                                     <NumericFormat
                                         customInput={Input}
-                                        {...input_props_preco}
                                         variant="faded"
+                                        className="max-w-56"
+                                        label="Valor da saca"
+
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
                                                 <span className="text-default-400 text-small">R$</span>
                                             </div>
                                         }
+
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
+                                        decimalSeparator=","
+                                        allowedDecimalSeparators={[',','.',',']}
                                         decimalScale={4}
+
                                         value={real}
                                         onChange={(e) => setReal(e.target.value)}
                                     />
 
                                     <NumericFormat
                                         customInput={Input}
-                                        {...input_props_total}
                                         variant="faded"
+                                        className="max-w-56"
+                                        label="Valor total"
+                                        isDisabled
+
                                         startContent={
                                             <div className="pointer-events-none flex items-center">
                                                 <span className="text-default-400 text-small">R$</span>
                                             </div>
                                         }
+
                                         valueIsNumericString={true}
                                         thousandSeparator=" "
+                                        decimalSeparator=","
+                                        allowedDecimalSeparators={[',','.',',']}
                                         decimalScale={4}
-                                        value={valor_total}
-                                        onChange={(e) => setValor_total(e.target.value)}
+
+                                        value={valorTotal}
+                                        onChange={(e) => setValorTotal(e.target.value)}
                                     />
                                 </>                                    
                                 ) : null
@@ -540,13 +627,15 @@ export function FormFixado({
                                 className="max-w-44"
                                 label="Data do pagamento"
                                 showMonthAndYearPickers
+
                                 value={dataPagamento}
                                 onChange={setDataPagamento}
                             />
                         </div> {/**fim da div container do acordeão*/}
                     </AccordionItem>
-                    {/*fim do acordeão 2. ps: sem inputs soltos aqui*/}
+                    {/*fim do acordeão 2*/}
 
+                    {/*acordeão 3: dados de entrega*/}
                     <AccordionItem key="3" aria-label="Accordion 3" title="Dados da entrega">
                         <div className="flex flex-wrap gap-4 mb-3"> {/*a acordeão parece não lidar bem com classes, então pus essa div*/}
                             <Select
@@ -588,6 +677,9 @@ export function FormFixado({
                                         variant="faded"
                                         className="max-w-96 min-w-60"
                                         label="Armazém"
+
+                                        value={armazem}
+                                        onChange={(e)=>setArmazem(e.target.value)}
                                     />
                                 </>
                                 ) : null
@@ -602,10 +694,10 @@ export function FormFixado({
                                 onChange={setDataEntrega}
                             />
                         </div>
-                        
                     </AccordionItem>
-                    {/*fim do acordeão 3.*/}
+                    {/*fim do acordeão 3*/}
 
+                    {/*acordeão 4: dados do cliente*/}
                     <AccordionItem key="4" aria-label="Accordion 4" title="Dados do cliente">
                         <div className="flex flex-wrap gap-4 mb-3">
                             <Input 
@@ -705,37 +797,9 @@ export function FormFixado({
                             </Accordion>
                         </div>
                     </AccordionItem>
-                    {/*fim do acordeão 4.*/}          
+                    {/*fim do acordeão 4*/}          
                 </Accordion>
             </section>
         </>
     );
-}
-
-interface Props { //validação de tipos
-    //props do acordeão 1: Dados básicos do contrato
-    dataContrato: DateValue | undefined; setDataContrato: React.Dispatch<SetStateAction<DateValue | undefined>>;
-    transacao: string; setTransacao: (e: string) => void;
-    produto: string; setProduto: (e: string) => void;
-    safra: string; setSafra: (e: string) => void;
-    municipio: string; setMunicipio: (e: string) => void;
-
-    //props do acordeão 2: Volume e valor
-    volume: string; setVolume: (e: string) => void;
-    sacas: string; setSacas: (e: string) => void;
-    moeda: string; setMoeda: (e: string) => void;
-    dolar: string; setDolar: (e: string) => void;
-    real: string; setReal: (e: string) => void;
-    ptax: string; setPtax: (e: string) => void;
-    valor_total: string; setValor_total: (e: string) => void;
-    dataPagamento:DateValue | undefined; setDataPagamento: React.Dispatch<SetStateAction<DateValue | undefined>>;
-
-    //props do acordeão 3: Dados de entrega
-    filial: string; setFilial: (e: string) => void;
-    filialTerc: string; setFilialTerc: (e: string) => void;
-    dataEntrega: DateValue | undefined;
-    setDataEntrega: React.Dispatch<SetStateAction<DateValue | undefined>>;
-    
-    quilos: string; setQuilos: (e: string) => void;
-    tonelada: string; setTonelada: (e: string) => void;
 }
