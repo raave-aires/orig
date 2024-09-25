@@ -8,6 +8,7 @@ import { DateValue } from "@internationalized/date";
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 import { FormFixado } from "./FormFixado/FormFixado";
+import { FormMisto } from "./FormMisto/FormMisto";
 // import { FormMisto } from "./FormMisto/FormMisto";
 
 export function Form() {
@@ -199,7 +200,7 @@ export function Form() {
                     setTonelada={setToneladaF}
                 />
             ) : tipoSelecionado === "Misto" ? (
-                <p>Teste</p>
+                <FormMisto />
             ) : null }
         </>
     );

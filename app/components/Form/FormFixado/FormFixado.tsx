@@ -9,7 +9,7 @@ import { CircleHelp, Info, RefreshCwOff, Weight, CircleDollarSign, Search } from
 import { Spinner } from "../../Spinner/Spinner";
 
 //bibliotecas
-import { DateValue, getLocalTimeZone , Time, today } from "@internationalized/date";
+import { DateValue, Time } from "@internationalized/date";
 import { format, subDays } from "date-fns";
 
 export function FormFixado({
@@ -77,9 +77,10 @@ export function FormFixado({
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-    const hoje = new Date()
-    const dias_da_semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-    const dia = dias_da_semana[hoje.getDay()];
+    const hoje = useMemo(()=> new Date(), []);
+    const dia_da_semana = hoje.toLocaleDateString('pt-BR', {weekday: 'long'}).toString();
+    const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
+    const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
 
     const [data_checada, setDataChecada] = useState<string | JSX.Element>("");
     const [valorConvertido, setValorConvertido] = useState("");
@@ -89,18 +90,17 @@ export function FormFixado({
     const [bairro, setBairro] = useState("");
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
-    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="text-cyan-500"/>);
+    const [icone_do_botao, setIcone] = useState<React.ReactNode>(<Search size={20} stroke="#595960" className="hover:stroke-cyan-500"/>);
 
-    const data = today(getLocalTimeZone()).toString(); //função para obter a data atual, que será passada como valor padrão de data
-    const hora = useMemo(() => new Time(new Date().getHours(), new Date().getMinutes()), []);
-    const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
+    
 
     //função de chamada da api do ptax
     useEffect(() => {
         const obter_ptax = async ()=>{
             try {
-                if (dia === "Segunda-feira") {
-                    const dia_do_ptax = format(subDays(data, 2), "MM-dd-yyyy");
+                if (dia_da_semana === "segunda-feira") {
+                    const dia_do_ptax = format(subDays(hoje, 3), "MM-dd-yyyy");
+                    console.log(dia_do_ptax);
                     const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
                     const solicitar = await fetch(api_url);
                     const resposta = await solicitar.json();
@@ -109,7 +109,8 @@ export function FormFixado({
                 } else {
                     if (hora.compare(hora_de_atualizacao) <= 0) {
                         console.log(hora.compare(hora_de_atualizacao), 'É antes de 1:30 PM');
-                        const dia_do_ptax = format(subDays(data, 0), "MM-dd-yyyy");
+                        const dia_do_ptax = format(subDays(hoje, 1), "MM-dd-yyyy");
+                        console.log(dia_do_ptax);
                         const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
                         const solicitar = await fetch(api_url);
                         const resposta = await solicitar.json();
@@ -117,7 +118,8 @@ export function FormFixado({
                         setDataChecada(`O valor é referente a ontem, dia ${format(dia_do_ptax, "dd/MM")}.`)
                     } else {
                         console.log(hora.compare(hora_de_atualizacao), 'É depois de 1:30 PM');
-                        const dia_do_ptax = format(data, "MM-dd-yyyy");
+                        const dia_do_ptax = format(hoje, "MM-dd-yyyy");
+                        console.log(dia_do_ptax);
                         const api_url = `https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${dia_do_ptax}'&$top=100&$format=json`;
                         const solicitar = await fetch(api_url);
                         const resposta = await solicitar.json();
@@ -147,7 +149,7 @@ export function FormFixado({
         } else {
             setPtax("");
         }
-    }, [moeda, dia, data, setPtax, setDataChecada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
+    }, [moeda, dia_da_semana, hoje, setPtax, setDataChecada, hora, hora_de_atualizacao]); // fim da função de chamada da api do ptax
     
     //função de cálculo de valor convertido
     useEffect(()=>{
@@ -174,8 +176,8 @@ export function FormFixado({
                     setBairro(resposta.bairro);
                     setCidade(resposta.localidade);
                     setEstado(resposta.estado);
-                    setIcone(<Search size={20} stroke="#595960" className="text-cyan-500"/>); // Volta ao ícone padrão
-                  }, 500);
+                    setIcone(<Search size={20} stroke="#595960" className="hover:stroke-cyan-500"/>); // Volta ao ícone padrão
+                  }, 1000);
             }
         } catch(error){
             console.log("Não deu certo.")
@@ -592,7 +594,7 @@ export function FormFixado({
                                             onChange={(e)=>setCep(e.target.value)}
 
                                             endContent={
-                                                <button className="hover:bg-[#5959603b] p-2 rounded" onClick={buscar_cep}>
+                                                <button className="p-2 rounded" onClick={buscar_cep}>
                                                     {icone_do_botao}
                                                 </button>
                                             }
