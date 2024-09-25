@@ -6,40 +6,36 @@ import { Header } from "./components/Header/Header";
 import { HeaderItem } from "./components/Header/HeaderItem";
 
 const inter = localFont({
-    src: "../assets/fonts/inter.woff2",
-    variable: "--font-inter",
-    weight: "100 900",
+  src: "../assets/fonts/inter.woff2",
+  variable: "--font-inter",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
-    title: "Origë",
-    description: "Cadastro de originação",
+  title: "Ōrig",
+  description: "Cadastro de originação",
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="pt-BR" className='dark'>
-            <body className={`${inter.variable} antialiased`}>
-                <Header>
-                    <HeaderItem 
-                        item_link="/"
-                        target="_self"
-                        item_text="Início"
-                    />
+  return (
+    <html lang="pt-BR" className="dark">
+      <body className={`${inter.variable} antialiased`}>
+        <Header>
+          <HeaderItem item_link="/" target="_self" item_text="Início" />
 
-                    <HeaderItem 
-                        item_link="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                        target="_blank"
-                        item_text="Sobre"
-                    />
-                </Header>
+          <HeaderItem
+            item_link="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            target="_blank"
+            item_text="Sobre"
+          />
+        </Header>
 
-                {children}
-            </body>
-        </html>
-    );
+        {children}
+      </body>
+    </html>
+  );
 }
