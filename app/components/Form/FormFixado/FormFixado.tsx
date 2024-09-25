@@ -137,7 +137,7 @@ export function FormFixado() {
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [volume, tonelada, setTonelada]); //fim das função para calcular sacas
+  }, [volume]); //fim das função para calcular sacas
 
   //função para calcular o valor total
   useEffect(() => {
@@ -169,7 +169,7 @@ export function FormFixado() {
     const handleKeyUP = () => {
       if (quilos) {
         const fQuilos = quilos.replace(/\s/g, "").replace(/,/g, "."); //expressão regular para remover os espaços entre os números
-        const toneladas = Number(fQuilos) / 1000;
+        const toneladas = parseFloat(fQuilos) / 1000;
         setTonelada(toneladas.toString());
       } else {
         setTonelada("");
@@ -613,7 +613,7 @@ export function FormFixado() {
                           thousandSeparator=" "
                           decimalSeparator=","
                           allowedDecimalSeparators={[",", ".", ","]}
-                          decimalScale={2}
+                          decimalScale={4}
                           value={quilos}
                           onChange={(e) => setQuilos(e.target.value)}
                           onKeyDown={(e) => {
@@ -631,9 +631,7 @@ export function FormFixado() {
                           isDisabled
                           valueIsNumericString={true}
                           thousandSeparator=" "
-                          decimalSeparator=","
-                          allowedDecimalSeparators={[",", ".", ","]}
-                          decimalScale={2}
+
                           value={tonelada}
                           onChange={(e) => setTonelada(e.target.value)}
                         />
@@ -1220,11 +1218,11 @@ export function FormFixado() {
           </AccordionItem>
           {/*fim do acordeão 4*/}
         </Accordion>
-        <div className="max-w-14">
+        {/*<div className="max-w-14">
           <Button size="md" type="submit" className="hover:bg-[#006fee]">
             Salvar
           </Button>
-        </div>
+        </div>*/}
       </form>
     </>
   );
