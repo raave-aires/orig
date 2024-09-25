@@ -75,6 +75,11 @@ export function FormFixado() {
 
   //variáveis do acordeão 4.2: dados bancários
   const [recebedor, setRecebedor] = useState("");
+  const [banco, setBanco] = useState("");
+  const [agencia, setAgencia] = useState("");
+  const [numeroDaConta, setNumeroDaConta] = useState("");
+
+  const [nomeRecebedorTerc, setNomeRecebedorTerc] = useState("");
   //fim das variáveis do acordeão 4.2: dados bancários
   //fim das variáveis do acordeão 4: dados do cliente
 
@@ -276,8 +281,9 @@ export function FormFixado() {
     } catch (error) {
       console.log("Não deu certo.")
     }
-  }; //função de chamada da api do cep
+  }; //fim da função de chamada da api do cep
 
+  //função de atualizar o ptax
   const obter_ptax = async () => {
     setIconePtax(<Spinner />);
     setTimeout(async () => {
@@ -328,11 +334,11 @@ export function FormFixado() {
       }
       setIconePtax(<RotateCw size={20} stroke="#595960" className="hover:stroke-[#006fee]" />)
     }, 1000);
-  };
+  }; // fim da função de atualizar o ptax
 
   return (
     <>
-      <section className="bg-[#101010] mt-5 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
+      <form className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl"> {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
         <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
         {/*acordeão*/}
         <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
@@ -784,7 +790,7 @@ export function FormFixado() {
                 tipoDePessoa === "" ? null : tipoDePessoa === "Física" ? (
                   <Input
                     variant="faded"
-                    label="C.P.F."
+                    label="CPF do parceiro"
                     className="max-w-52"
 
                     value={nCpf}
@@ -793,7 +799,7 @@ export function FormFixado() {
                 ) : tipoDePessoa === "Jurídica" ? (
                   <Input
                     variant="faded"
-                    label="C.N.P.J."
+                    label="CNPJ  do parceiro"
                     className="max-w-52"
 
                     value={nCnpj}
@@ -895,16 +901,107 @@ export function FormFixado() {
                         <>
                           <Input 
                             variant="faded"
-                            label="Rua"
-                            className="max-w-72"
+                            label="Nome do recebedor"
+                            className="max-w-96 min-w-60"
+                            isDisabled
 
-                            value={rua}
-                            onChange={(e) => setRua(e.target.value)}
+                            value={nomeDoParceiro}
+                          />
+
+                          {
+                            tipoDePessoa === "" ? null : tipoDePessoa === "Física" ? (
+                              <Input
+                                variant="faded"
+                                label="CPF do recebedor"
+                                className="max-w-52"
+                                isDisabled
+
+                                value={nCpf}
+                              />
+                            ) : tipoDePessoa === "Jurídica" ? (
+                              <Input
+                                variant="faded"
+                                label="CNPJ  do recebedor"
+                                className="max-w-52"
+                                isDisabled
+
+                                value={nCnpj}
+                              />
+                            ) : null
+                          }
+
+                          <Input
+                            variant="faded"
+                            label="Banco"
+                            className="max-w-52"
+
+                            value={banco}
+                            onChange={(e)=> setBanco(e.target.value)}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="Agência"
+                            className="max-w-52"
+
+                            value={agencia}
+                            onChange={(e)=> setAgencia(e.target.value)}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="Nº da conta"
+                            className="max-w-52"
+
+                            value={numeroDaConta}
+                            onChange={(e)=> setNumeroDaConta(e.target.value)}
                           />
                         </>
                       ) : recebedor === "Terceiro" ? (
                         <>
-                          <p>teste</p>
+                          <Input 
+                            variant="faded"
+                            label="Nome do recebedor"
+                            className="max-w-96 min-w-60"
+
+                            value={nomeRecebedorTerc}
+                            onChange={(e)=> setNomeRecebedorTerc(e.target.value)}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="CPF do recebedor"
+                            className="max-w-52"
+
+                            value={nCpf}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="Banco"
+                            className="max-w-52"
+
+                            value={banco}
+                            onChange={(e)=> setBanco(e.target.value)}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="Agência"
+                            className="max-w-52"
+
+                            value={agencia}
+                            onChange={(e)=> setAgencia(e.target.value)}
+                          />
+
+                          <Input
+                            variant="faded"
+                            label="Nº da conta"
+                            className="max-w-52"
+
+                            value={numeroDaConta}
+                            onChange={(e)=> setNumeroDaConta(e.target.value)}
+                          />
                         </>
                       ) : null
                     }
@@ -915,7 +1012,13 @@ export function FormFixado() {
           </AccordionItem>
           {/*fim do acordeão 4*/}
         </Accordion>
-      </section>
+
+        <div className="max-w-14">
+          <Button size="md" type="submit" className="hover:bg-[#006fee]">
+            Salvar
+          </Button>
+        </div>
+      </form>
     </>
   );
 }
