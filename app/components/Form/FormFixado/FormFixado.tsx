@@ -188,7 +188,6 @@ export function FormFixado() {
   //função de chamada da api do ptax
   useEffect(() => {
     const obter_ptax = async () => {
-      setDataChecada("");
       try {
         if (dia_da_semana === "segunda-feira") {
           const dia_do_ptax = format(subDays(hoje, 3), "MM-dd-yyyy");
@@ -419,6 +418,8 @@ export function FormFixado() {
 
   //função de atualizar o ptax
   const obter_ptax = async () => {
+    setDataChecada("");
+    setPtax("");
     setIconePtax(<Spinner />);
     setTimeout(async () => {
       try {
