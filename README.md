@@ -1,5 +1,5 @@
 # [Ōrig ](https://github.com/raave-aires/orig)
-Um projeto por [Raavë Aires](https://github.com/raave-aires). Desenvolvido como TCC de estudo de caso.
+Um projeto por [Raavë Aires](https://github.com/raave-aires). Desenvolvido como TCC do tipo estudo de caso.
 
 ## 1. Ideia.
 A ideia motriz por trás do Origë nasceu a partir do dia-a-dia da área de Commodities e logística[^1] da [Juparanã](http://juparana.com.br) e das ferramentas usadas nele. 
