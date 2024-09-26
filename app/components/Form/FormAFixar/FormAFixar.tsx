@@ -255,7 +255,7 @@ export function FormAFixar(){
 
   return (
     <>
-      <form className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl">
+      <section className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl">
         <h1 className="text-xl">Cadastro de contrato com preço a fixar</h1>
         <Accordion selectionMode="multiple" variant="bordered" isCompact={true}>
           <AccordionItem key="1" aria-label="Accordion 1" title="Dados básicos do contrato">
@@ -851,7 +851,7 @@ export function FormAFixar(){
           </AccordionItem>
           {/*fim do acordeão 4*/}
         </Accordion>
-      </form>
+      </section>
     </>
   );
 }

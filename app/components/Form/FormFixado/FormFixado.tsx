@@ -513,7 +513,7 @@ export function FormFixado() {
 
   return (
     <>
-      <form className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl">
+      <section className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl">
         {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
         <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
         {/*acordeão*/}
@@ -1296,7 +1296,7 @@ export function FormFixado() {
             Salvar
           </Button>
         </div>*/}
-      </form>
+      </section>
     </>
   );
 }
