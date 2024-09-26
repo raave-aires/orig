@@ -17,8 +17,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Radio,
-  RadioGroup,
   Select,
   SelectItem,
   Tooltip,
