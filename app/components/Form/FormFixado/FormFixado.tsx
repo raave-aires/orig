@@ -1303,7 +1303,7 @@ export function FormFixado() {
             <div className="flex flex-wrap gap-4 mb-3">
               <div className="flex items-center gap-2">
                 <Spinner />
-                <p>Tabela para adicionar propriedades em desenvolvimento.</p>
+                <p>Tabela para adicionar as propriedades do cliente em desenvolvimento.</p>
               </div>
 
               <Textarea variant="faded" label="Observações sobre o contrato" placeholder="Adicione qualquer informação complementar que ache necessária. Este campo aparecerá como uma observação, mas não será adicionado ao contrato exportado."/>
