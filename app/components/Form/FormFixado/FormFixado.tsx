@@ -116,6 +116,9 @@ export function FormFixado() {
   const [numeroDaConta, setNumeroDaConta] = useState("");
 
   const [nomeRecebedorTerc, setNomeRecebedorTerc] = useState("");
+  const [tipoDeRecebedorTerc, setTipoDeRecebedorTerc] = useState("");
+  const [nCpfRecebedor, setCpfRecebedor] = useState("");
+  const [nCnpjRecebedor, setCnpjRecebedor] = useState("");
   //fim das variáveis do acordeão 4.2: dados bancários
   //fim das variáveis do acordeão 4: dados do cliente
 
@@ -340,6 +343,52 @@ export function FormFixado() {
     };
   }, [nCnpj, setCnpj]); //fim da função de validação do cnpj
 
+  //função de validação do cpf
+  useEffect(() => {
+    const validar_documento = () => {
+      if (nCpfRecebedor.length >= 11) {
+        const fCpfRecebedor = nCpfRecebedor.replace(/[.-]/g, "");
+        if (cpf.isValid(fCpfRecebedor)) {
+          setCpf(cpf.format(fCpfRecebedor));
+        } else {
+          alert("CPF inválido.");
+          setCpf("");
+        }
+      } else if (nCpfRecebedor.length > 14) {
+        setCpf(nCpfRecebedor.slice(0, 14));
+      }
+    };
+
+    window.addEventListener("keyup", validar_documento);
+
+    return () => {
+      window.removeEventListener("keyup", validar_documento);
+    };
+  }, [nCpfRecebedor, setCpfRecebedor]); //fim função de validação do cpf
+
+  //função de validação do cnpj
+  useEffect(() => {
+    const validar_documento = () => {
+      if (nCnpjRecebedor.length >= 11) {
+        const fCnpjRecebedor = nCnpjRecebedor.replace(/[.-/]/g, "");
+        if (cnpj.isValid(fCnpjRecebedor)) {
+          setCpf(cnpj.format(fCnpjRecebedor));
+        } else {
+          alert("CNPJ inválido.");
+          setCpf("");
+        }
+      } else if (nCnpjRecebedor.length > 18) {
+        setCpf(nCnpjRecebedor.slice(0, 18));
+      }
+    };
+
+    window.addEventListener("keyup", validar_documento);
+
+    return () => {
+      window.removeEventListener("keyup", validar_documento);
+    };
+  }, [nCnpjRecebedor, setCnpjRecebedor]); //fim da função de validação do cnpj
+
   //função de chamada da api do cep
   const buscar_cep = async () => {
     try {
@@ -465,7 +514,6 @@ export function FormFixado() {
   return (
     <>
       <form className="bg-[#101010] mt-5 mb-10 flex flex-col gap-5 p-5 rounded-xl">
-        {" "}
         {/*tela de fundo dos acordeões, tô pensando em removê-la*/}
         <h1 className="text-xl">Cadastro de contrato com preço fixado</h1>
         {/*acordeão*/}
@@ -476,7 +524,6 @@ export function FormFixado() {
             aria-label="Accordion 1"
             title="Dados básicos do contrato"
           >
-            {" "}
             {/* Aba de inserção das informações básicas */}
             <div className="flex flex-wrap gap-4 mb-3">
               {" "}
@@ -983,13 +1030,17 @@ export function FormFixado() {
                 onChange={(e) => setNomeDoParceiro(e.target.value)}
               />
 
-              <RadioGroup
-                value={tipoDePessoa}
+              <Select
+                variant="faded"
+                className="max-w-48 min-w-40"
+                label="Tipo de parceiro"
+                selectedKeys={[tipoDePessoa]}
                 onChange={(e) => setTipoDePessoa(e.target.value)}
               >
-                <Radio value="Física">Física</Radio>
-                <Radio value="Jurídica">Jurídica</Radio>
-              </RadioGroup>
+                <SelectItem key={"Física"}>Pessoa física</SelectItem>
+                <SelectItem key={"Jurídica"}>Pessoa jurídica</SelectItem>
+              </Select>
+
               {tipoDePessoa === "" ? null : tipoDePessoa === "Física" ? (
                 <Input
                   variant="faded"
@@ -1179,12 +1230,34 @@ export function FormFixado() {
                           onChange={(e) => setNomeRecebedorTerc(e.target.value)}
                         />
 
-                        <Input
+                        <Select
                           variant="faded"
-                          label="CPF do recebedor"
-                          className="max-w-52"
-                          value={nCpf}
-                        />
+                          className="max-w-48 min-w-40"
+                          label="Tipo de parceiro"
+                          selectedKeys={[tipoDeRecebedorTerc]}
+                          onChange={(e) => setTipoDeRecebedorTerc(e.target.value)}
+                        >
+                          <SelectItem key={"Física"}>Pessoa física</SelectItem>
+                          <SelectItem key={"Jurídica"}>Pessoa jurídica</SelectItem>
+                        </Select>
+
+                        {tipoDeRecebedorTerc === "" ? null : tipoDeRecebedorTerc === "Física" ? (
+                          <Input
+                            variant="faded"
+                            label="CPF do recebedor"
+                            className="max-w-52"
+                            value={nCpfRecebedor}
+                            onChange={(e) => setCpfRecebedor(e.target.value)}
+                          />
+                        ) : tipoDeRecebedorTerc === "Jurídica" ? (
+                          <Input
+                            variant="faded"
+                            label="CNPJ  do recebedor"
+                            className="max-w-52"
+                            value={nCnpjRecebedor}
+                            onChange={(e) => setCnpjRecebedor(e.target.value)}
+                          />
+                        ) : null}
 
                         <Input
                           variant="faded"
