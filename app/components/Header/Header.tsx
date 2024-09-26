@@ -23,7 +23,7 @@ export function Header({ children }: Props) {
           <ul className="flex gap-4 items-center">
             <User 
               name="Raaviüs"
-              description="Dev. front-end"
+              description="Dev. full stack"
               avatarProps={{
                 src: "https://rxvl2oharkoa85bm.public.blob.vercel-storage.com/temp-profile.png"
               }}
