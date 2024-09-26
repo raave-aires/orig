@@ -729,8 +729,12 @@ export function FormFixado() {
                 onChange={(e) => setSacas(e.target.value)}
               />
 
-              <RadioGroup
-                value={moeda}
+              {/* Transação */}
+              <Select
+                variant="faded"
+                className="max-w-48 min-w-40"
+                label="Moeda a ser usada"
+                selectedKeys={[moeda]}
                 onChange={(e) => {
                   setMoeda(e.target.value),
                     setValorTotal(""),
@@ -738,9 +742,10 @@ export function FormFixado() {
                     setReal("");
                 }}
               >
-                <Radio value="Dólar americano">Dólar</Radio>
-                <Radio value="Real brasileiro">Real</Radio>
-              </RadioGroup>
+                <SelectItem key={"Dólar americano"}>Dólar</SelectItem>
+                <SelectItem key={"Real brasileiro"}>Real</SelectItem>
+              </Select>
+              {/* Produto */}
 
               {moeda === "" ? null : moeda === "Dólar americano" ? (
                 <>
