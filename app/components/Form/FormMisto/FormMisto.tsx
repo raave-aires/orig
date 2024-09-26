@@ -1,5 +1,6 @@
 //bibliotecas
 import { format, subDays } from "date-fns";
+import { Table } from "../../Table/Table";
 
 export function FormMisto(){
     const hoje = new Date();
@@ -7,10 +8,7 @@ export function FormMisto(){
 
     return(
         <>
-            <div className="py-5">
-                <p>está parte está em desenvolvimento.</p>
-                <p>&#169; {`${fData}`} raaviüs.</p>
-            </div>
+            <Table />
         </>
     );
 }

@@ -1297,6 +1297,7 @@ export function FormFixado() {
           </AccordionItem>
           {/*fim do acordeão 4*/}
 
+          {/*acordeão 5: outros*/}
           <AccordionItem
             key="5"
             aria-label="Accordion 5"
@@ -1311,7 +1312,9 @@ export function FormFixado() {
               <Textarea variant="faded" label="Observações sobre o contrato" placeholder="Adicione qualquer informação complementar que ache necessária. Este campo aparecerá como uma observação, mas não será adicionado ao contrato exportado."/>
             </div>
           </AccordionItem>
+          {/*fim do acordeão 5*/}
         </Accordion>
+        
         {/*<div className="max-w-14">
           <Button size="md" type="submit" className="hover:bg-[#006fee]">
             Salvar
