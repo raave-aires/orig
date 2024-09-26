@@ -1,11 +1,11 @@
 //Importação de dependências:
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //componentes:
 import { Spinner } from "../../Spinner/Spinner";
 
 import { cnpj, cpf } from "cpf-cnpj-validator";
-import { DateValue, Time } from "@internationalized/date";
+import { DateValue } from "@internationalized/date";
 import { NumericFormat, PatternFormat } from "react-number-format";
 
 //Importação de componentes:
