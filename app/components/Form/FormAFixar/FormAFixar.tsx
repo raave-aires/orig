@@ -33,7 +33,7 @@ import {
   Info,
   MapPin,
   Search,
-  Weight,
+  Weight
 } from "lucide-react";
 
 export function FormAFixar(){
@@ -847,22 +847,25 @@ export function FormAFixar(){
                     ) : null}
                   </div>
                 </AccordionItem>
-
-                <AccordionItem
-                  key="5"
-                  aria-label="Accordion 5"
-                  title="Outros"
-                >
-                  <div className="flex flex-wrap gap-4 mb-3">
-                    <p>Tabela para adicionar propriedades em desenvolvimento.</p>
-
-                    <Textarea variant="faded" label="Observações sobre o contrato" placeholder="Adicione qualquer informação complementar que ache necessária. Este campo aparecerá como uma observação, mas não será adicionado ao contrato exportado."/>
-                  </div>
-                </AccordionItem>
               </Accordion>
             </div>
           </AccordionItem>
           {/*fim do acordeão 4*/}
+
+          <AccordionItem
+            key="5"
+            aria-label="Accordion 5"
+            title="Outros"
+          >
+            <div className="flex flex-wrap gap-4 mb-3">
+              <div className="flex items-center gap-2">
+                <Spinner />
+                <p>Tabela para adicionar propriedades em desenvolvimento.</p>
+              </div>
+
+              <Textarea variant="faded" label="Observações sobre o contrato" placeholder="Adicione qualquer informação complementar que ache necessária. Este campo aparecerá como uma observação, mas não será adicionado ao contrato exportado."/>
+            </div>
+          </AccordionItem>
         </Accordion>
       </section>
     </>
