@@ -644,7 +644,7 @@ export function FormAFixar(){
                           content={
                             <div className="p-2 max-w-48 flex flex-col gap-2">
                               <MapPin />
-                              <p>Buscar dados do CEP.</p>
+                              <p>Buscar dados do CEP digitado.</p>
                               <p>
                                 Caso precise, verifique manualmente{" "}
                                 <a
