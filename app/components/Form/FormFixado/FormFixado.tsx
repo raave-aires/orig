@@ -19,6 +19,7 @@ import {
   ModalHeader,
   Select,
   SelectItem,
+  Textarea,
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
@@ -1293,6 +1294,18 @@ export function FormFixado() {
             </div>
           </AccordionItem>
           {/*fim do acordeão 4*/}
+
+          <AccordionItem
+            key="5"
+            aria-label="Accordion 5"
+            title="Outros"
+          >
+            <div className="flex flex-wrap gap-4 mb-3">
+              <p>Tabela para adicionar propriedades em desenvolvimento.</p>
+
+              <Textarea variant="faded" label="Observações sobre o contrato" placeholder="Adicione qualquer informação complementar que ache necessária. Este campo aparecerá como uma observação, mas não será adicionado ao contrato exportado."/>
+            </div>
+          </AccordionItem>
         </Accordion>
         {/*<div className="max-w-14">
           <Button size="md" type="submit" className="hover:bg-[#006fee]">
