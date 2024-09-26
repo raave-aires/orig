@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
-import Brotos from "../../assets/imgs/brotos.jpg"
 import Image from "next/image";
 
 const inter = localFont({
@@ -23,12 +22,6 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body className={`${inter.variable} antialiased`}>
-                <Image
-                    src={Brotos}
-                    fill={true}
-                    alt="Uma imagem mostra várias mudas verdes emergindo de um solo escuro. A perspectiva é de perto, focada nas pequenas folhas que estão crescendo. O fundo está desfocado, dando destaque às mudas no primeiro plano, que parecem delicadas e recém-germinadas. A cor verde vibrante das folhas contrasta com o solo marrom escuro."
-                    className="z-0"
-                />
                 {children}
             </body>
         </html>
