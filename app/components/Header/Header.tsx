@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Orid from "../../../assets/svgs/ōrig.svg";
 
+import {User} from "@nextui-org/user";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -18,7 +20,16 @@ export function Header({ children }: Props) {
         </h1>
 
         <nav className="text-white">
-          <ul className="flex gap-4">{children}</ul>
+          <ul className="flex gap-4 items-center">
+            <User 
+              name="Raaviüs"
+              description="Dev. front-end"
+              avatarProps={{
+                src: "https://rxvl2oharkoa85bm.public.blob.vercel-storage.com/temp-profile.png"
+              }}
+            />
+            {children}
+          </ul>
         </nav>
       </div>
     </header>
