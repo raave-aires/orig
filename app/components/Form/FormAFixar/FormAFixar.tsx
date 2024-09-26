@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 //componentes:
 import { Spinner } from "../../Spinner/Spinner";
 
-import { format, subDays } from "date-fns";
 import { cnpj, cpf } from "cpf-cnpj-validator";
 import { DateValue, Time } from "@internationalized/date";
 import { NumericFormat, PatternFormat } from "react-number-format";
@@ -22,8 +21,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Radio,
-  RadioGroup,
   Select,
   SelectItem,
   Tooltip,
@@ -32,29 +29,13 @@ import {
 
 //bibliotecas de ícones:
 import {
-  CircleDollarSign,
-  CircleHelp,
   Info,
   MapPin,
-  RefreshCwOff,
-  RotateCw,
   Search,
   Weight,
 } from "lucide-react";
 
 export function FormAFixar(){
-  //variáveis de datas
-  const hoje = useMemo(() => new Date(), []);
-  const dia_da_semana = hoje
-    .toLocaleDateString("pt-BR", { weekday: "long" })
-    .toString();
-  const hora = useMemo(
-    () => new Time(new Date().getHours(), new Date().getMinutes()),
-    []
-  );
-  const hora_de_atualizacao = useMemo(() => new Time(13, 30), []);
-  //fim das variáveis de datas
-
   //variáveis do acordeão 1: dados básicos do contrato
   const [dataContrato, setDataContrato] = useState<DateValue | undefined>();
   const [transacao, setTransacao] = useState("");
