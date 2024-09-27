@@ -1,6 +1,6 @@
 //bibliotecas
 import { format, subDays } from "date-fns";
-import { Table } from "../../Table/Table";
+import { PropertiesTable } from "../../Table/PropertiesTable";
 
 export function FormMisto(){
     const hoje = new Date();
@@ -8,7 +8,7 @@ export function FormMisto(){
 
     return(
         <>
-            <Table />
+            <PropertiesTable />
         </>
     );
 }
