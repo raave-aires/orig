@@ -7,7 +7,7 @@ O presente documento estabelece os termos e condições para o uso do Ōrig. O L
 
 ## Termos e condições.
 ### 0. Definições.
-- **“Licenciante”** e/ou **“Criador”** referem-se ao detentor dos direitos autorais e autor do Programa, a saber, [Raavë L. Aires](https://github.com/raave-aires); que concede ao Licenciado a permissão para utilizar, modificar e/ou distribuir o Programa sob os termos e condições estabelecidos por esta Licença.
+- **“Licenciante”** e/ou **“Criador”** referem-se ao detentor dos direitos autorais e autor do Programa, a saber, [Raavë L. Aires](https://github.com/raave-aires); que concede ao Licenciado a permissão para utilizar, modificar e/ou distribuir o Programa sob os termos e condições estabelecidos por Esta Licença.
 - **“Licenciado”** refere-se à pessoa física ou jurídica que, ao aceitar os termos desta Licença, recebe permissão do Licenciante para utilizar, modificar e distribuir o Programa de acordo com as restrições e direitos descritos neste documento.
 - **“Programa”** refere-se ao software Ōrig, incluindo todo o código-fonte, documentação e demais componentes associados.
 - **“Esta Licença”** refere-se ao presente documento legal que estabelece os termos e condições sob os quais o Ōrig é licenciado ao usuário. **Esta Licença** define os direitos e as restrições do usuário em relação ao uso, modificação, distribuição e outras formas de utilização do software.
@@ -34,7 +34,7 @@ f. O código-fonte é disponibilizado “como está” e **não há qualquer gar
 ## 2. Usos e restrições.
 a. **Uso comercial proibido.** O uso do Programa para qualquer finalidade comercial é estritamente vedado, incluindo, mas não se limitando a venda, aluguel, licenciamento ou qualquer outra forma de exploração econômica, seja na versão original ou modificada, sem autorização expressa e por escrito do Licenciante.
 
-b. **Proibição de uso em produção**. O Licenciado não poderá utilizar o Programa em ambientes de produção, salvo se para fins exclusivamente educacionais ou acadêmicos, conforme permitido por esta Licença. O uso do Programa em ambientes que suportam sistemas ou serviços em operação contínua e acessíveis ao público, como sites, servidores ou aplicações, requer autorização expressa e por escrito do Licenciante.
+b. **Proibição de uso em produção**. O Licenciado não poderá utilizar o Programa em ambientes de produção, salvo se para fins exclusivamente educacionais ou acadêmicos, conforme permitido por Esta Licença. O uso do Programa em ambientes que suportam sistemas ou serviços em operação contínua e acessíveis ao público, como sites, servidores ou aplicações, requer autorização expressa e por escrito do Licenciante.
 - **Exceções:** O uso do Programa em ambientes de produção educacional ou acadêmico, como laboratórios de pesquisa, demonstrações públicas de ensino ou outros contextos não comerciais, é permitido, desde que siga estritamente os termos desta Licença e não envolva exploração comercial direta ou indireta.
 - **Isenção de responsabilidade por operações em produção.** O Licenciante não se responsabiliza por falhas, danos ou perdas decorrentes do uso do Programa em ambientes de produção, sejam eles autorizados ou não, e quaisquer riscos ou prejuízos decorrentes do uso são de inteira responsabilidade do Licenciado.
 - **Solicitação de autorização.** Caso o Licenciado deseje utilizar o Programa em um ambiente de produção comercial ou fora do contexto educacional/acadêmico, deve solicitar formalmente uma licença específica ao Licenciante, detalhando o propósito e o escopo de tal uso. O Licenciante se reserva o direito de aprovar ou rejeitar tal solicitação.
@@ -138,7 +138,7 @@ a. **Herança dos direitos e representação legal do Licenciante.** Todos os di
 ## 5. Tempo de licenciamento e encerramento do licenciamento.
 Esta Licença é concedida por tempo indeterminado, enquanto o Licenciado estiver em conformidade com todos os termos e condições aqui estabelecidos. O uso contínuo do Programa é condicionado à aceitação e cumprimento desta Licença.
 
-a. **Encerramento por violação.** O Licenciante poderá rescindir esta Licença, a seu exclusivo critério, em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado (feita conforme a Cláusula 3ª) que deverá interromper em até 7 (sete) dias corridos todo o uso do Programa e excluir todas as cópias em sua posse.
+a. **Encerramento por violação.** O Licenciante poderá rescindir Esta Licença, a seu exclusivo critério, em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado (feita conforme a Cláusula 3ª) que deverá interromper em até 7 (sete) dias corridos todo o uso do Programa e excluir todas as cópias em sua posse.
 
 b. **Encerramento sem justa causa.** O Licenciante se reserva o direito de encerrar a licença a qualquer momento, por razões que não envolvam violação por parte do Licenciado, mediante notificação por escrito de 30 (trinta) dias. Neste caso, o Licenciado deverá interromper o uso do Programa e excluir todas as cópias em sua posse ao final do período de notificação.
 
@@ -152,9 +152,9 @@ O Licenciado concorda em manter a confidencialidade de qualquer informação nã
 a. **Divulgação a terceiros.** O Licenciado não poderá divulgar, reproduzir ou utilizar tais informações confidenciais para quaisquer fins fora do escopo desta Licença, exceto com autorização prévia e por escrito do Licenciante.
 
 ## 7. Transferência de direitos.
-O Licenciado não poderá transferir ou ceder os direitos ou obrigações sob esta Licença a terceiros, total ou parcialmente, sem a autorização expressa e por escrito do Licenciante.
+O Licenciado não poderá transferir ou ceder os direitos ou obrigações sob Esta Licença a terceiros, total ou parcialmente, sem a autorização expressa e por escrito do Licenciante.
 
-a. **Direito do Licenciante.** O Licenciante poderá ceder ou transferir seus direitos e obrigações sob esta Licença, no todo ou em parte, a terceiros, sem necessidade de consentimento do Licenciado.
+a. **Direito do Licenciante.** O Licenciante poderá ceder ou transferir seus direitos e obrigações sob Esta Licença, no todo ou em parte, a terceiros, sem necessidade de consentimento do Licenciado.
 
 ## 8. Responsabilidades e garantias.
 O Programa é fornecido "como está", sem qualquer tipo de garantia, expressa ou implícita, incluindo, mas não se limitando a, garantias de comercialização, adequação a um propósito específico, não violação de direitos de terceiros, ou que o Programa será isento de erros ou funcionará de forma ininterrupta.
@@ -190,14 +190,14 @@ Ao utilizar, copiar, modificar ou distribuir o Programa, o Licenciado expressa s
 
 a. **Forma de aceitação.** A aceitação desta Licença não requer assinatura física ou eletrônica. O simples ato de download, acesso ou utilização do Programa é considerado suficiente para a aceitação dos termos aqui estabelecidos.
 
-b. **Aplicabilidade das modificações futuras.** O Licenciante se reserva o direito de atualizar esta Licença a qualquer momento. As modificações realizadas terão **efeito retroativo**, aplicando-se a todas as versões anteriores do Programa, independentemente de quando tenham sido distribuídas ou utilizadas. O Licenciado será responsável por se manter atualizado sobre as alterações.
+b. **Aplicabilidade das modificações futuras.** O Licenciante se reserva o direito de atualizar Esta Licença a qualquer momento. As modificações realizadas terão **efeito retroativo**, aplicando-se a todas as versões anteriores do Programa, independentemente de quando tenham sido distribuídas ou utilizadas. O Licenciado será responsável por se manter atualizado sobre as alterações.
 
 c. **Obrigatoriedade de cumprimento.** A aceitação dos termos vincula o Licenciado às obrigações e restrições aqui descritas, independentemente do uso contínuo ou eventual do Programa. A violação de qualquer cláusula será interpretada como descumprimento contratual, sujeitando o Licenciado às sanções previstas.
 
 d. **Irrevogabilidade da aceitação.** Uma vez aceitos, os termos desta Licença não podem ser revogados pelo Licenciado, salvo rescisão expressamente autorizada pelo Licenciante por escrito. O uso continuado do Programa após uma atualização da Licença será considerado como nova aceitação dos termos modificados.
 
 ### 9.1. Força Maior.
-Nenhuma das partes será responsabilizada por falhas no cumprimento de suas obrigações sob esta Licença, caso tais falhas sejam resultantes de eventos de força maior, incluindo, mas não se limitando a, desastres naturais, atos de governo, guerras, epidemias ou qualquer outra causa além do controle razoável da parte afetada.
+Nenhuma das partes será responsabilizada por falhas no cumprimento de suas obrigações sob Esta Licença, caso tais falhas sejam resultantes de eventos de força maior, incluindo, mas não se limitando a, desastres naturais, atos de governo, guerras, epidemias ou qualquer outra causa além do controle razoável da parte afetada.
 
 ## 10. Integração e Alterações.
 Esta Licença constitui o entendimento completo entre as partes em relação ao uso do Programa e substitui quaisquer acordos ou entendimentos anteriores, sejam eles verbais ou escritos.
