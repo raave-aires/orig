@@ -15,8 +15,17 @@ O presente documento estabelece os termos e condições para o uso do Ōrig. O L
 - **“Modificar”** refere-se aos atos de alterar, adaptar ou ajustar o software, incluindo o código-fonte, a documentação e qualquer outro componente, de modo a criar uma nova versão ou uma obra derivada.
 - **“Derivar”** refere-se a criar uma nova obra que incorpora parte substancial do Programa original, seu código-fonte e/ou sua documentação.
 - **“Distribuição”** e/ou **“Redistribuição”** referem-se aos atos de reproduzir, distribuir, disponibilizar ou colocar o software à disposição de terceiros, de forma gratuita ou mediante pagamento, por qualquer meio, incluindo a internet.
+- **“Fins comercius”** refere-se a qualquer atividade, direta ou indireta, que envolva a utilização, distribuição, modificação ou exploração do Programa, seu código-fonte, documentação ou derivados, com o objetivo de obter vantagem econômica, remuneração, benefício financeiro ou valor comercial, incluindo, mas não se limitando a:
+1. **Vendas e licenciamento.** Comercialização direta ou indireta do Programa, por meio de venda, aluguel, sub-licenciamento, assinatura ou qualquer outro modelo de licenciamento remunerado.
+2. **Serviços e consultoria.** Utilização do Programa como parte de serviços prestados a terceiros, incluindo suporte técnico, desenvolvimento de software personalizado, integração de sistemas ou consultoria.
+3. **Publicidade e monetização.** Uso do Programa em plataformas ou aplicações que gerem receita por meio de anúncios, patrocínios, marketing afiliado ou qualquer outro mecanismo de monetização.
+4. **Produção interna com fins lucrativos.** Uso do Programa em processos internos de empresas, organizações ou indivíduos, com a finalidade de otimizar operações, reduzir custos, aumentar eficiência ou gerar lucro, ainda que a redistribuição do Programa não ocorra.
+5. **Educação e treinamento comercial.** Oferecimento de cursos, treinamentos, workshops ou eventos pagos que envolvam o uso ou distribuição do Programa, ainda que parcialmente.
+6. **Ofertas promocionais e branding.** Utilização do Programa como parte de promoções, brindes, demonstrações públicas com objetivo de captar clientes, fortalecer marca ou obter reconhecimento de mercado.
+7. **Exploração de propriedade intelectual.** Desenvolvimento de obras derivadas ou aprimoradas baseadas no Programa com a intenção de obter proteção de patente, direitos autorais ou registro de propriedade intelectual que possa ser explorado economicamente.
+8. **Parcerias e alianças comerciais.** Uso do Programa em projetos colaborativos ou alianças estratégicas que tenham fins lucrativos, ainda que as partes envolvidas não realizem pagamentos diretos entre si.
 
-### 1. Código-fonte e concessão de direitos.
+## 1. Código-fonte e concessão de direitos.
 O código-fonte do Programa será disponibilizado de forma aberta e acessível ao Licenciado, e este poderá visualizar, estudar, modificar e adaptar o código-fonte, desde que exclusivamente para fins educacionais e/ou acadêmicos e que sejam respeitados todos os outros termos estabelecidos por Esta Licença.
 
 a. Todas as modificações realizadas no código-fonte, ou obras derivadas dele, deverão manter os mesmos avisos de direitos autorais e de licença contidos no Programa original, de forma clara e visível, incluindo Esta Licença.
