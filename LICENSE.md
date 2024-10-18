@@ -1,5 +1,5 @@
 # Licença Pública do Ōrig.
-Versão 1.2 de 18 de Outubro de 12024[^1].
+Versão 1.2 de 18 de Outubro de 12024 EH[^1].
 
 Copyright © 12024 EH [Raavë L. Aires](https://github.com/raave-aires).
 
