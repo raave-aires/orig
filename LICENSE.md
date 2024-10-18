@@ -1,7 +1,7 @@
 # Licença Pública do Ōrig.
-Versão 1.2 de 18 de Outubro de 2024.
+Versão 1.2 de 18 de Outubro de 12024[^1].
 
-Copyright © 2024 [Raavë L. Aires](https://github.com/raave-aires).
+Copyright © 12024 EH [Raavë L. Aires](https://github.com/raave-aires).
 
 O presente documento estabelece os termos e condições para o uso do Ōrig. O Licenciante concede ao Licenciado uma licença não exclusiva para utilizar, copiar, modificar e distribuir o software, desde que estritamente para fins educacionais e/ou acadêmicos. É expressamente proibido o uso comercial do software, incluindo a venda, aluguel, licenciamento ou qualquer outra forma de exploração comercial do Ōrig, seja na versão original ou outra versão modificada, sem a prévia autorização por escrito do detentor dos direitos autorais. O software é fornecido "como está", sem qualquer garantia.
 
@@ -210,3 +210,9 @@ Esta Licença constitui o entendimento completo entre as partes em relação ao 
 
 ***
 Fim dos termos e condições.
+
+[^1]: O calendário Holoceno é um sistema proposto para simplificar a contagem de anos, adicionando 10.000 anos ao calendário gregoriano. A ideia é fazer com que todos os eventos históricos relevantes (como o início da agricultura e civilizações) sejam contabilizados em números positivos. No calendário Holoceno, o ano 1 do calendário corresponde ao ano 10.001 AEC, aproximando-se do início do período Holoceno, a era geológica atual.
+
+Por exemplo, o ano 2024 no calendário gregoriano se torna 12024 EH (Era Holocena). A proposta visa tornar a cronologia mais intuitiva e inclusiva, destacando o longo percurso da civilização humana.
+
+
