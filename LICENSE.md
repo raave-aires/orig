@@ -1,5 +1,5 @@
 # Licença Pública do Ōrig.
-Versão 1.0 de 18 de Outubro de 2024.
+Versão 1.2 de 18 de Outubro de 2024.
 
 Copyright © 2024 [Raavë L. Aires](https://github.com/raave-aires).
 
@@ -12,10 +12,9 @@ O presente documento estabelece os termos e condições para o uso do Ōrig. O L
 - **“Programa”** refere-se ao software Ōrig, incluindo todo o código-fonte, documentação e demais componentes associados.
 - **“Esta Licença”** refere-se ao presente documento legal que estabelece os termos e condições sob os quais o Ōrig é licenciado ao usuário. **Esta Licença** define os direitos e as restrições do usuário em relação ao uso, modificação, distribuição e outras formas de utilização do software.
 - **“Direitos autorais”** refere-se às leis que concedem direitos exclusivos ao criador de uma obra original, como este Programa, que lhe conferem o direito de controlar a reprodução, distribuição, adaptação, comunicação pública e outras formas de utilização da obra.
-- **“Modificar”** refere-se aos atos de alterar, adaptar ou ajustar o software, incluindo o código-fonte, a documentação e qualquer outro componente, de modo a criar uma nova versão ou uma obra derivada.
-- **“Derivar”** refere-se a criar uma nova obra que incorpora parte substancial do Programa original, seu código-fonte e/ou sua documentação.
+- **“Modificação”** refere-se aos atos de alterar, adaptar ou ajustar o software, incluindo o código-fonte, a documentação e qualquer outro componente, de modo a criar uma nova versão, uma versão aprimorada ou uma obra derivada que incorpore parte substancial do Programa original, seu código-fonte e/ou sua documentação.
 - **“Distribuição”** e/ou **“Redistribuição”** referem-se aos atos de reproduzir, distribuir, disponibilizar ou colocar o software à disposição de terceiros, de forma gratuita ou mediante pagamento, por qualquer meio, incluindo a internet.
-- **“Fins comercius”** refere-se a qualquer atividade, direta ou indireta, que envolva a utilização, distribuição, modificação ou exploração do Programa, seu código-fonte, documentação ou derivados, com o objetivo de obter vantagem econômica, remuneração, benefício financeiro ou valor comercial, incluindo, mas não se limitando a:
+- **“Fins comerciais”** refere-se a qualquer atividade, direta ou indireta, que envolva a utilização, distribuição, modificação ou exploração do Programa, seu código-fonte, documentação ou derivados, com o objetivo de obter vantagem econômica, remuneração, benefício financeiro ou valor comercial, incluindo, mas não se limitando a:
 1. **Vendas e licenciamento.** Comercialização direta ou indireta do Programa, por meio de venda, aluguel, sub-licenciamento, assinatura ou qualquer outro modelo de licenciamento remunerado.
 2. **Serviços e consultoria.** Utilização do Programa como parte de serviços prestados a terceiros, incluindo suporte técnico, desenvolvimento de software personalizado, integração de sistemas ou consultoria.
 3. **Publicidade e monetização.** Uso do Programa em plataformas ou aplicações que gerem receita por meio de anúncios, patrocínios, marketing afiliado ou qualquer outro mecanismo de monetização.
