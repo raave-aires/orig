@@ -211,7 +211,7 @@ Esta Licença constitui o entendimento completo entre as partes em relação ao 
 ***
 Fim dos termos e condições.
 
-[^1]: O calendário Holoceno é um sistema que modifica o calendário gregoriano, adicionando 10.000 anos à contagem deste para que a datação do calendário comece aproximadamente no início do período Holoceno, o período geológico atual, que é marcado pelo surgimento das primeiras civilizações. Assim, o ano 2024 EC torna-se 12024 EH.
+[^1]: O calendário Holoceno é um sistema que modifica o calendário gregoriano, adicionando 10.000 anos à contagem deste para que a datação do calendário comece aproximadamente no início do período Holoceno, o período geológico atual, que é marcado pelo surgimento das primeiras civilizações. Assim, o ano 2024 da Era Comum torna-se 12024 Era Holocena ou Era Humana.
 
 
 
