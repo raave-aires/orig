@@ -68,7 +68,7 @@ b. **Termos e condições de licença comercial.** O Licenciante se reserva o di
 - **Aprovação e recusa da licença comercial.** O Licenciante não tem a obrigação de conceder uma licença comercial e poderá recusar qualquer solicitação a seu exclusivo critério, sem a necessidade de justificar sua decisão.
 - **Duração da licença comercial.** A licença concedida para uso comercial terá sua duração definida por comum acordo entre as partes, e será válida enquanto o Licenciado estiver em conformidade com todos os termos e condições estabelecidos em sua licença comercial. 
 
-c. **Encerramento da licença comercial.** O Licenciante poderá rescindir a licença para uso comercial em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado, que deverá interromper todo o uso do Programa em até 7 (sete) dias e excluir todas as cópias em sua posse.
+c. **Encerramento da licença comercial.** O Licenciante poderá rescindir a licença para uso comercial em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado, que deverá interromper imediatamente todo o uso do Programa e excluir todas as cópias em sua posse.
 
 d. **Consequências do encerramento.** Após o encerramento da Licença, por qualquer razão, e o término dos prazos estabelecidos de cessação de uso; o Licenciado não terá mais direito de utilizar, copiar, modificar ou distribuir o Programa. O Licenciado deverá devolver ou destruir todas as cópias do Programa em sua posse e certificar-se de que não restaram cópias em seu poder.
 
@@ -89,19 +89,18 @@ A notificação de violação ao Licenciado poderá ser realizada pelos seguinte
 Em qualquer caso, o Licenciado será considerado notificado a partir do momento em que a comunicação for enviada pelo Licenciante por qualquer um dos meios descritos acima.
 
 a. **Prazos de resposta e correção.** Após o envio da notificação, o Licenciado terá um prazo de 7 (sete) dias corridos para 
-1. responder ao Licenciante apresentando justificativas; 
-2. solucionar a questão em aberto; ou
-3. solicitando informações sobre a notificação.
-- Após o recebimento da notificação, o Licenciado deverá cessar imediatamente todo o uso do Programa até que se solucione a questão que deu origem à notificação.
+1. responder ao Licenciante apresentando justificativas e possíveis soluções; ou
+2. solicitando informações sobre a notificação.
+- Após o recebimento da notificação, o Licenciado deverá suspender/cessar imediatamente todo o uso do Programa até que se solucione a questão que deu origem à notificação.
 
 
-b. **Consequências do não cumprimento.** Se o Licenciado não corrigir a violação dentro do prazo estipulado, ou não fornecer uma resposta satisfatória, o Licenciante poderá, a seu exclusivo critério:
+b. **Consequências do não cumprimento.** Se o Licenciado não corrigir a violação e nem responder a notificação dentro do prazo estipulado, o Licenciante poderá, a seu exclusivo critério:
 
 1. Suspender ou rescindir a licença imediatamente, conforme descrito na cláusula 3;
 2. Tomar medidas legais cabíveis para proteger seus direitos autorais; e/ou
 3. Buscar indenização por danos decorrentes da violação.
 
-c. **A notificação de violações.** O Licenciante se reserva o direito de notificar a violação de direitos autorais a autoridades competentes, assim como a terceiros que possam ter interesse no assunto.
+c. **A notificação de violações.** O Licenciante se reserva o direito de notificar a violação de direitos autorais às autoridades competentes, assim como a terceiros que possam ter interesse no assunto.
 
 d. **Indenização.** O Licenciado concorda em indenizar e isentar o Licenciante de quaisquer reclamações, perdas, responsabilidades ou despesas, incluindo honorários advocatícios, decorrentes de violação desta Licença por parte do Licenciado ou de terceiros que tenham recebido acesso ao Programa por meio do Licenciado.
 
@@ -145,7 +144,7 @@ a. **Herança dos direitos e representação legal do Licenciante.** Todos os di
 ## 5. Tempo de licenciamento e encerramento do licenciamento.
 Esta Licença é concedida por tempo indeterminado, enquanto o Licenciado estiver em conformidade com todos os termos e condições aqui estabelecidos. O uso contínuo do Programa é condicionado à aceitação e cumprimento desta Licença.
 
-a. **Encerramento por violação.** O Licenciante poderá rescindir Esta Licença, a seu exclusivo critério, em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado (feita conforme a Cláusula 3ª) que deverá interromper em até 7 (sete) dias corridos todo o uso do Programa e excluir todas as cópias em sua posse.
+a. **Encerramento por violação.** O Licenciante poderá rescindir Esta Licença, a seu exclusivo critério, em caso de violação dos termos e condições por parte do Licenciado. A rescisão será efetiva imediatamente após notificação por escrito ao Licenciado (feita conforme a Cláusula 3ª) que deverá interromper imediatamente todo o uso do Programa e excluir todas as cópias em sua posse.
 
 b. **Encerramento sem justa causa.** O Licenciante se reserva o direito de encerrar a licença a qualquer momento, por razões que não envolvam violação por parte do Licenciado, mediante notificação por escrito de 30 (trinta) dias. Neste caso, o Licenciado deverá interromper o uso do Programa e excluir todas as cópias em sua posse ao final do período de notificação.
 
