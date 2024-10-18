@@ -83,17 +83,16 @@ Qualquer ato que infrinja os termos e condições estabelecidos nesta Licença s
 A notificação de violação ao Licenciado poderá ser realizada pelos seguintes meios:
 - **Aplicativos de mensagem.** O Licenciante poderá utilizar aplicativos de mensagem, como WhatsApp, Telegram, ou outros serviços similares, desde que o Licenciado tenha previamente fornecido um número de contato válido. 
 - **Correio eletrônico (e-mail).** A notificação pode ser enviada diretamente ao Licenciado ou às partes envolvidas por meio de e-mail, utilizando os endereços fornecidos durante o registro ou uso do Programa.
-- **Correio físico.** A notificação poderá ser enviada por correio registrado ou serviço de entrega, utilizando o endereço físico do Licenciado, caso tenha sido disponibilizado.
-
-
 - **Publicação oficial.** Se os métodos de comunicação direta não forem viáveis, o Licenciante poderá optar por publicar a notificação em um local oficial vinculado ao Programa, como o repositório de código ou o site oficial do software.
-
 - **Notificação judicial.** Nos casos em que a notificação extrajudicial não resultar em resolução, o Licenciante poderá recorrer ao envio de uma notificação formal através de uma autoridade judicial ou equivalente, conforme as leis aplicáveis.
 
 Em qualquer caso, o Licenciado será considerado notificado a partir do momento em que a comunicação for enviada pelo Licenciante por qualquer um dos meios descritos acima.
 
-a. **Prazos de resposta e correção.** Após o envio da notificação, o Licenciado terá um prazo de 7 (sete) dias corridos para responder ao Licenciante apresentando justificativas, solicitando informações sobre a notificação e/ou discordando desta. 
-- Após o primeiro prazo de 7 (sete) dias a partir do envio da notificação, o Licenciado terá um prazo de mais 7 (sete) dias corridos para corrigir a violação apontada e comunicar ao Licenciante a conclusão da correção.
+a. **Prazos de resposta e correção.** Após o envio da notificação, o Licenciado terá um prazo de 7 (sete) dias corridos para 
+1. responder ao Licenciante apresentando justificativas; 
+2. solucionar a questão em aberto; ou
+3. solicitando informações sobre a notificação.
+- Após o recebimento da notificação, o Licenciado deverá cessar imediatamente todo o uso do Programa até que se solucione a questão que deu origem à notificação.
 
 
 b. **Consequências do não cumprimento.** Se o Licenciado não corrigir a violação dentro do prazo estipulado, ou não fornecer uma resposta satisfatória, o Licenciante poderá, a seu exclusivo critério:
