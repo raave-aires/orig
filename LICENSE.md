@@ -211,8 +211,7 @@ Esta Licença constitui o entendimento completo entre as partes em relação ao 
 ***
 Fim dos termos e condições.
 
-[^1]: O calendário Holoceno é um sistema proposto para simplificar a contagem de anos, adicionando 10.000 anos ao calendário gregoriano. A ideia é fazer com que todos os eventos históricos relevantes (como o início da agricultura e civilizações) sejam contabilizados em números positivos. No calendário Holoceno, o ano 1 do calendário corresponde ao ano 10.001 AEC, aproximando-se do início do período Holoceno, a era geológica atual.
+[^1]: O calendário Holoceno é um sistema que modifica o calendário gregoriano, adicionando 10.000 anos à contagem deste para que a datação do calendário comece aproximadamente no início do período Holoceno, o período geológico atual, que é marcado pelo surgimento das primeiras civilizações. Assim, o ano 2024 EC torna-se 12024 EH.
 
-Por exemplo, o ano 2024 no calendário gregoriano se torna 12024 EH (Era Holocena). A proposta visa tornar a cronologia mais intuitiva e inclusiva, destacando o longo percurso da civilização humana.
 
 
