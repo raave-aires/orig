@@ -7,7 +7,7 @@ import { useState } from "react";
 import { TipoDeContrato } from "../TipoDeContrato/TipoDeContrato";
 import { FormAFixar } from "./FormAFixar/FormAFixar";
 import { FormFixado } from "./FormFixado/FormFixado";
-// import { FormMisto } from "./FormMisto/FormMisto";
+import { FormMisto } from "./FormMisto/FormMisto";
 
 export function Form() {
     //hook do tipo de contraato
@@ -25,7 +25,7 @@ export function Form() {
             ) : tipoSelecionado === "Fixado" ? (
                 <FormFixado />
             ) : tipoSelecionado === "Misto" ? (
-                <p>Teste</p>
+                <FormMisto />
             ) : null }
         </>
     );
