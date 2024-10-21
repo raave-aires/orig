@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { Header } from "./components/Header/Header";
-import { HeaderItem } from "./components/Header/HeaderItem";
+import { Header } from "../src/components/Header/Header";
+import { HeaderItem } from "../src/components/Header/HeaderItem";
 
 const inter = localFont({
-  src: "../assets/fonts/inter.woff2",
+  src: "../app/assets/fonts/inter.woff2",
   variable: "--font-inter",
   weight: "100 900",
 });

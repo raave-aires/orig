@@ -67,7 +67,7 @@ export function FormFixado() {
 
   //variáveis do acordeão 2: volume e valor
   const [volume, setVolume] = useState("");
-  const [quilos, setQuilos] = useState(""); //variável do modal
+  const [quilos, setQuilos] = useState(""); //variável do moda
   const [tonelada, setTonelada] = useState(""); //variável do modal
   const [sacas, setSacas] = useState("");
   const [moeda, setMoeda] = useState("");

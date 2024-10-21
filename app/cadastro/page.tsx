@@ -1,6 +1,6 @@
 
-import { Content } from "../components/Content/Content";
-import { Form } from "../components/Form/Form";
+import { Content } from "../../src/components/Content/Content";
+import { Form } from "../../src/components/Form/Form";
 
 
 export default function Cadastro(){

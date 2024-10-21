@@ -1,7 +1,7 @@
 import {Providers} from "./providers";
 
-import { Header } from "./components/Header/Header";
-import { HeaderItem } from "./components/Header/HeaderItem";
+import { Header } from "../src/components/Header/Header";
+import { HeaderItem } from "../src/components/Header/HeaderItem";
 
 export default function Home() {
     return (

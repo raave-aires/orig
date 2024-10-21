@@ -1,7 +1,7 @@
 // import { Cloud } from "lucide-react";
 
 import Image from "next/image";
-import Orid from "../../../assets/svgs/ōrig.svg";
+import Orid from "../../assets/svgs/ōrig.svg";
 
 import {User} from "@nextui-org/user";
 
