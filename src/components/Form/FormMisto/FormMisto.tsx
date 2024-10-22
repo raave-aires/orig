@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 //importação de funções:
-import { formatar_datas } from "@/src/scripts/formatar_dados";
+import { formatar_datas } from "@/src/scripts/formatar_datas";
 
 //bibliotecas de componentes:
 import { Accordion, AccordionItem, Button, DatePicker, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, Tooltip, useDisclosure } from "@nextui-org/react";
@@ -40,6 +40,7 @@ export function FormMisto() {
 
     // Aqui você pode enviar `formattedData` para o banco de dados
     alert(JSON.stringify(dados_formatados, null, 2));
+    console.log(typeof(values.data_de_contrato));
     },
 
     
