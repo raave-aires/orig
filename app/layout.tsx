@@ -6,7 +6,7 @@ import { Header } from "../src/components/Header/Header";
 import { HeaderItem } from "../src/components/Header/HeaderItem";
 
 const inter = localFont({
-  src: "../app/assets/fonts/inter.woff2",
+  src: "../src/assets/fonts/inter.woff2",
   variable: "--font-inter",
   weight: "100 900",
 });
