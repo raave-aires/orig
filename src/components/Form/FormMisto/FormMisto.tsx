@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 //importação de funções:
-import { formatar_datas } from "@/src/functions/formatar_dados";
+import { formatar_datas } from "@/src/scripts/formatar_dados";
 
 //bibliotecas de componentes:
 import { Accordion, AccordionItem, Button, DatePicker, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, Tooltip, useDisclosure } from "@nextui-org/react";
