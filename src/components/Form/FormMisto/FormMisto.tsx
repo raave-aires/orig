@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
 //importação de funções:
-import { formatar_datas } from "@/src/scripts/formatar_datas";
+import { formatar_dados } from "@/src/scripts/formatar_dados";
 
 //bibliotecas de componentes:
 import { Accordion, AccordionItem, Button, DatePicker, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, Tooltip, useDisclosure } from "@nextui-org/react";
@@ -28,22 +28,15 @@ export function FormMisto() {
       produto: "",
       safra: "",
       municipio: "",
-
-      //dados de volume e valor:
+  
+      // dados de volume e valor:
       volume: ""
     },
     onSubmit: (values) => {
-      const dados_formatados = {
-        ...values,
-        data_de_contrato: values.data_de_contrato ? formatar_datas(values.data_de_contrato) : null,
-      };
-
-    // Aqui você pode enviar `formattedData` para o banco de dados
-    alert(JSON.stringify(dados_formatados, null, 2));
-    console.log(typeof(values.data_de_contrato));
+      const dados_formatados = formatar_dados(values)
+  
+      alert(JSON.stringify(dados_formatados, null, 2));
     },
-
-    
   });
 
   //função para calcular toneladas

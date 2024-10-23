@@ -1,17 +1,17 @@
 // importação de funções:
-import { conectar_bd } from "@/src/db/mongo";
+import { conectar_bd } from '@/src/db/mongo';
 
 // importação de modelos:
-import Contrato from "@/src/db/models/contratos";
+import Parceiro from '@/src/db/models/parceiro';
 
 export async function POST(request: Request) {
   try {
     await conectar_bd();
-    
-    const dados = await request.json();
-    const novo_contrato = await Contrato.create(dados);
 
-    return new Response(JSON.stringify(novo_contrato), { status: 201 });
+    const dados = await request.json()
+    const novo_parceiro = await Parceiro.create(dados);
+
+    return new Response(JSON.stringify(novo_parceiro), { status: 201 });
   } catch (error) {
     console.error("Houve um erro ao criar o contrato: ", error);
     
