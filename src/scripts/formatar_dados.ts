@@ -24,6 +24,14 @@ export function formatar_dados(values) {
     },
     volume_e_valor: {
       volume: values.volume,
+      sacas: values.sacas,
+      moeda: values.moeda ,
+      preco_saca: values.preco_saca ,
+      valor_total: values.valor_total ,
+      ptax: values.ptax ,
+      data_do_ptax: values.data_do_ptax ,
+      valor_convertido: values.valor_convertido ,
+      data_de_pagamento: values.data_de_pagamento ? formatar_datas(values.data_de_pagamento) : null,
     },
   };
 
