@@ -13,7 +13,7 @@ function formatar_datas(data: Data ) {
   return `${dia}/${mes}/${year}`;
 }
 
-export function formatar_dados(values) {
+function formatar_dados(values) {
   const formatacao = {
     dados_basicos_do_contrato: {
       data_do_contrato: values.data_de_contrato ? formatar_datas(values.data_de_contrato) : null,
@@ -37,3 +37,5 @@ export function formatar_dados(values) {
 
   return formatacao;
 }
+
+export { formatar_datas, formatar_dados }
